@@ -24,7 +24,7 @@ sys.path.append('./executive/')
 
 import numpy as np 
 import reward 
-import transition
+import transition 
 
 #general functions
 def getMaxValue(dictionary):
