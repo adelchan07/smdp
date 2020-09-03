@@ -97,10 +97,11 @@ class getExpectedValue(object): #universal "reward function" that can be modifie
 #main value iteration class
 class optionValueIteration(object):
 
-	def __init__(self, stateSet, options, V, convergenceTolerance, gamma, getMaxValue, getNextState, getExpectedValue):
+	def __init__(self, stateSet, optionsDictionary, availableOptionsAtState, V, convergenceTolerance, gamma, getMaxValue, getNextState, getExpectedValue):
 		self.stateSet = stateSet
 
-		self.optionPolicies = options
+		self.optionPolicies = optionsDictionary
+		self.availableOptions = availableOptionsAtState
 
 		self.V = V
 		self.convergenceTolerance = convergenceTolerance
@@ -142,7 +143,7 @@ class optionValueIteration(object):
 
 	def getExpectedValues(self, state): 
 
-		expectedValues = {option: self.computeExpectedValue(state, option, self.V) for option in self.optionPolicies.keys()}
+		expectedValues = {option: self.computeExpectedValue(state, option, self.V) for option in self.availableOptions[state]}
 
 		return expectedValues
 
