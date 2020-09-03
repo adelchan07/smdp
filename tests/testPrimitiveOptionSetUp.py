@@ -1,7 +1,8 @@
 """
 Created on Mon Aug 17 18:04:03 2020
 @author: adelphachan
-testPrimitiveOptions.py
+testPrimitiveOptionSetUp.py
+
 test on 10x8 grid with outer edge and inner boundaries
 primitive actions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right": (1,0)}
 testing merge function and setUpPrimitive class
