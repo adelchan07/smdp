@@ -18,6 +18,7 @@ class availableOptionsSetUp(object):
 	def __call__(self):
 
 		available = {state: self.getAvailableOptions(state) for state in self.stateSet}
+		return available
 
 	def getAvailableOptions(self, state):
 
