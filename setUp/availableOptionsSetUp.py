@@ -10,7 +10,7 @@ set up of the availableOptionsAtState dictionary used in optionValueIteration.py
 
 import numpy as np 
 
-class availbleOptionsSetUp(object):
+class availableOptionsSetUp(object):
 	def __init__(self, stateSet, optionsDictionary):
 		self.stateSet = stateSet
 		self.optionsDictionary = optionsDictionary
