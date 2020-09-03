@@ -213,7 +213,7 @@ class TestOptionValueIteration(unittest.TestCase):
 
 	#code good until here
 	#when agent is farther than 1 room away from the agent
-	@data(((3,4), "h4"), ((2,6), "h4")) #NEED TO DO
+	@data(((3,4), "h3"), ((2,6), "h3")) 
 	@unpack
 	def test_FarRoomPolicy(self, state, expectedOption):
 		self.assertEqual(self.policy[state], expectedOption)
