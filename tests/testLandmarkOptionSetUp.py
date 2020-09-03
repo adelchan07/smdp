@@ -18,7 +18,7 @@ sys.path.append('../setUp/')
 import numpy as np
 import unittest
 from ddt import ddt, data, unpack
-import landmarkOptionSetUp as targetCode #change to file name
+import landmarkOptionSetUp as targetCode 
 
 @ddt
 class TestGetTransitionTable(unittest.TestCase):
