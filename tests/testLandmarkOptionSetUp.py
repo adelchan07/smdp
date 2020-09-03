@@ -3,7 +3,7 @@ Created on Thu Sep 3 9:14:23 2020
 
 @author: adelphachan
 
-testLandmarkOptions.py
+testLandmarkOptionSetUp.py
 
 getLandmarkPolicy and getLandmarkReward classes tested on a simple 2x2 grid
 setUpLandmark class tested on 13x9 grid with hallways and outer border
