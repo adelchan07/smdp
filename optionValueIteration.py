@@ -19,7 +19,12 @@ outsourced functions from executive folder:
 	--> all calculations of reward and Q value condensed into getExpectedValue class in this file
 
 """
+import sys
+sys.path.append('./executive/')
+
 import numpy as np 
+import reward 
+import transition
 
 #general functions
 def getMaxValue(dictionary):
