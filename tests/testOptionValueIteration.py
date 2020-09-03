@@ -199,8 +199,6 @@ class TestOptionValueIteration(unittest.TestCase):
 		result = valueIterationSetUp()
 		self.policy = valueIteration[1]
 
-#code good until here
-
 	#when the agent is in the same room as the goalstate
 	@data(((8,2), "right"), ((10,2), "left"), ((9,3), "down"), ((9,1), "up"), ((6,2), "right"))
 	@unpack
@@ -213,6 +211,7 @@ class TestOptionValueIteration(unittest.TestCase):
 	def test_AdjacentRoomPolicy(self, state, expectedOption):
 		self.assertEqual(self.policy[state], expectedOption)
 
+	#code good until here
 	#when agent is farther than 1 room away from the agent
 	@data(((3,4), "h4"), ((2,6), "h4")) #NEED TO DO
 	@unpack
