@@ -34,7 +34,7 @@ class getPrimitiveOptionReward(object):
 		return reward
 	
 class getLandmarkOptionReward(object):
-	def __init__(self, actionCost,moveCost, goalStates, goalReward, getNextState):
+	def __init__(self, stateSet, actionCost,moveCost, goalStates, goalReward, getNextState):
 		self.stateSet = stateSet
 
 		self.actionCost = actionCost
