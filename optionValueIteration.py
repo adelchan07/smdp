@@ -28,7 +28,7 @@ def getMaxValue(dictionary):
 	maxVal = keysList[np.argmax(valuesList)]
 	return maxVal
 
-#question/issue to fix: how to check if that option applies to that state? (w/in the initiation set)
+#helper classes to obtain Q value
 class getPrimitiveExpectedValue(object):
 
 	def __init__(self, gamma, optionPolicies, getNextState, getPrimitiveReward):
@@ -89,6 +89,7 @@ class getExpectedValue(object): #universal "reward function" that can be modifie
 
 		return value
 
+#main value iteration class
 class optionValueIteration(object):
 
 	def __init__(self, stateSet, optionsDictionary, availableOptionsAtState, V, convergenceTolerance, gamma, getMaxValue, getNextState, getExpectedValue):
