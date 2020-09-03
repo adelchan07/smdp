@@ -19,6 +19,9 @@ constants for all dictionaries:
 landmarks = {"name": location}
 
 """
+import sys
+sys.path.append('./basics/')  
+
 from transitionTable import createTransitionTable
 from rewardTable import createRewardTable
 from valueIteration import valueIteration
