@@ -22,17 +22,12 @@ Output:
 class createTransitionTable(object):
   
   #constructor
-    def __init__(self, gridWidth, gridHeight, actionSet, blockList):
-        self.gridWidth = gridWidth
-        self.gridHeight = gridHeight
-        self.stateSet = [(i,j) for i in range(gridWidth) for j in range(gridHeight)]
+    def __init__(self, actionSet):
         self.actionSet = actionSet
-        
-        for block in blockList:
-            self.stateSet.remove(block)
       
   #callable: output = list ONLY with barriers
-    def __call__(self): #input = list of barriers
+    def __call__(self, stateSet): #input = list of barriers
+        self.stateSet = stateSet
         transitionTable = {state: self.getStateTransitionTable(state) for state in self.stateSet} #set up initial transitionTable
         
         return(transitionTable)
