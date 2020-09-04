@@ -79,31 +79,24 @@ class getLandmarkExpectedValue(object):
 
 class getExpectedValue(object): #universal "reward function" that can be modified for different option types
 
-	def __init__(self, optionType, getPrimitiveExpectedValue, getLandmarkExpectedValue):
+	def __init__(self, optionType):
 		self.optionType = optionType
-		self.getPrimitiveExpectedValue = getPrimitiveExpectedValue
-		self.getLandmarkExpectedValue = getLandmarkExpectedValue
 
 	def __call__(self, state, option, V):
 
-		type = self.optionType[option]
-
-		if type == "primitive":
-			value = self.getPrimitiveExpectedValue(state, option, V)
-
-		if type == "landmark":
-			value = self.getLandmarkExpectedValue(state, option, V)
-
+		rewardFunction = self.optionType[option]
+		value = rewardFunction(state, option, V)
+		
 		return value
 
 #main value iteration class
 class optionValueIteration(object):
 
-	def __init__(self, stateSet, optionsDictionary, availableOptionsAtState, V, convergenceTolerance, gamma, getMaxValue, getNextState, getExpectedValue):
+	def __init__(self, stateSet, optionsDictionary, optionSpace, V, convergenceTolerance, gamma, getMaxValue, getNextState, getExpectedValue):
 		self.stateSet = stateSet
 
 		self.optionPolicies = optionsDictionary
-		self.availableOptions = availableOptionsAtState
+		self.availableOptions = optionSpace
 
 		self.V = V
 		self.convergenceTolerance = convergenceTolerance
@@ -116,12 +109,7 @@ class optionValueIteration(object):
 
 
 	def __call__(self): 
-
-		valueIterationResult = self.runValueIteration()
-		return valueIterationResult
-
-	def runValueIteration(self):
-
+		
 		self.updateV()
 		policy = {state: self.getPolicy(state) for state in self.stateSet}
 
@@ -136,18 +124,12 @@ class optionValueIteration(object):
 
 			for state in self.stateSet:
 
-				expectedValues = self.getExpectedValues(state)
+				expectedValues = {option: self.computeExpectedValue(state, option, self.V) for option in self.availableOptions[state]}
 				bestOption = self.getMaxValue(expectedValues)
 				diffVal = abs(expectedValues[bestOption] - self.V[state])
 				self.V[state] = expectedValues[bestOption]
 
 				delta = max(delta, diffVal)
-
-	def getExpectedValues(self, state): 
-
-		expectedValues = {option: self.computeExpectedValue(state, option, self.V) for option in self.availableOptions[state]}
-
-		return expectedValues
 
 	def getPolicy(self, state):
 		expectedValues = self.getExpectedValues(state)
