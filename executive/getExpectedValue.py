@@ -8,7 +8,8 @@ helper classes to obtain Q value in the main value iteration class
 import numpy as np 
 from transition import getNextState
 
-class getExpectedValue(object): #universal "reward function" that can be modified for different option types
+#universal "reward function" that can be modified for different option types
+class getExpectedValue(object): 
 
 	def __init__(self, optionType, probability):
 		self.optionType = optionType
@@ -27,8 +28,6 @@ class getExpectedValue(object): #universal "reward function" that can be modifie
 
 		result = self.probability * (reward + futureReward)
 		return result
-		
-#code good until here
 
 #helper classes to obtain Q value
 class getPrimitiveExpectedValue(object):
