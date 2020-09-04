@@ -20,7 +20,9 @@ landmarks = {"name": location}
 
 """
 import sys
-sys.path.append('./basics/')  
+import os
+dirName = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirName, 'basics', ""))
 
 from transitionTable import createTransitionTable
 from rewardTable import createRewardTable
