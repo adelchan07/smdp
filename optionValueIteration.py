@@ -22,7 +22,7 @@ outsourced functions from executive folder:
 import sys
 import os
 dirName = os.path.dirname(__file__)
-sys.apth.append(os.path.join(dirName, 'executive', ""))
+sys.path.append(os.path.join(dirName, 'executive', ""))
 
 import numpy as np 
 import reward 
