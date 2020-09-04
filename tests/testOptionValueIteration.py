@@ -200,7 +200,8 @@ class TestOptionValueIteration(unittest.TestCase):
 		self.assertEqual(self.policy[state], expectedOption)
 
 	#when agent is in a room adjacent to the goalstate
-	@data(((4,2), "h2"), ((3,1), "h2"), ((7,6), "h4"), ((10,6), "h4"))
+	#test case #1 (4,2) --> option 'right' and 'h2' result with the same overall cost
+	@data(((4,2), "right"), ((3,1), "h2"), ((7,6), "h4"), ((10,6), "h4"))
 	@unpack
 	def test_AdjacentRoomPolicy(self, state, expectedOption):
 		self.assertEqual(self.policy[state], expectedOption)
