@@ -23,12 +23,12 @@ class TestTransitionFunction(unittest.TestCase):
 	@data(((0,0), (-1,0), (0,0)), ((1,1), (0,1), (1,1)), ((1,0), (0,-1), (1,0)))
 	@unpack
 	def test_BoundaryLocations(self, state, action, expectedNextState):
-		self.assertEqual(self.getNextState(state, action), expectedNextState)
+		self.assertEqual(self.getNextState(state, action, self.stateSet), expectedNextState)
 
 	@data(((0,0), (1,0), (1,0)), ((1,1), (-1,0), (0,1)), ((0,1), (0,-1), (0,0)))
 	@unpack
 	def test_InnerLocations(self, state, action, expectedNextState):
-		self.assertEqual(self.getNextState(state, action), expectedNextState)
+		self.assertEqual(self.getNextState(state, action, self.stateSet), expectedNextState)
 
 	def tearDown(self):
 		pass
