@@ -24,15 +24,9 @@ import optionValueIteration as targetCode
 @ddt
 class TestGetMaxValue(unittest.TestCase):
 	def setUp(self):
-
-		self.dictionary1 = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5}
-		self.dictionary2 = {"a": 1, "b": 5, "c": 3, "d": 4, "e": 5}
-		self.dictionary3 = {"a": 101, "b": 2, "c": 103.5, "d": 4, "e": 5}
-		self.dictionary4 = {"a": 10, "b": 2013, "c": 32041, "d": 420314, "e": 5}
-
 		self.getMaxValue = targetCode.getMaxValue
 
-	@data((self.dictionary1, "e"), (self.dictionary2, "b"), (self.dictionary3, "c"), (self.dictionary4, "d"))
+	@data(({"a": 1, "b": 2, "c": 3, "d": 4, "e": 5}, "e"), ( {"a": 1, "b": 5, "c": 3, "d": 4, "e": 5}, "b"), ({"a": 101, "b": 2, "c": 103.5, "d": 4, "e": 5}, "c"), ({"a": 10, "b": 2013, "c": 32041, "d": 420314, "e": 5}, "d"))
 	@unpack
 	def test_GetDictionaryMaxValue(self, dictionary, expectedKey):
 		self.assertEqual(self.getMaxValue(dictionary), expectedKey)
