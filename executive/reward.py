@@ -34,8 +34,8 @@ class getPrimitiveOptionReward(object):
 		return reward
 	
 class getLandmarkOptionReward(object):
-	def __init__(self, stateSet, actionCost,moveCost, goalStates, goalReward, getNextState):
-		self.stateSet = stateSet
+	def __init__(self, stateSet, actionCost, moveCost, goalStates, goalReward, getNextState):
+		self.stateSet = stateSet #full grid stateSet used when walking through the policy
 
 		self.actionCost = actionCost
 		self.moveCost = moveCost
@@ -45,7 +45,8 @@ class getLandmarkOptionReward(object):
 		self.getNextState = getNextState
 
 	def __call__(self, state, optionPolicy, terminationCondition):
-
+		#the restricted initiation set of an option is reflected in the stateSet represented in the optionPolicy
+		
 		reward = self.moveCost + self.getCumulativeCost(state, optionPolicy, terminationCondition)
 
 		if terminationCondition in self.goalStates:
