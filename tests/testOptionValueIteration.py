@@ -191,7 +191,7 @@ class TestOptionValueIteration(unittest.TestCase):
 		
 		valueIterationSetUp = targetCode.optionValueIteration(stateSet, optionsDictionary, availableOptionsAtState, V, convergenceTolerance, gamma, getMaxValue, getNextState, getExpectedValue)
 		result = valueIterationSetUp()
-		self.policy = valueIteration[1]
+		self.policy = result[1]
 
 	#when the agent is in the same room as the goalstate
 	@data(((8,2), "right"), ((10,2), "left"), ((9,3), "down"), ((9,1), "up"), ((6,2), "right"))
