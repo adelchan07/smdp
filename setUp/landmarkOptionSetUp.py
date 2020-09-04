@@ -29,7 +29,7 @@ from rewardTable import createRewardTable
 from valueIteration import valueIteration
 
 #general helper functions 
-def merge(self, dictionary1, dictionary2):
+def merge(dictionary1, dictionary2):
 	
 	result = {**dictionary1, **dictionary2}
 	return result
