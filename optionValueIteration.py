@@ -35,59 +35,9 @@ def getMaxValue(dictionary):
 	maxVal = keysList[np.argmax(valuesList)]
 	return maxVal
 
-#helper classes to obtain Q value
-class getPrimitiveExpectedValue(object):
+#updateV helper class
 
-	def __init__(self, gamma, optionPolicies, getNextState, getPrimitiveReward, stateSet):
-		self.gamma = gamma
-		self.optionPolicies = optionPolicies
-
-		self.getNextState = getNextState
-		self.getPrimitiveReward = getPrimitiveReward
-		self.stateSet = stateSet
-
-	def __call__(self, state, option, V):
-
-		move = self.optionPolicies[option][state]
-		sPrime = self.getNextState(state, move, self.stateSet)
-		probability = 1
-
-		reward = self.getPrimitiveReward(state, self.optionPolicies[option])
-		futureReward = self.gamma * V[sPrime]
-
-		result = probability * (reward + futureReward)
-		return result
-
-class getLandmarkExpectedValue(object):
-
-	def __init__(self, gamma, optionPolicies, optionTerminations, getLandmarkReward):
-		self.gamma = gamma
-		self.optionPolicies = optionPolicies
-		self.optionTerminations = optionTerminations
-
-		self.getLandmarkReward = getLandmarkReward
-
-	def __call__(self, state, option, V):
-		sPrime = self.optionTerminations[option]
-		probability = 1
-
-		reward = self.getLandmarkReward(state, self.optionPolicies[option], sPrime)
-		futureReward = self.gamma * V[sPrime]
-
-		result = probability * (reward + futureReward)
-		return result
-
-class getExpectedValue(object): #universal "reward function" that can be modified for different option types
-
-	def __init__(self, optionType):
-		self.optionType = optionType
-
-	def __call__(self, state, option, V):
-
-		rewardFunction = self.optionType[option]
-		value = rewardFunction(state, option, V)
-		
-		return value
+#getPolicy helper class
 
 #main value iteration class
 class optionValueIteration(object):
