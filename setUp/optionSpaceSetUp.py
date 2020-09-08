@@ -5,7 +5,7 @@ Created on Wed Sep 3 13:25:45 2020
 
 optionSpaceSetUp.py
 
-set up of the availableOptionsAtState dictionary used in optionValueIteration.py
+set up dictionary of corresponding options available at each state
 """
 
 import numpy as np 
