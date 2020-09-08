@@ -8,6 +8,8 @@ transition.py
 general function:
  - used once for each primitive option
  - used for x amount of steps required to get to termination condition for each landmark option 
+
+optionSPrime = dictionary of format {"option name": corresponding option type's transition function"
 """
 
 def getNextState(state, action, stateSet):
