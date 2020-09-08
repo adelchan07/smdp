@@ -15,7 +15,7 @@ sys.path.append(os.path.join(dirName, 'executive', ""))
 import numpy as np
 import transitionFunction as tf
 import rewardFunction as rf
-import optionSpaceFunctionas osf
+import optionSpaceFunction as osf
 
 class BellmanUpdate(object):
     
