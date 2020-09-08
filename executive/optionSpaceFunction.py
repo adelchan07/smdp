@@ -7,3 +7,9 @@ optionSpace = dictionary in the format {(state): [list of names of options valid
 """
 
 class optionSpaceFunction(object):
+  def __init__(self, optionSpace):
+    self.optionSpace = optionSpace
+   
+  def __call__(self, state):
+    availableOptions = optionSpace[state]
+    return availableOptions
