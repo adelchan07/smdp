@@ -7,63 +7,61 @@ reward.py
 """
 
 import numpy as numpy
-from transition import getNextState
 
 class getPrimitiveOptionReward(object):
-	def __init__(self, stateSet, actionCost, moveCost, goalStates, goalReward, getNextState):
-		self.stateSet = stateSet #stateset for all primitive actions = full stateSet
-
+	def __init__(self, actionCost, moveCost, goalStates, goalReward, primitivePolicies, getPrimitiveSPrime):
 		self.actionCost = actionCost
 		self.moveCost = moveCost
 		self.goalStates = goalStates
 		self.goalReward = goalReward
-
-		self.getNextState = getNextState
-
-
-	def __call__(self, state, optionPolicy):
-
+		self.optionPolicies = primitivePolicies
+		self.getPrimitiveSPrime = getPrimitiveSPrime
+	
+	def __call__(self, state, option):
+		
 		reward = self.actionCost + self.moveCost
-
-		action = optionPolicy[state]
-		nextState = self.getNextState(state, action, self.stateSet)
-
-		if nextState in self.goalStates:
+		
+		action = self.optionPolicies[option]
+		sPrime = getPrimitiveSPrime(state, action)
+		
+		if sPrime in self.goalStates:
 			reward += self.goalReward
+			
+		return reward
 
+class getLandmarkOptionReward(object):
+	def __init__(self, actionCost, moveCost, goalStates, goalReward, landmarkPolicies, getLandmarkSPrime, getPrimitiveSPrime):
+		self.actionCost = actionCost
+		self.moveCost = moveCost
+		self.goalStates = goalStates
+		self.goalReward = goalReward
+		
+		self.optionPolicies = landmarkPolicies
+		
+		self.getLandmarkSPrime = getLandmarkSPrime
+		self.getPrimtiiveSPrime = getPrimitiveSPrime
+	
+	def __call__(self, state, option):
+		
+		sPrime = self.getLandmarkSPrime(state, option)
+		reward = self.moveCost + (self.actionCost * self.stepsTaken(state, option, sPrime))
+		
+		if sPrime in self.goalStates:
+			reward += self.goalReward
+		
 		return reward
 	
-class getLandmarkOptionReward(object):
-	def __init__(self, stateSet, actionCost, moveCost, goalStates, goalReward, getNextState):
-		self.stateSet = stateSet #full grid stateSet used when walking through the policy
-
-		self.actionCost = actionCost
-		self.moveCost = moveCost
-		self.goalStates = goalStates
-		self.goalReward = goalReward
-
-		self.getNextState = getNextState
-
-	def __call__(self, state, optionPolicy, terminationCondition):
-		#the restricted initiation set of an option is reflected in the stateSet represented in the optionPolicy
+	def stepsTaken(self, state, option, sPrime):
 		
-		reward = self.moveCost + self.getCumulativeCost(state, optionPolicy, terminationCondition)
-
-		if terminationCondition in self.goalStates:
-			reward += self.goalReward
-
-		return reward
-
-	def getCumulativeCost(self, state, optionPolicy, terminationCondition):
-
+		policy = self.optionPolicies[option]
+		
 		stepsTaken = 0
-		currentState = state
-
-		while currentState != terminationCondition:
+		current = state
+		
+		while current != sPrime:
 			stepsTaken += 1
-			action = optionPolicy[currentState]
-			nextState = self.getNextState(currentState, action, self.stateSet)
+			action = policy[current]
+			nextState = self.getPrimitiveSPrime(current, action)
 			currentState = nextState
 
-		cumulativeCost = stepsTaken*self.actionCost
-		return cumulativeCost
+		return stepsTaken
