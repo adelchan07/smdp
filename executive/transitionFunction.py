@@ -48,7 +48,7 @@ class transitionFunction(object):
 	def __call__(self, state, option, sPrime):
 		probability = 0
 		
-		transitionFunction = self.optionsPrime[option]
+		transitionFunction = self.optionSPrime[option]
 		actualSPrime = transitionFunction(state, option)
 		
 		if sPrime == actualSPrime:
