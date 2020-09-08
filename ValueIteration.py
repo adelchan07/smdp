@@ -4,32 +4,32 @@ Created on Fri Sep  4 13:47:30 2020
 
 @author: Kevin
 
-code modified to work with smdp implementation
+just changed name from action --> option for sMDP environment
 """
 
 import numpy as np
 
 class BellmanUpdate(object):
     
-    def __init__(self, stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, gamma):
+    def __init__(self, stateSpace, optionSpaceFunction, transitionFunction, rewardFunction, gamma):
         self.stateSpace=stateSpace
-        self.actionSpaceFunction=actionSpaceFunction
+        self.optionSpaceFunction=optionSpaceFunction
         self.transitionFunction=transitionFunction
         self.rewardFunction=rewardFunction
         self.gamma=gamma
 
     def __call__(self, s, V):
         Qs={a: sum([self.transitionFunction(s, a, sPrime)*(self.rewardFunction(s, a, sPrime)+self.gamma*V[sPrime]) for sPrime in self.stateSpace])\
-            for a in self.actionSpaceFunction(s)}
+            for a in self.optionSpaceFunction(s)}
         Vs=max(Qs.values())
         return Vs
     
 
 class ValueIteration(object):
     
-    def __init__(self, stateSpace, actionSpaceFunction, theta, bellmanUpdate):
+    def __init__(self, stateSpace, optionSpaceFunction, theta, bellmanUpdate):
         self.stateSpace=stateSpace
-        self.actionSpaceFunction=actionSpaceFunction
+        self.optionSpaceFunction=optionSpaceFunction
         self.theta=theta
         self.bellmanUpdate=bellmanUpdate
 
@@ -48,9 +48,9 @@ class ValueIteration(object):
     
 class GetPolicy(object):
     
-    def __init__(self, stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, gamma, V, roundingTolerance):
+    def __init__(self, stateSpace, optionSpaceFunction, transitionFunction, rewardFunction, gamma, V, roundingTolerance):
         self.stateSpace=stateSpace
-        self.actionSpaceFunction=actionSpaceFunction
+        self.optionSpaceFunction=optionSpaceFunction
         self.transitionFunction=transitionFunction
         self.rewardFunction=rewardFunction
         self.gamma=gamma
@@ -59,8 +59,8 @@ class GetPolicy(object):
         
     def __call__(self, s):
         Qs={a: sum([self.transitionFunction(s, a, sPrime)*(self.rewardFunction(s, a, sPrime)+self.gamma*self.V[sPrime]) for sPrime in self.stateSpace])\
-            for a in self.actionSpaceFunction(s)}
-        optimalActionList=[a for a in self.actionSpaceFunction(s) if abs(Qs[a]-max(Qs.values())) < self.roundingTolerance]
+            for a in self.optionSpaceFunction(s)}
+        optimalActionList=[a for a in self.optionSpaceFunction(s) if abs(Qs[a]-max(Qs.values())) < self.roundingTolerance]
         policy={a: 1/(len(optimalActionList)) for a in optimalActionList}
         return policy
         
