@@ -38,4 +38,19 @@ class getLandmarkSPrime(object):
 	def __call__(self, state, option): #state not used but still keep as an input to maintain structure
 		sPrime = optionTerminations[option]
 		return sPrime
+
+class transitionFunction(object):
+	def __init__(self, optionSPrime):
+		self.optionSPrime = optionSPrime
+	
+	def __call__(self, state, option, sPrime):
+		probability = 0
+		
+		transitionFunction = self.optionsPrime[option]
+		actualSPrime = transitionFunction(state, option)
+		
+		if sPrime == actualSPrime:
+			probability = 1
+		
+		return probability
 		
