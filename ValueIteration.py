@@ -3,6 +3,8 @@ xz"""
 Created on Fri Sep  4 13:47:30 2020
 
 @author: Kevin
+
+code modified to work with smdp implementation
 """
 
 import numpy as np
