@@ -7,7 +7,15 @@ Created on Fri Sep  4 13:47:30 2020
 just changed name from action --> option for sMDP environment
 """
 
+import sys
+import os
+dirName = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirName, 'executive', ""))
+
 import numpy as np
+from transitionFunction import transitionFunction
+from rewardFunction import rewardFunction
+from optionSpaceFunction import optionSpaceFunction
 
 class BellmanUpdate(object):
     
