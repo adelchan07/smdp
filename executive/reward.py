@@ -65,3 +65,13 @@ class getLandmarkOptionReward(object):
 			currentState = nextState
 
 		return stepsTaken
+	
+class rewardFunction(object):
+	def __init__(self, optionReward):
+		self.optionReward = optionReward
+	
+	def __call__(self, state, option, sPrime):
+		rewardFunction = self.optionReward[option]
+		reward = rewardFunction(state, option)
+		
+		return reward
