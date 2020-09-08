@@ -3,14 +3,14 @@ Created on Wed Sep 3 13:25:45 2020
 
 @author: adelphachan
 
-availableOptionsSetUp.py
+optionSpaceSetUp.py
 
 set up of the availableOptionsAtState dictionary used in optionValueIteration.py
 """
 
 import numpy as np 
 
-class availableOptionsSetUp(object):
+class optionSpaceSetUp(object):
 	def __init__(self, stateSet, optionsDictionary):
 		self.stateSet = stateSet
 		self.optionsDictionary = optionsDictionary
