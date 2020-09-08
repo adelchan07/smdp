@@ -4,6 +4,8 @@ Created on Mon Aug 17 13:54:03 2020
 @author: adelphachan
 
 reward.py
+
+optionReward = dictionary of format {"option name": corresponding option type's reward function"
 """
 
 import numpy as numpy
