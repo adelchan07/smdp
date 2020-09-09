@@ -39,7 +39,7 @@ class TestSimpleValueIteration(unittest.TestCase):
     gamma = 0.9
     convergence = 0.0001
 
-    setUp = GetPolicy(stateSet, optionSpace, transition, reward, gamma, V, convergence)
+    setUp = targetCode.GetPolicy(stateSet, optionSpace, transition, reward, gamma, V, convergence)
     self.policy = {s:setUp(s) for s in stateSet}
    
   @data(((0,0), {'LL': 1.0}))
