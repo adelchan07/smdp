@@ -50,6 +50,13 @@ class transitionFunction(object):
 	
 	def __call__(self, state, option, sPrime):
 		
-		probability = lambda s, a, sPrime: self.optionSPrime.get(s).get(a).get(sPrime, 0)
+		probability = 0
+		
+		transitionFunction = optionSPrime[option]
+		actual = transitionFunction(state, option)
+		
+		if sPrime == actul:
+			probability = 1
+			
 		return probability
 		
