@@ -52,7 +52,7 @@ class TestSimpleValueIteration(unittest.TestCase):
   def test_OutsideGoal(self, state, expectedResult):
     self.assertEqual(self.policy(state), expectedResult)
 
-  def tearDown(pass):
+  def tearDown(self):
     pass
   
 if __name__ == '__main__':
