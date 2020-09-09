@@ -38,7 +38,7 @@ class TestGetNextState(unittest.TestCase):
 @ddt
 class TestPrimitiveSPrime(unittest.TestCase):
 	def setUp(self):
-		primitivePolices = {'up': {(0, 0): (0, 1), (0, 1): (0, 1), (1, 0): (0, 1), (1, 1): (0, 1)}, 'down': {(0, 0): (0, -1), (0, 1): (0, -1), (1, 0): (0, -1), (1, 1): (0, -1)}, 'left': {(0, 0): (-1, 0), (0, 1): (-1, 0), (1, 0): (-1, 0), (1, 1): (-1, 0)}, 'right': {(0, 0): (1, 0), (0, 1): (1, 0), (1, 0): (1, 0), (1, 1): (1, 0)}}
+		primitivePolicies = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
 		stateSet = [(i,j) for i in range(2) for j in range(2)]
 		getNextState = targetCode.getNextState
 
@@ -59,8 +59,9 @@ class TestPrimitiveSPrime(unittest.TestCase):
 		
 @ddt
 class TestLandmarkSPrime(unittest.TestCase):
-	optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
-	self.getSPrime = targetCode.getLandmarkSPrime(optionTerminations)
+	def setUp(self):
+		optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
+		self.getSPrime = targetCode.getLandmarkSPrime(optionTerminations)
 	
 	@data(((0,0), "LL", (0,0)), ((0,1), "UL", (0,1)), ((1,0), "LR", (1,0)), ((1,1), "UR", (1,1)))
 	@unpack
@@ -78,6 +79,18 @@ class TestLandmarkSPrime(unittest.TestCase):
 	
 @ddt
 class TestTransitionFunction(unittest.TestCase):
+	def setUp(self):
+		primitivePolicies = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
+		stateSet = [(i,j) for i in range(2) for j in range(2)]
+		getNextState = targetCode.getNextState
+		primitiveSPrime = targetCode.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
+		
+		optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
+		landmarkSPrime = targetCode.getLandmarkSPrime(optionTerminations)
+		
+		optionSPrime = {'up': primitiveSPrime, 'down':primitiveSPrime, 'left': primitiveSPrime, 'right': primitiveSPrime,'LL': landmarkSPrime, 'UL': landmarkSPrime, 'LR': landmarkSPrime, 'UR': landmarkSPrime} 
+		
+		self.transitionFunction = targetCode.transitionFunction(optionSPrime)
 	
 	@data(((1,1), "LL", (1,0)), ((1,1), "up", (0,0)), ((0,0), "right", (1,1)))
 	@unpack
