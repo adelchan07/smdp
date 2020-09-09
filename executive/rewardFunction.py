@@ -33,7 +33,7 @@ class getPrimitiveOptionReward(object):
 		return reward
 
 class getLandmarkOptionReward(object):
-	def __init__(self, actionCost, moveCost, goalStates, goalReward, landmarkPolicies, getLandmarkSPrime, getPrimitiveSPrime):
+	def __init__(self, actionCost, moveCost, goalStates, goalReward, landmarkPolicies, getLandmarkSPrime, getNextState):
 		self.actionCost = actionCost
 		self.moveCost = moveCost
 		self.goalStates = goalStates
@@ -42,7 +42,8 @@ class getLandmarkOptionReward(object):
 		self.optionPolicies = landmarkPolicies
 		
 		self.getLandmarkSPrime = getLandmarkSPrime
-		self.getPrimtiiveSPrime = getPrimitiveSPrime
+		
+		self.getNextState = getNextState
 	
 	def __call__(self, state, option):
 		
@@ -57,6 +58,7 @@ class getLandmarkOptionReward(object):
 	def stepsTaken(self, state, option, sPrime):
 		
 		policy = self.optionPolicies[option]
+		stateSet = list(policy.keys())
 		
 		stepsTaken = 0
 		current = state
@@ -64,7 +66,7 @@ class getLandmarkOptionReward(object):
 		while current != sPrime:
 			stepsTaken += 1
 			action = policy[current]
-			nextState = self.getPrimitiveSPrime(current, action)
+			nextState = self.getNextState(state, action, stateSet)
 			currentState = nextState
 
 		return stepsTaken
