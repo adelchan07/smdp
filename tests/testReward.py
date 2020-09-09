@@ -27,7 +27,7 @@ class TestPrimitiveReward(unittest.TestCase):
 		getNextState = targetCode.tf.getNextState
 		primitiveSPrime = targetCode.tf.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
 
-		self.primitiveReward = targetCode.getPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitivePolicies, getPrimitiveSPrime)
+		self.primitiveReward = targetCode.getPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitivePolicies, primitiveSPrime)
 
 		self.actionCost = actionCost
 		self.moveCost = moveCost
