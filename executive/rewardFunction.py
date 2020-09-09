@@ -45,30 +45,30 @@ class getLandmarkOptionReward(object):
 		self.getNextState = getNextState
 	
 	def __call__(self, state, option):
+		#the restricted initiation set of an option is reflected in the stateSet represented in the optionPolicy
 		
-		sPrime = self.getLandmarkSPrime(state, option)
-		reward = self.moveCost + (self.actionCost * self.stepsTaken(state, option, sPrime))
-		
-		if sPrime in self.goalStates:
-			reward += self.goalReward
-		
-		return reward
-	
-	def stepsTaken(self, state, option, sPrime):
-		
-		policy = self.optionPolicies[option]
-		stateSet = list(policy.keys())
-		
-		stepsTaken = 0
-		current = state
-		
-		while current != sPrime:
-			stepsTaken += 1
-			action = policy[current]
-			nextState = self.getNextState(state, action, stateSet)
-			current = nextState
+		reward = self.moveCost + self.getCumulativeCost(state, option)
 
-		return stepsTaken
+		if terminationCondition in self.goalStates:
+			reward += self.goalReward
+
+		return reward
+
+	def getCumulativeCost(self, state, option):
+
+		stepsTaken = 0
+		currentState = state
+		
+		terminationCondition = self.getLandmarkSPrime(state, option)
+
+		while currentState != terminationCondition:
+			stepsTaken += 1
+			action = optionPolicy[currentState]
+			nextState = self.getNextState(currentState, action, self.stateSet)
+			currentState = nextState
+
+		cumulativeCost = stepsTaken*self.actionCost
+		return cumulativeCost
 	
 class rewardFunction(object):
 	def __init__(self, optionReward):
