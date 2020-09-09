@@ -29,7 +29,7 @@ class TestOptionSpaceFunction(unittest.TestCase):
 		available = self.function(state)
 		self.assertEqual(expectedOption in available, True)
 
-	@data(((2,1), 'h2'), ((5,6), 'h3'), ((9,3), 'h1'), ((10,7), 'h4'))
+	@data(((2,1), 'h1'), ((5,6), 'h3'), ((9,3), 'h2'), ((10,7), 'h4'))
 	@unpack
 	def test_Landmark(self, state, expectedOption):
 		available = self.function(state)
