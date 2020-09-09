@@ -11,5 +11,5 @@ class optionSpaceFunction(object):
     self.optionSpace = optionSpace
    
   def __call__(self, state):
-    availableOptions = optionSpace[state]
+    availableOptions = self.optionSpace[state]
     return availableOptions
