@@ -15,34 +15,34 @@ import rewardFunction as targetCode
 
 
 @ddt
-class TestPrimitiveOptionReward(unittest.TestCase):
+class TestPrimitiveReward(unittest.TestCase):
 	def setUp(self):
-		stateSet = [(i,j) for i in range(2) for j in range(2)]
 		actionCost = -1
 		moveCost = -3
 		goalStates = [(0,0)]
 		goalReward = 10
+		
 		primitivePolicies = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
-		
+		stateSet = [(i,j) for i in range(2) for j in range(2)]
 		getNextState = targetCode.tf.getNextState
-		primitiveTransition = targetCode.tf.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
-		
-		self.primitiveReward = targetCode.getPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitivePolicies, primitiveTransition)
-		
-		self.landOnReward = actionCost + moveCost + goalReward
-		self.noReward = actionCost + moveCost
-		
-	@data(((1,0), 'left'), ((0,1), 'down'), ((0,0), 'down'))
+		primitiveSPrime = targetCode.tf.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
+
+		self.primitiveReward = targetCode.getPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitivePolicies, getPrimitiveSPrime)
+
+		self.actionCost = actionCost
+		self.moveCost = moveCost
+		self.goalReward = goalReward
+
+	@data(((0,0), 'up'), ((0,0), 'right'))
 	@unpack
-	def test_RewardOption(self, state, option):
-		self.assertEqual(self.primitiveReward(state, option), self.landOnReward)
-	
-	@data(((1,0), 'up'), ((0,1), 'left'), ((0,0), 'right'))
+	def test_NonReward(self, state, option):
+		self.assertEqual(self.primitiveReward(state, option), self.actionCost + self.moveCost)
+
+	@data(((0,1), 'down'), ((1,0), 'left'))
 	@unpack
-	def test_NonRewardOption(self, state, option):
-		self.assertEqual(self.primitiveReward(state, option), self.noReward)
-	
-	
+	def testReward(self, state, option):
+		self.assertEqual(self.primitiveReward(state, option), self.actionCost + self.moveCost + self.goalReward)
+
 	def tearDown(self):
 		pass
 """
