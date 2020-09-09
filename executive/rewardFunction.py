@@ -60,6 +60,7 @@ class getLandmarkOptionReward(object):
 		currentState = state
 		
 		terminationCondition = self.getLandmarkSPrime(state, option)
+		optionPolicy = self.optionPolicies[option]
 
 		while currentState != terminationCondition:
 			stepsTaken += 1
