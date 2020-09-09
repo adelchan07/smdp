@@ -34,7 +34,7 @@ class TestPrimitiveOptionReward(unittest.TestCase):
 	@data(((1,0), 'left'), ((0,1), 'down'), ((0,0), 'down'))
 	@unpack
 	def test_RewardOption(self, state, option):
-		self.assertEqual(self,primitiveReward(state, option), self.landOnReward)
+		self.assertEqual(self.primitiveReward(state, option), self.landOnReward)
 	
 	@data(((1,0), 'up'), ((0,1), 'left'), ((0,0), 'right'))
 	@unpack
