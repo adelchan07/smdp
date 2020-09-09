@@ -44,14 +44,14 @@ class TestPrimitiveSPrime(unittest.TestCase):
 
 		self.getSPrime = targetCode.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
 	
-	@data(((0,0), (-1,0), (0,0)), ((1,1), (0,1), (1,1)), ((1,0), (0,-1), (1,0)))
+	@data(((0,0), 'left', (0,0)), ((1,1), 'up, (1,1)), ((1,0), 'down', (1,0)))
 	@unpack
 	def test_Boundary(self, state, option, expectedSPrime):
 		self.assertEqual(self.getSPrime(state, option), expectedSPrime)
 	
-	@data(((0,0), (1,0), (1,0)), ((1,1), (-1,0), (0,1)), ((0,1), (0,-1), (0,0)))
+	@data(((0,0), 'right', (1,0)), ((1,1), 'left', (0,1)), ((0,1), 'down', (0,0)))
 	@unpack
-	def testInner(self, state, option, expectedSPrime):
+	def test_Inner(self, state, option, expectedSPrime):
 		self.assertEqual(self.getSPrime(state, option), expectedSPrime)
 	
 	def tearDown(self):
@@ -59,19 +59,34 @@ class TestPrimitiveSPrime(unittest.TestCase):
 		
 @ddt
 class TestLandmarkSPrime(unittest.TestCase):
+	optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
+	self.getSPrime = targetCode.getLandmarkSPrime(optionTerminations)
+	
+	@data(((0,0), "LL", (0,0)), ((0,1), "UL", (0,1)), ((1,0), "LR", (1,0)), ((1,1), "UR", (1,1)))
+	@unpack
+	def test_AtLandmark(self, state, option, expectedSPrime):
+		self.assertEqual(self.getSPrime(state, option), expectedSPrime)
+		
+	@data(((1,1), "LL", (0,0)), ((0,0), "UL", (0,1)), ((0,0), "LR", (1,0)), ((1,0), "UR", (1,1)))
+	@unpack
+	def test_NeedToMove(self, state, option, expectedSPrime):
+	
+	def tearDown(self):
+		pass
+	
 	
 @ddt
 class TestTransitionFunction(unittest.TestCase):
 	
-	@data()
+	@data(((1,1), "LL", (1,0)), ((1,1), "up", (0,0)), ((0,0), "right", (1,1)))
 	@unpack
-	def test_ValidSPrime(self, state, option, sPrime, expectedProbability):
-		self.assertEqual(self.transitionFunction(state, option, sPrime), expectedProbability)
+	def test_InvalidSPrime(self, state, option, sPrime):
+		self.assertEqual(self.transitionFunction(state, option, sPrime), 0)
 	
-	@data()
+	@data(((1,1), "LL", (0,0)), ((1,1), "up", (1,1)), ((1,0), "left", (0,0)))
 	@unpack
-	def test_InvalidSPrime(self, state, option, sPrime, expectedProbability):
-		self.assertEqual(self.transitionFunction(state, option, sPrime), expectedProbability)
+	def test_ValidSPrime(self, state, option, sPrime):
+		self.assertEqual(self.transitionFunction(state, option, sPrime), 1)
 
 if __name__ == '__main__':
 	unittest.main(verbosity=2)
