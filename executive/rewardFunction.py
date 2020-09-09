@@ -9,6 +9,7 @@ optionReward = dictionary of format {"option name": corresponding option type's 
 """
 
 import numpy as numpy
+import transitionFunction as tf
 
 class getPrimitiveOptionReward(object):
 	def __init__(self, actionCost, moveCost, goalStates, goalReward, primitivePolicies, getPrimitiveSPrime):
