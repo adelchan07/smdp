@@ -24,8 +24,7 @@ class getPrimitiveOptionReward(object):
 		
 		reward = self.actionCost + self.moveCost
 		
-		action = self.optionPolicies[option]
-		sPrime = self.getPrimitiveSPrime(state, action)
+		sPrime = self.getPrimitiveSPrime(state, option)
 		
 		if sPrime in self.goalStates:
 			reward += self.goalReward
