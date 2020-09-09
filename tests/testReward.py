@@ -62,7 +62,7 @@ class TestLandmarkReward(unittest.TestCase):
 		optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
 		landmarkSPrime = targetCode.tf.getLandmarkSPrime(optionTerminations)
 
-		self.landmarkReward = targetCode.(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
+		self.landmarkReward = targetCode.getLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
 
 	@data(((1,0), 'LL', 6), ((0,0), 'LL', 7))
 	@unpack
