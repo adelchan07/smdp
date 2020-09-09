@@ -70,6 +70,7 @@ class TestLandmarkSPrime(unittest.TestCase):
 	@data(((1,1), "LL", (0,0)), ((0,0), "UL", (0,1)), ((0,0), "LR", (1,0)), ((1,0), "UR", (1,1)))
 	@unpack
 	def test_NeedToMove(self, state, option, expectedSPrime):
+		self.assertEqual(self.getSPrime(state, option), expectedSPrime)
 	
 	def tearDown(self):
 		pass
@@ -87,6 +88,9 @@ class TestTransitionFunction(unittest.TestCase):
 	@unpack
 	def test_ValidSPrime(self, state, option, sPrime):
 		self.assertEqual(self.transitionFunction(state, option, sPrime), 1)
+	
+	def tearDown(self):
+		pass
 
 if __name__ == '__main__':
 	unittest.main(verbosity=2)
