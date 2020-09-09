@@ -41,7 +41,7 @@ class getLandmarkSPrime(object):
 		self.optionTerminations = optionTerminations
 	
 	def __call__(self, state, option): #state not used but still keep as an input to maintain structure
-		sPrime = optionTerminations[option]
+		sPrime = self.optionTerminations[option]
 		return sPrime
 
 class transitionFunction(object):
