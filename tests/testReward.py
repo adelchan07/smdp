@@ -13,7 +13,7 @@ import unittest
 from ddt import ddt, data, unpack
 import rewardFunction as targetCode 
 
-"""
+
 @ddt
 class TestPrimitiveOptionReward(unittest.TestCase):
 	def setUp(self):
@@ -45,7 +45,7 @@ class TestPrimitiveOptionReward(unittest.TestCase):
 	
 	def tearDown(self):
 		pass
-
+"""
 @ddt
 class TestLandmarkOptionReward(unittest.TestCase):
 	def setUp(self):
@@ -76,7 +76,7 @@ class TestLandmarkOptionReward(unittest.TestCase):
 	
 	def tearDown(self):
 		pass
-"""
+
 @ddt
 class TestRewardFunction(unittest.TestCase):
 	def setUp(self):
@@ -111,7 +111,7 @@ class TestRewardFunction(unittest.TestCase):
 	
 	def tearDown(self):
 		pass
-
+"""
 		
 if __name__ == '__main__':
 	unittest.main(verbosity=2)
