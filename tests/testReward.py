@@ -101,10 +101,12 @@ class TestRewardFunction(unittest.TestCase):
 	@data(((0,0), 'up', (0,1), -4), ((1,0), 'left', (0,0), 6))
 	@unpack
 	def test_Primitive(self, state, option, sPrime, expectedReward):
+		self.assertEqual(self.rewardFunction(state, option, sPrime), expectedReward)
 	
 	@data(((0,0), "UR", (1,1), -5), ((1,1), "LL", (0,0), 5))
 	@unpack
 	def test_Landmark(self, state, option, sPrime, expectedReward):
+		self.assertEqual(self.rewardFunction(state, option, sPrime), expectedReward)
 	
 	def tearDown(self):
 		pass
