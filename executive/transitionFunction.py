@@ -52,7 +52,7 @@ class transitionFunction(object):
 		
 		probability = 0
 		
-		transitionFunction = optionSPrime[option]
+		transitionFunction = self.optionSPrime[option]
 		actual = transitionFunction(state, option)
 		
 		if sPrime == actual:
