@@ -12,7 +12,7 @@ sys.path.append('..')
 import numpy as np
 import unittest
 from ddt import ddt, data, unpack
-import optionValueIteration as targetCode 
+import valueIteration as targetCode 
 
 @ddt
 class TestValueIteration(unittest.TestCase):
