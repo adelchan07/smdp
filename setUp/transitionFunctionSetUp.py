@@ -26,4 +26,3 @@ class setUpTransitionFunction(object):
     
     if type == "landmark":
       return self.getLandmarkSPrime
- 
