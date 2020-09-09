@@ -25,15 +25,14 @@ def getNextState(state, action, stateSet):
 		return state
 
 class getPrimitiveSPrime(object):
-	def __init__(self, primitivePolicies, stateSet, getNextState):
-		self.primitivePolicies = primitivePolicies
+	def __init__(self, primitiveOptions, stateSet, getNextState):
+		self.primitiveOptions = primitiveOptions
 		self.stateSet = stateSet
 		self.getNextState = getNextState
 	
 	def __call__(self, state, option):
-		policy = self.primitivePolicies[option]
 		
-		action = policy[state]
+		action = self.primitiveOptions[option]
 		sPrime = self.getNextState(state, action, self.stateSet)
 		return sPrime
 
