@@ -48,6 +48,7 @@ class getLandmarkOptionReward(object):
 		#the restricted initiation set of an option is reflected in the stateSet represented in the optionPolicy
 		
 		reward = self.moveCost + self.getCumulativeCost(state, option)
+		terminationCondition = self.getLandmarkSPrime(state, option)
 
 		if terminationCondition in self.goalStates:
 			reward += self.goalReward
@@ -61,11 +62,12 @@ class getLandmarkOptionReward(object):
 		
 		terminationCondition = self.getLandmarkSPrime(state, option)
 		optionPolicy = self.optionPolicies[option]
+		stateSet = list(optionPolicy.keys())
 
 		while currentState != terminationCondition:
 			stepsTaken += 1
 			action = optionPolicy[currentState]
-			nextState = self.getNextState(currentState, action, self.stateSet)
+			nextState = self.getNextState(currentState, action, stateSet)
 			currentState = nextState
 
 		cumulativeCost = stepsTaken*self.actionCost
