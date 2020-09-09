@@ -40,8 +40,39 @@ class TestPrimitiveReward(unittest.TestCase):
 
 	@data(((0,1), 'down'), ((1,0), 'left'))
 	@unpack
-	def testReward(self, state, option):
+	def test_Reward(self, state, option):
 		self.assertEqual(self.primitiveReward(state, option), self.actionCost + self.moveCost + self.goalReward)
+
+	def tearDown(self):
+		pass
+
+@ddt
+class TestLandmarkReward(unittest.TestCase):
+	def setUp(self):
+
+		actionCost = -1
+		moveCost = -3
+		goalStates = [(0,0)]
+		goalReward = 10
+		
+		landmarkPolicies = {'LL': {(0, 0): (0, -1), (0, 1): (0, -1), (1, 0): (-1, 0), (1, 1): (0, -1)}, 'UL': {(0, 0): (0, 1), (0, 1): (0, 1), (1, 0): (0, 1), (1, 1): (-1, 0)}, 'LR': {(0, 0): (1, 0), (0, 1): (1, 0), (1, 0): (0, -1), (1, 1): (0, -1)}, 'UR': {(0, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, 1), (1, 1): (0, 1)}}
+
+		getNextState = targetCode.tf.getNextState
+		
+		optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
+		landmarkSPrime = targetCode.tf.getLandmarkSPrime(optionTerminations)
+
+		self.landmarkReward = targetCode.(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
+
+	@data(((1,0), 'LL', 6), ((0,0), 'LL', 7))
+	@unpack
+	def test_NonReward(self, state, option, expectedReward):
+		self.assertEqual(self.landmarkReward(state, option), expectedReward)
+
+	@data(((0,0), 'UR', -5), ((1,0), 'UR', -4))
+	@unpack
+	def test_Reward(self, state, option, expectedReward):
+		self.assertEqual(self.landmarkReward(state, option), expectedReward)
 
 	def tearDown(self):
 		pass
