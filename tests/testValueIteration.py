@@ -41,12 +41,12 @@ class TestSimpleValueIteration(unittest.TestCase):
 
     setUp = targetCode.GetPolicy(stateSet, optionSpace, transition, reward, gamma, V, convergence)
     self.policy = {s:setUp(s) for s in stateSet}
-	
-  def assertNumericDictAlmostEqual(self, calculatedDictionary, expectedDictionary, places=7):
-	self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
-        for key in calculatedDictionary.keys():
-            self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
 
+  def assertNumericDictAlmostEqual(self, calculatedDictionary, expectedDictionary, places=7):
+    self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
+    for key in calculatedDictionary.keys():
+        self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
+	
   @data(((0,0), {'LL': 1.0}))
   @unpack
   def test_AtGoal(self, state, expectedResult):
