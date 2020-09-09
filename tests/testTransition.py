@@ -12,10 +12,10 @@ sys.path.append('../executive/')
 import numpy as np
 import unittest
 from ddt import ddt, data, unpack
-import transition as targetCode 
+import transitionFunction as targetCode 
 
 @ddt
-class TestTransitionFunction(unittest.TestCase):
+class TestGetNextState(unittest.TestCase):
 	def setUp(self):
 		self.stateSet = [(i,j) for i in range(2) for j in range(2)]
 		self.getNextState = targetCode.getNextState
@@ -32,6 +32,16 @@ class TestTransitionFunction(unittest.TestCase):
 
 	def tearDown(self):
 		pass
+
+@ddt
+class TestPrimitiveSPrime(unittest.TestCase):
+
+@ddt
+class TestLandmarkSPrime(unittest.TestCase):
+	
+@ddt
+class TestTransitionFunction(unittest.TestCase):
+	
 
 if __name__ == '__main__':
 	unittest.main(verbosity=2)
