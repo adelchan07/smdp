@@ -66,7 +66,7 @@ class getLandmarkOptionReward(object):
 			stepsTaken += 1
 			action = policy[current]
 			nextState = self.getNextState(state, action, stateSet)
-			currentState = nextState
+			current = nextState
 
 		return stepsTaken
 	
