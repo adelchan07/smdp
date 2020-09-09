@@ -95,24 +95,16 @@ class TestRewardFunction(unittest.TestCase):
 		landmarkTransition = targetCode.tf.getLandmarkSPrime(optionTerminations)
 		landmarkReward = targetCode.getLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkTransition, getNextState)
 		
-		optionReward = {}
+		optionReward = {'up': primitiveReward, 'down': primitiveReward, 'left': primitiveReward, 'right': primitiveReward, 'LL':landmarkReward, 'UL': landmarkReward, 'UR': landmarkReward, 'LR': landmarkReward}
 		self.rewardFunction = targetCode.rewardFunction(optionReward)
 		
-	@data()
+	@data(((0,0), 'up', (0,1), -4), ((1,0), 'left', (0,0), 6))
 	@unpack
-	def test_ValidPrimitiveSPrime(self, state, option, sPrime, expectedReward):
+	def test_Primitive(self, state, option, sPrime, expectedReward):
 	
-	@data()
+	@data(((0,0), "UR", (1,1), -5), ((1,1), "LL", (0,0), 5))
 	@unpack
-	def test_InvalidPrimitiveSPrime(self, state, option, sPrime, expectedReward):
-	
-	@data()
-	@unpack
-	def test_ValidLandmarkSPrime(self, state, option, sPrime, expectedReward):
-	
-	@data()
-	@unpack
-	def test_InvalidLandmarkSPrime(self, state, option, sPrime, expectedReward):
+	def test_Landmark(self, state, option, sPrime, expectedReward):
 	
 	def tearDown(self):
 		pass
