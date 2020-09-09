@@ -52,7 +52,7 @@ class TestSimpleValueIteration(unittest.TestCase):
   def test_AtGoal(self, state, expectedResult):
     self.assertNumericDictAlmostEqual(self.policy[state], expectedResult)
   
-  @data(((1,1), {'LL': 1.0}), ((0,1), {'LL': 0.5, 'down': 0.5}), (1, 0): {'LL': 0.5, 'left': 0.5})
+  @data(((1,1), {'LL': 1.0}), ((0,1), {'LL': 0.5, 'down': 0.5}), ((1, 0): {'LL': 0.5, 'left': 0.5}))
   @unpack
   def test_OutsideGoal(self, state, expectedResult):
     self.assertNumericDictAlmostEqual(self.policy[state], expectedResult)
