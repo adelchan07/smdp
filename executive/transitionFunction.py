@@ -49,13 +49,8 @@ class transitionFunction(object):
 		self.optionSPrime = optionSPrime
 	
 	def __call__(self, state, option, sPrime):
-		probability = 0
 		
-		transitionFunction = self.optionSPrime[option]
-		actualSPrime = transitionFunction(state, option)
-		
-		if sPrime == actualSPrime:
-			probability = 1
+		probability = lambda s, a, sPrime: self.optionSPrime.get(s).get(a).get(sPrime, 0)
 		
 		return probability
 		
