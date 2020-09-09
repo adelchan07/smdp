@@ -31,7 +31,9 @@ class getPrimitiveSPrime(object):
 		self.getNextState = getNextState
 	
 	def __call__(self, state, option):
-		action = self.primitivePolicies[option]
+		policy = self.primitivePolicies[option]
+		
+		action = policy[state]
 		sPrime = self.getNextState(state, action, self.stateSet)
 		return sPrime
 
