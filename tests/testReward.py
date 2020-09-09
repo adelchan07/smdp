@@ -45,7 +45,6 @@ class TestPrimitiveOptionReward(unittest.TestCase):
 	
 	def tearDown(self):
 		pass
-"""
 
 @ddt
 class TestLandmarkOptionReward(unittest.TestCase):
@@ -77,7 +76,7 @@ class TestLandmarkOptionReward(unittest.TestCase):
 	
 	def tearDown(self):
 		pass
-
+"""
 @ddt
 class TestRewardFunction(unittest.TestCase):
 	def setUp(self):
