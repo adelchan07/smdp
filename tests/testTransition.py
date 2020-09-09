@@ -44,7 +44,7 @@ class TestPrimitiveSPrime(unittest.TestCase):
 
 		self.getSPrime = targetCode.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
 	
-	@data(((0,0), 'left', (0,0)), ((1,1), 'up, (1,1)), ((1,0), 'down', (1,0)))
+	@data(((0,0), 'left', (0,0)), ((1,1), 'up', (1,1)), ((1,0), 'down', (1,0)))
 	@unpack
 	def test_Boundary(self, state, option, expectedSPrime):
 		self.assertEqual(self.getSPrime(state, option), expectedSPrime)
