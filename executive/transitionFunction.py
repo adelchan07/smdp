@@ -57,8 +57,6 @@ class TransitionFunction(object):
 	
 	def __call__(self, state, option, sPrime):
 		
-		probability = 0
-		
 		function = self.optionSPrime[option]
 		return function(state, option, sPrime)
 		
