@@ -6,7 +6,7 @@ rewardFunctionSetUp.py
 set up dictionary of corresponding reward function for each type of option
 """
 
-class setUpRewardFunction(object):
+class SetUpRewardFunction(object):
   
   def __init__(self, optionType, getPrimitiveOptionReward, getLandmarkOptionReward):
     self.optionType = optionType
