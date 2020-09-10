@@ -12,17 +12,20 @@ import numpy as numpy
 import transitionFunction as tf
 
 class GetPrimitiveOptionReward(object):
-	def __init__(self, actionCost, moveCost, goalStates, goalReward, primitivePolicies, getPrimitiveSPrime):
+	def __init__(self, actionCost, moveCost, goalStates, goalReward, getPrimitiveSPrime):
 		self.actionCost = actionCost
 		self.moveCost = moveCost
 		self.goalStates = goalStates
 		self.goalReward = goalReward
-		self.optionPolicies = primitivePolicies
 		self.getPrimitiveSPrime = getPrimitiveSPrime
 	
 	def __call__(self, state, option, sPrime):
 		
 		reward = self.actionCost + self.moveCost
+		actual = self.getPrimitiveSPrime(state, option, sPrime)
+		
+		if sPrime != actual:
+			return 0
 		
 		if sPrime in self.goalStates:
 			reward += self.goalReward
@@ -46,7 +49,10 @@ class GetLandmarkOptionReward(object):
 		#the restricted initiation set of an option is reflected in the stateSet represented in the optionPolicy
 		
 		reward = self.moveCost + self.getCumulativeCost(state, option)
-		terminationCondition = sPrime
+		
+		terminationCondition = self.getLandmarkSPrime(state, option, sPrime)
+		if terminationCondition != sPrime:
+			return 0
 
 		if terminationCondition in self.goalStates:
 			reward += self.goalReward
