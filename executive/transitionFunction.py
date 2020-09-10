@@ -24,7 +24,7 @@ def getNextState(state, action, stateSet):
 	else:
 		return state
 
-class getPrimitiveSPrime(object):
+class GetPrimitiveSPrime(object):
 	def __init__(self, primitiveOptions, stateSet, getNextState):
 		self.primitiveOptions = primitiveOptions
 		self.stateSet = stateSet
@@ -40,7 +40,7 @@ class getPrimitiveSPrime(object):
 		return 1
 		
 
-class getLandmarkSPrime(object):
+class GetLandmarkSPrime(object):
 	def __init__(self, optionTerminations):
 		self.optionTerminations = optionTerminations
 	
@@ -51,7 +51,7 @@ class getLandmarkSPrime(object):
 			return 0
 		return 1
 
-class transitionFunction(object):
+class TransitionFunction(object):
 	def __init__(self, optionSPrime):
 		self.optionSPrime = optionSPrime
 	
