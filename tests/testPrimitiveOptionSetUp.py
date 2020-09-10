@@ -56,7 +56,7 @@ class TestPrimitiveOptions(unittest.TestCase):
 		#start with no other existing options for more clarity in testing
 		existingOptions = {} 
 
-		setUp = targetCode.setUpPrimitive(stateSet, primitiveOptions, merge)
+		setUp = targetCode.SetUpPrimitive(stateSet, primitiveOptions, merge)
 		self.primitive = setUp(existingOptions)
 
 	#test case examples for each primitive option; up/down/left/right
