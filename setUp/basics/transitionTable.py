@@ -19,7 +19,7 @@ Output:
         {state:{action:{nextState:probability}}}
 """
 
-class createTransitionTable(object):
+class CreateTransitionTable(object):
   
   #constructor
     def __init__(self, actionSet):
@@ -53,4 +53,11 @@ class createTransitionTable(object):
         if potentialNextState in self.stateSet:
             state = potentialNextState
         return(state)
+    
+class TransitionFunction(object):
+    def __init__(self, transitionTable):
+        self.transitionTable = transitionTable
+    
+    def __call__(self, state, action, sPrime):
+        return self.transitionTable.get(state).get(action).get(sPrime, 0)
  
