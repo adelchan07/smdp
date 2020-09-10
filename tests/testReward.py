@@ -133,7 +133,7 @@ class TestRewardFunction(unittest.TestCase):
 	def test_Reward(self, state, option, sPrime, expectedReward):
 		self.assertEqual(self.rewardFunction(state, option, sPrime), expectedReward)
 	
-	@data((((0,0), 'UR', (1,1), -5), ((1,0), 'UR', (1,1), -4))
+	@data(((0,0), 'UR', (1,1), -5), ((1,0), 'UR', (1,1), -4))
 	@unpack
 	def test_WrongSPrime(self, state, option, sPrime, expectedReward):
 	      self.assertEqual(self.rewardFunction(state, option, sPrime), 0)
