@@ -10,7 +10,7 @@ set up dictionary of corresponding options available at each state
 
 import numpy as np 
 
-class optionSpaceSetUp(object):
+class OptionSpaceSetUp(object):
 	def __init__(self, stateSet, optionsDictionary):
 		self.stateSet = stateSet
 		self.optionsDictionary = optionsDictionary
