@@ -5,11 +5,13 @@ Created on Wed Sep 2 14:54:03 2020
 
 transition.py
 
-general function:
- - used once for each primitive option
- - used for x amount of steps required to get to termination condition for each landmark option 
+GetPrimitiveSPrime and GetLandmarkSPrime are deterministic transition functions
 
-optionSPrime = dictionary of format {"option name": corresponding option type's transition function"
+TransitionFunction = universal transition function with dictionary input optionSPrime
+
+optionSPrime = dictionary of format {"option name": corresponding option type's transition function"}
+primitiveOptions = {"name": action}, ie. {"up": (0,1), "down":(0,-1)...}
+optionTerminations = {"name": (landmark location)} ie. {"h1": (3,2)}
 """
 
 def getNextState(state, action, stateSet):
