@@ -25,9 +25,9 @@ class TestPrimitiveReward(unittest.TestCase):
 		primitivePolicies = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
 		stateSet = [(i,j) for i in range(2) for j in range(2)]
 		getNextState = targetCode.tf.getNextState
-		primitiveSPrime = targetCode.tf.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
+		primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
 
-		self.primitiveReward = targetCode.getPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitivePolicies, primitiveSPrime)
+		self.primitiveReward = targetCode.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
 
 		self.actionCost = actionCost
 		self.moveCost = moveCost
@@ -60,9 +60,9 @@ class TestLandmarkReward(unittest.TestCase):
 		getNextState = targetCode.tf.getNextState
 		
 		optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
-		landmarkSPrime = targetCode.tf.getLandmarkSPrime(optionTerminations)
+		landmarkSPrime = targetCode.tf.GetLandmarkSPrime(optionTerminations)
 
-		self.landmarkReward = targetCode.getLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
+		self.landmarkReward = targetCode.GetLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
 
 	@data(((1,0), 'LL', 6), ((0,0), 'LL', 7))
 	@unpack
@@ -88,16 +88,16 @@ class TestRewardFunction(unittest.TestCase):
 		primitivePolicies = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
 		stateSet = [(i,j) for i in range(2) for j in range(2)]
 		getNextState = targetCode.tf.getNextState
-		primitiveSPrime = targetCode.tf.getPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
-		primitiveReward = targetCode.getPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitivePolicies, primitiveSPrime)
+		primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
+		primitiveReward = targetCode.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
 		
 		landmarkPolicies = {'LL': {(0, 0): (0, -1), (0, 1): (0, -1), (1, 0): (-1, 0), (1, 1): (0, -1)}, 'UL': {(0, 0): (0, 1), (0, 1): (0, 1), (1, 0): (0, 1), (1, 1): (-1, 0)}, 'LR': {(0, 0): (1, 0), (0, 1): (1, 0), (1, 0): (0, -1), (1, 1): (0, -1)}, 'UR': {(0, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, 1), (1, 1): (0, 1)}}
 		optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
-		landmarkSPrime = targetCode.tf.getLandmarkSPrime(optionTerminations)
-		landmarkReward = targetCode.getLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
+		landmarkSPrime = targetCode.tf.GetLandmarkSPrime(optionTerminations)
+		landmarkReward = targetCode.GetLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
 		
 		optionReward = {'up': primitiveReward, 'down': primitiveReward, 'left': primitiveReward, 'right': primitiveReward, 'LL':landmarkReward, 'UL': landmarkReward, 'UR': landmarkReward, 'LR': landmarkReward} 
-		self.rewardFunction = targetCode.rewardFunction(optionReward)
+		self.rewardFunction = targetCode.RewardFunction(optionReward)
 		
 		self.actionCost = actionCost
 		self.moveCost = moveCost
