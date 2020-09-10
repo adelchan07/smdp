@@ -29,7 +29,7 @@ Note: will need to modify value iteration in order to pass in a terminal state
     
 """
 
-class createRewardTable(object):
+class CreateRewardTable(object):
 
 #constructor
     def __init__(self, transitionTable, actionSet): #question: is actionSet still necessary if we pass in the transitionTable
@@ -55,3 +55,11 @@ class createRewardTable(object):
               
         return(rewardTable)
 
+class RewardFunction(object):
+    
+    def __init__(self, rewardTable):
+        self.rewardTable = rewardTable
+        
+    def __call__(self, state, option, sPrime):
+        return self.rewardTable.get(state).get(option).get(sPrime, 0)
+        
