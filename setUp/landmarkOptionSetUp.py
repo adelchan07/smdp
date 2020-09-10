@@ -24,9 +24,10 @@ import os
 dirName = os.path.dirname(__file__)
 sys.path.append(os.path.join(dirName, 'basics', ""))
 
-from transitionTable import createTransitionTable
-from rewardTable import createRewardTable
-from valueIteration import valueIteration
+import numpy as np
+import transitionTable as tt
+import rewardTable as rt
+import valueIteration as vi
 
 #general helper functions 
 def merge(dictionary1, dictionary2):
@@ -34,74 +35,47 @@ def merge(dictionary1, dictionary2):
 	result = {**dictionary1, **dictionary2}
 	return result
 
-class getTransitionTable(object):
-	def __init__(self, actionSet):
-		self.actionSet = actionSet
-
-	def __call__(self, stateSet):
-		setUpTransition = createTransitionTable(self.actionSet)
-		transitionTable = setUpTransition(stateSet)
-
-		return transitionTable
-
-class getLandmarkRewardTable(object):
-
-	def __init__(self, actionSet, actionCost, goalReward):
-
-		self. actionSet = actionSet
-
-		self.actionCost = actionCost
-		self.goalReward = goalReward
-
-	def __call__(self, transitionTable, goalState):
-
-		setUpReward = createRewardTable(transitionTable, self.actionSet)
-		rewardTable = setUpReward(self.actionCost, self.goalReward, [goalState])
-		return rewardTable
-
-class getLandmarkPolicy(object): #value iteration code modified for temporal abstraction
-
-	def __init__(self, V, convergenceTolerance, gamma):
-		self.V = V
-		self.convergenceTolerance = convergenceTolerance
+#valueIteration helper classes
+class GetLandmarkPolicy(object):
+	def __init__(self, gamma, convergenceTolerance):
 		self.gamma = gamma
-
+		self.convergenceTolerance = convergenceTolerance
+	
 	def __call__(self, transitionTable, rewardTable):
-
-		getPolicy = valueIteration(transitionTable, rewardTable, self.V, self.convergenceTolerance, self.gamma)
-		result = getPolicy()
-		policy = result[1]
-
-		return policy
-
+		transitionFunction = tt.TransitionFunction(transitionTable)
+		rewardFunction = rt.RewardFunction(rewardTable)
+		stateSpace = list(transitionTable.keys())
+		actionSpaceFunction = lambda s: list(transitionTable.get(s).keys())
+		
+		bellmanUpdate = vi.BellmanUpdate(stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, self.gamma)
+		valueItSetUp = vi.ValueIteration(stateSpace, actionSpaceFunction, self.convergenceTolerance, bellmanUpdate)
+		V = valueItSetUp()
+		policySetUp = vi.GetPolicy(stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, self.gamma, V, self.convergenceTolerance)
+		
+		return {s: policySetUp(s) for state in stateSpace}
+		
 #main landmark option set up class
-class setUpLandmark(object):
-
-	def __init__(self, landmarkLocation, landmarkStateSet, getTransitionTable, getLandmarkRewardTable, getLandmarkPolicy, merge):
-
+class SetUpLandmarkOptions(object): 
+	def __init__(self, landmarkLocation, landmarkStateSet, actionSet, getTransitionTable, getRewardTable, getLandmarkPolicy, merge):
 		self.landmarkLocation = landmarkLocation
-		self.landmarkStateSet = landmarkStateSet #option initiation set
-
+		self.landmarkStateSet = landmarkStateSet
+		
+		self.actionSet = actionSet
+		
 		self.getTransitionTable = getTransitionTable
-		self.getRewardTable = getLandmarkRewardTable
-		self.getPolicy = getLandmarkPolicy
-
+		self.getRewardTable = getRewardTable
+		self.getLandmarkPolicy = getLandmarkPolicy
 		self.merge = merge
-
 	def __call__(self, existingOptions):
-
 		landmark = {option: self.getOptionPolicy(option) for option in self.landmarkLocation.keys()}
 		
-		combination = self.merge(landmark, existingOptions)
-		return combination
-
+		return self.merge(landmark, existingOptions)
+	
 	def getOptionPolicy(self, option):
-
-		transitionTable = self.getTransitionTable(self.landmarkStateSet[option])
-
-		goalState = self.landmarkLocation[option]
-		rewardTable = self.getRewardTable(transitionTable, goalState)
-
-		policy = self.getPolicy(transitionTable, rewardTable)
+		stateSet = self.landmarkStateSet[option]
+		transitionTable = self.getTransitionTable(stateSet)
 		
-		return policy
+		goalStates = list(self.landmarkLocation[option])
+		rewardTable = self.getRewardTable(transitionTable, goalStates)
+		
+		return self.getLandmarkPolicy(transitionTable, rewardTable)
