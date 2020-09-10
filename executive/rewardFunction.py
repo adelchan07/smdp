@@ -20,11 +20,9 @@ class getPrimitiveOptionReward(object):
 		self.optionPolicies = primitivePolicies
 		self.getPrimitiveSPrime = getPrimitiveSPrime
 	
-	def __call__(self, state, option):
+	def __call__(self, state, option, sPrime):
 		
 		reward = self.actionCost + self.moveCost
-		
-		sPrime = self.getPrimitiveSPrime(state, option)
 		
 		if sPrime in self.goalStates:
 			reward += self.goalReward
@@ -44,11 +42,11 @@ class getLandmarkOptionReward(object):
 		
 		self.getNextState = getNextState
 	
-	def __call__(self, state, option):
+	def __call__(self, state, option, sPrime):
 		#the restricted initiation set of an option is reflected in the stateSet represented in the optionPolicy
 		
 		reward = self.moveCost + self.getCumulativeCost(state, option)
-		terminationCondition = self.getLandmarkSPrime(state, option)
+		terminationCondition = sPrime
 
 		if terminationCondition in self.goalStates:
 			reward += self.goalReward
@@ -79,6 +77,6 @@ class rewardFunction(object):
 	
 	def __call__(self, state, option, sPrime):
 		rewardFunction = self.optionReward[option]
-		reward = rewardFunction(state, option)
+		reward = rewardFunction(state, option, sPrime)
 		
 		return reward
