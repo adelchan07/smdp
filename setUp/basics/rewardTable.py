@@ -60,6 +60,6 @@ class RewardFunction(object):
     def __init__(self, rewardTable):
         self.rewardTable = rewardTable
         
-    def __call__(self, state, option, sPrime):
-        return self.rewardTable.get(state).get(option).get(sPrime, 0)
+    def __call__(self, state, action, sPrime):
+        return self.rewardTable.get(state).get(action).get(sPrime, 0)
         
