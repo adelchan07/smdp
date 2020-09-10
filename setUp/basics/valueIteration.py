@@ -9,8 +9,8 @@ import os
 dirName = os.path.dirname(__file__)
 sys.path.append(os.path.join(dirName, 'executive', ""))
 
-from transitionTable import TransitionFunction
-from rewardTable import RewardFunction
+import transitionTable as tt
+import rewardTable as rt
 
 class BellmanUpdate(object):
     
