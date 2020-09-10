@@ -6,7 +6,7 @@ transitionFunctionSetUp.py
 set up dictionary of corresponding transition function for each type of option
 """
 
-class setUpTransitionFunction(object):
+class SetUpTransitionFunction(object):
   
   def __init__(self, optionType, getPrimitiveSPrime, getLandmarkSPrime):
     self.optionType = optionType
