@@ -46,7 +46,7 @@ class GetLandmarkPolicy(object):
 		V = valueItSetUp()
 		policySetUp = vi.GetPolicy(stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, self.gamma, V, self.convergenceTolerance)
 		
-		return {s: policySetUp(s) for state in stateSpace}
+		return {s: policySetUp(s) for s in stateSpace}
 		
 #main landmark option set up class
 class SetUpLandmark(object): 
