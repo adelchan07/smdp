@@ -35,16 +35,21 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		setUp = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance)
 		self.policyLL = setUp(transitionTable, rewardTableLL)
 		self.policyUR = setUp(transitionTable, rewardTableUR)
-		
-	@data(((0,0), (0,-1)), ((1,1), (0,-1)), ((1,0), (-1,0)))
+	
+	def assertNumericDictAlmostEqual(self, calculatedDictionary, expectedDictionary, places=7):
+		self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
+		for key in calculatedDictionary.keys():
+		    self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
+	
+	@data(((0,0), {(0, -1): 0.5, (-1, 0): 0.5}), ((1,1), {(0, -1): 0.5, (-1, 0): 0.5}), ((1,0), {(0, -1): 1.0}))
 	@unpack
-	def test_LandmarkRewardLL(self, state, expectedAction):
-		self.assertEqual(self.policyLL[state], expectedAction)
+	def test_LandmarkRewardLL(self, state, expectedResult):
+		self.assertNumericDictAlmostEqual(self.policyLL[state], expectedResult)
 
-	@data(((0,0), (0,1)), ((1,1), (0,1)), ((1,0), (0,1)))
+	@data(((0,0), {(0, 1): 0.5, (1, 0): 0.5}), ((1,1), {(0, 1): 0.5, (1, 0): 0.5}), ((1,0), {(1, 1): 1.0}))
 	@unpack
-	def test_LandmarkRewardUR(self, state, expectedAction):
-		self.assertEqual(self.policyUR[state], expectedAction)
+	def test_LandmarkRewardUR(self, state, expectedResult):
+		self.assertNumericDictAlmostEqual(self.policyUR[state], expectedResult)
 
 	def tearDown(self):
 		pass
@@ -71,7 +76,12 @@ class TestSetUpLandmark(unittest.TestCase):
 		existingOptions = {}
 		setUp = targetCode.SetUpLandmark(landmarkLocation, landmarkStateSet, actionSet, getTransitionTable, getRewardTable, getLandmarkPolicy, merge)
 		self.landmarkPolicies = setUp(existingOptions)
-
+	
+	def assertNumericDictAlmostEqual(self, calculatedDictionary, expectedDictionary, places=7):
+		self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
+		for key in calculatedDictionary.keys():
+		    self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
+	
 	#testing landmark policies --> make sure locations surrounding location of interest AND at location of interestare correct
 	@data(((3,2), (0,1)), ((3,4), (0,-1)), ((3,3), (1,0)))
 	@unpack
