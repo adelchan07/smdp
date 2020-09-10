@@ -12,25 +12,25 @@ class TestSimpleValueIteration(unittest.TestCase):
     primitiveOptions = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
     stateSet = [(i,j) for i in range(2) for j in range(2)]
     getNextState = targetCode.tf.getNextState
-    primitiveSPrime = targetCode.tf.getPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
+    primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
 
     optionTerminations = {"LL": (0,0), "UL": (0,1), "LR": (1,0), "UR": (1,1)}
-    landmarkSPrime = targetCode.tf.getLandmarkSPrime(optionTerminations)
+    landmarkSPrime = targetCode.tf.GetLandmarkSPrime(optionTerminations)
 
     optionSPrime = {'up': primitiveSPrime, 'down':primitiveSPrime, 'left': primitiveSPrime, 'right': primitiveSPrime,'LL': landmarkSPrime, 'UL': landmarkSPrime, 'LR': landmarkSPrime, 'UR': landmarkSPrime} 
 
-    transition = targetCode.tf.transitionFunction(optionSPrime)
+    transition = targetCode.tf.TransitionFunction(optionSPrime)
 
     actionCost = -1
     moveCost = -3
     goalStates = [(0,0)]
     goalReward = 10
     landmarkPolicies = {'LL': {(0, 0): (0, -1), (0, 1): (0, -1), (1, 0): (-1, 0), (1, 1): (0, -1)}, 'UL': {(0, 0): (0, 1), (0, 1): (0, 1), (1, 0): (0, 1), (1, 1): (-1, 0)}, 'LR': {(0, 0): (1, 0), (0, 1): (1, 0), (1, 0): (0, -1), (1, 1): (0, -1)}, 'UR': {(0, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, 1), (1, 1): (0, 1)}}
-    primitiveReward = targetCode.rf.getPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveOptions, primitiveSPrime)
-    landmarkReward = targetCode.rf.getLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
+    primitiveReward = targetCode.rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveOptions, primitiveSPrime)
+    landmarkReward = targetCode.rf.GetLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
 
     optionReward = {'up': primitiveReward, 'down': primitiveReward, 'left': primitiveReward, 'right': primitiveReward, 'LL':landmarkReward, 'UL': landmarkReward, 'UR': landmarkReward, 'LR': landmarkReward} 
-    reward = targetCode.rf.rewardFunction(optionReward)
+    reward = targetCode.rf.RewardFunction(optionReward)
 
     optionSpace = {(0, 0): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right'], (0, 1): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right'], (1, 0): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right'], (1, 1): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right']}
     optionSpace = targetCode.osf.optionSpaceFunction(optionSpace)
