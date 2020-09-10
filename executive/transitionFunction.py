@@ -30,19 +30,26 @@ class getPrimitiveSPrime(object):
 		self.stateSet = stateSet
 		self.getNextState = getNextState
 	
-	def __call__(self, state, option):
+	def __call__(self, state, option, sPrime):
 		
 		action = self.primitiveOptions[option]
-		sPrime = self.getNextState(state, action, self.stateSet)
-		return sPrime
+		actual = self.getNextState(state, action, self.stateSet)
+		
+		if actual != sPrime:
+			return 0
+		return 1
+		
 
 class getLandmarkSPrime(object):
 	def __init__(self, optionTerminations):
 		self.optionTerminations = optionTerminations
 	
-	def __call__(self, state, option): #state not used but still keep as an input to maintain structure
-		sPrime = self.optionTerminations[option]
-		return sPrime
+	def __call__(self, state, option, sPrime): 
+		actual = self.optionTerminations[option]
+		
+		if actual != sPrime:
+			return 0
+		return 1
 
 class transitionFunction(object):
 	def __init__(self, optionSPrime):
@@ -52,11 +59,7 @@ class transitionFunction(object):
 		
 		probability = 0
 		
-		transitionFunction = self.optionSPrime[option]
-		actual = transitionFunction(state, option)
+		function = self.optionSPrime[option]
+		return function(state, option, sPrime)
 		
-		if sPrime == actual:
-			probability = 1
-			
-		return probability
 		
