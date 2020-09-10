@@ -32,18 +32,20 @@ Note: will need to modify value iteration in order to pass in a terminal state
 class CreateRewardTable(object):
 
 #constructor
-    def __init__(self, transitionTable, actionSet): #question: is actionSet still necessary if we pass in the transitionTable
-        self.transitionTable = transitionTable
+    def __init__(self, actionSet, actionCost, goalReward): #question: is actionSet still necessary if we pass in the transitionTable
+        
         self.actionSet = actionSet
+        self.actionCost = actionCost
+        self.goalReward = goalReward
     
     
 #callable: goal state, action cost, and goal reward
-    def __call__(self, actionCost, goalReward, goalStates): #actionCost and goalReward can be easily modified for different scenarios
+    def __call__(self, transitionTable, goalStates): #actionCost and goalReward can be easily modified for different scenarios
     
     #set basics of the rewardTable
-        rewardTable = {state:{action:{nextState: actionCost for nextState in possibleNextStates.keys() } \
+        rewardTable = {state:{action:{nextState: self.actionCost for nextState in possibleNextStates.keys() } \
                           for action, possibleNextStates in possibleActions.items()} \
-                   for state, possibleActions in self.transitionTable.items()}
+                   for state, possibleActions in transitionTable.items()}
     
     #update rewardTable for the goalStates
         for state in rewardTable.keys():
@@ -51,7 +53,7 @@ class CreateRewardTable(object):
                 for nextState in rewardTable[state][action]:
                     for goalNext in goalStates:
                         if nextState == goalNext:
-                            rewardTable[state][action] = {nextState:goalReward}
+                            rewardTable[state][action] = {nextState:self.goalReward}
               
         return(rewardTable)
 
