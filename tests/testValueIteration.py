@@ -33,7 +33,7 @@ class TestSimpleValueIteration(unittest.TestCase):
     reward = targetCode.rf.RewardFunction(optionReward)
 
     optionSpace = {(0, 0): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right'], (0, 1): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right'], (1, 0): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right'], (1, 1): ['LL', 'UL', 'LR', 'UR', 'up', 'down', 'left', 'right']}
-    optionSpace = targetCode.osf.optionSpaceFunction(optionSpace)
+    optionSpace = targetCode.osf.OptionSpaceFunction(optionSpace)
 
     V = {s:0 for s in stateSet}
     gamma = 0.9
