@@ -82,12 +82,12 @@ class TestSetUpLandmark(unittest.TestCase):
 		for key in calculatedDictionary.keys():
 		    self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
 	
-	@data(((1,1), {(0,1): 0.5, (0,-1): 0,5}))
+	@data(((1,1), {(0,1): 0.5, (0,-1): 0.5}))
 	@unpack
 	def test_AtLandmark(self, state, expectedResult):
 		self.assertNumericDictAlmostEqual(self.policies[state], expectedResult)
 		
-	@data(((3,0), {(-1,0): 0.5, (0,1): 0,5}), ((3,2), {(-1,0): 0.5, (0,-1): 0.5}))
+	@data(((3,0), {(-1,0): 0.5, (0,1): 0.5}), ((3,2), {(-1,0): 0.5, (0,-1): 0.5}))
 	@unpack
 	def test_Boundary(self, state, expectedResult):
 		self.assertNumericDictAlmostEqual(self.policies[state], expectedResult)
