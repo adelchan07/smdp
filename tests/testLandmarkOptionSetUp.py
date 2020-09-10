@@ -58,7 +58,7 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 class TestSetUpLandmark(unittest.TestCase):
 	def setUp(self):
 		landmarkLocation = {"hall": (1,1)}
-		landmarkStateSet = [(0, 0), (0, 1), (0, 2), (1, 1), (2, 0), (2, 1), (2, 2), (3, 0), (3, 1), (3, 2)]
+		landmarkStateSet = {"hall":[(0, 0), (0, 1), (0, 2), (1, 1), (2, 0), (2, 1), (2, 2), (3, 0), (3, 1), (3, 2)]}
 
 		actionSet = [(0,1), (0,-1), (1,0), (-1,0)]
 		getTransitionTable = targetCode.tt.CreateTransitionTable(actionSet)
