@@ -11,7 +11,7 @@ optionReward = dictionary of format {"option name": corresponding option type's 
 import numpy as numpy
 import transitionFunction as tf
 
-class getPrimitiveOptionReward(object):
+class GetPrimitiveOptionReward(object):
 	def __init__(self, actionCost, moveCost, goalStates, goalReward, primitivePolicies, getPrimitiveSPrime):
 		self.actionCost = actionCost
 		self.moveCost = moveCost
@@ -29,7 +29,7 @@ class getPrimitiveOptionReward(object):
 			
 		return reward
 
-class getLandmarkOptionReward(object):
+class GetLandmarkOptionReward(object):
 	def __init__(self, actionCost, moveCost, goalStates, goalReward, landmarkPolicies, getLandmarkSPrime, getNextState):
 		self.actionCost = actionCost
 		self.moveCost = moveCost
@@ -71,7 +71,7 @@ class getLandmarkOptionReward(object):
 		cumulativeCost = stepsTaken*self.actionCost
 		return cumulativeCost
 	
-class rewardFunction(object):
+class RewardFunction(object):
 	def __init__(self, optionReward):
 		self.optionReward = optionReward
 	
