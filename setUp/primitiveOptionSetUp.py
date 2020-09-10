@@ -27,7 +27,7 @@ def merge(dictionary1, dictionary2):
 	return result
 	
 
-class setUpPrimitive(object):
+class SetUpPrimitive(object):
 
 	def __init__(self, stateSet, primitiveOptions, merge):
 
