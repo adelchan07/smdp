@@ -33,16 +33,21 @@ class TestPrimitiveReward(unittest.TestCase):
 		self.moveCost = moveCost
 		self.goalReward = goalReward
 
-	@data(((0,0), 'up'), ((0,0), 'right'))
+	@data(((0,0), 'up', (0,1)), ((0,0), 'right', (1,0)))
 	@unpack
-	def test_NonReward(self, state, option):
-		self.assertEqual(self.primitiveReward(state, option), self.actionCost + self.moveCost)
+	def test_NonReward(self, state, option, sPrime):
+		self.assertEqual(self.primitiveReward(state, option, sPrime), self.actionCost + self.moveCost)
 
-	@data(((0,1), 'down'), ((1,0), 'left'))
+	@data(((0,1), 'down', (0,0)), ((1,0), 'left', (0,0))
 	@unpack
-	def test_Reward(self, state, option):
-		self.assertEqual(self.primitiveReward(state, option), self.actionCost + self.moveCost + self.goalReward)
-
+	def test_Reward(self, state, option, sPrime):
+		self.assertEqual(self.primitiveReward(state, option, sPrime), self.actionCost + self.moveCost + self.goalReward)
+	
+	@data(((0,1), 'down', (1,0)), ((1,0), 'left', (1,0))
+	@unpack
+	def test_WrongSPrime(self, state, option, sPrime):
+	      self.assertEqual(self.primitiveReward(state, option, sPrime), 0)
+	      
 	def tearDown(self):
 		pass
 
@@ -64,18 +69,23 @@ class TestLandmarkReward(unittest.TestCase):
 
 		self.landmarkReward = targetCode.GetLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
 
-	@data(((1,0), 'LL', 6), ((0,0), 'LL', 7))
+	@data(((1,0), 'LL', 6, (0,0)), ((0,0), 'LL', 7, (0,0)))
 	@unpack
-	def test_NonReward(self, state, option, expectedReward):
-		self.assertEqual(self.landmarkReward(state, option), expectedReward)
+	def test_Reward(self, state, option, sPrime, expectedReward):
+		self.assertEqual(self.landmarkReward(state, option, sPrime), expectedReward)
 
-	@data(((0,0), 'UR', -5), ((1,0), 'UR', -4))
+	@data(((0,0), 'UR', -5, (1,1)), ((1,0), 'UR', -4, (1,1)))
 	@unpack
-	def test_Reward(self, state, option, expectedReward):
-		self.assertEqual(self.landmarkReward(state, option), expectedReward)
-
+	def test_NonReward(self, state, option, sPrime, expectedReward):
+		self.assertEqual(self.landmarkReward(state, option, sPrime), expectedReward)
+	
+	@data(((0,0), 'UR', -5, (0,1)), ((1,0), 'UR', -4, (1,0)))
+	@unpack
+	def test_WrongSPrime(self, state, option, sPrime):
+	      self.assertEqual(self.landmarkReward(state, option, sPrime), 0)
+	
 	def tearDown(self):
-		pass
+	      pass
 
 @ddt
 class TestRewardFunction(unittest.TestCase):
@@ -122,7 +132,12 @@ class TestRewardFunction(unittest.TestCase):
 	@unpack
 	def test_Reward(self, state, option, sPrime, expectedReward):
 		self.assertEqual(self.rewardFunction(state, option, sPrime), expectedReward)
-
+	
+	@data((((0,0), 'UR', (1,1), -5), ((1,0), 'UR', (1,1), -4))
+	@unpack
+	def test_WrongSPrime(self, state, option, sPrime, expectedReward):
+	      self.assertEqual(self.rewardFunction(state, option, sPrime), 0)
+	      
 	def tearDown(self):
 		pass
 	
