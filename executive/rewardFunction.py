@@ -22,15 +22,11 @@ class GetPrimitiveOptionReward(object):
 	def __call__(self, state, option, sPrime):
 		
 		reward = self.actionCost + self.moveCost
-		actual = self.getPrimitiveSPrime(state, option, sPrime)
-		
-		if sPrime != actual:
-			return 0
 		
 		if sPrime in self.goalStates:
 			reward += self.goalReward
 			
-		return reward
+		return reward*self.getPrimitiveSPrime(state, option, sPrime)
 
 class GetLandmarkOptionReward(object):
 	def __init__(self, actionCost, moveCost, goalStates, goalReward, landmarkPolicies, getLandmarkSPrime, getNextState):
@@ -50,14 +46,10 @@ class GetLandmarkOptionReward(object):
 		
 		reward = self.moveCost + self.getCumulativeCost(state, option)
 		
-		terminationCondition = self.getLandmarkSPrime(state, option, sPrime)
-		if terminationCondition != sPrime:
-			return 0
-
-		if terminationCondition in self.goalStates:
+		if sPrime in self.goalStates:
 			reward += self.goalReward
 
-		return reward
+		return reward*self.getLandmarkSPrime(state, option, sPrime)
 
 	def getCumulativeCost(self, state, option):
 
