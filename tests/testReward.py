@@ -38,12 +38,12 @@ class TestPrimitiveReward(unittest.TestCase):
 	def test_NonReward(self, state, option, sPrime):
 		self.assertEqual(self.primitiveReward(state, option, sPrime), self.actionCost + self.moveCost)
 
-	@data(((0,1), 'down', (0,0)), ((1,0), 'left', (0,0))
+	@data(((0,1), 'down', (0,0)), ((1,0), 'left', (0,0)))
 	@unpack
 	def test_Reward(self, state, option, sPrime):
 		self.assertEqual(self.primitiveReward(state, option, sPrime), self.actionCost + self.moveCost + self.goalReward)
 	
-	@data(((0,1), 'down', (1,0)), ((1,0), 'left', (1,0))
+	@data(((0,1), 'down', (1,0)), ((1,0), 'left', (1,0)))
 	@unpack
 	def test_WrongSPrime(self, state, option, sPrime):
 	      self.assertEqual(self.primitiveReward(state, option, sPrime), 0)
