@@ -1,67 +1,68 @@
 """
-Created on Sun Jul  5 12:55:42 2020
-
-@author: adelphachan
-
-valueIteration.py
+Created on Fri Sep  4 13:47:30 2020
+@author: Kevin
+just changed name from action --> option for sMDP environment
 """
-import numpy as np
-import transitionTable as createTransitionTable
-import rewardTable as createRewardTable
 
-class valueIteration(object):
+import sys
+import os
+dirName = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirName, 'executive', ""))
 
-    def __init__(self, transitionTable, rewardTable, V, convergenceTolerance, gamma):
-        self. transitionTable = transitionTable
-        self.rewardTable = rewardTable
-        self.V = V
-        self.convergenceTolerance = convergenceTolerance
-        self.gamma = gamma
+from transitionTable import TransitionFunction
+from rewardTable import RewardFunction
 
-
-    def __call__(self):
-        delta = self.convergenceTolerance * 100 #arbitrary number to intiate entrance into the while loop
-
-        while delta > self.convergenceTolerance:
-            delta = 0
-
-            for state in self.transitionTable.keys():
-
-                expectedValues = self.getExpectedValues(state)
-                bestAction = self.getMaxValue(expectedValues)
-                diffVal = abs(expectedValues[bestAction] - self.V[state])
-                delta = max(delta, diffVal) #update delta value
-
-                self.V[state] = expectedValues[bestAction]
-
-        policyTable = {state: self.getPolicy(state) for state in self.transitionTable.keys()}
-        self.policy = policyTable
-        
-        return([self.V, policyTable])
-
-    #helper functions
+class BellmanUpdate(object):
     
-    def getExpectedValues(self,state):
-        expVals = {action : 0 for action in self.transitionTable[state].keys()}
+    def __init__(self, stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, gamma):
+        self.stateSpace=stateSpace
+        self.actionSpaceFunction = actionSpaceFunction
+        self.transitionFunction=transitionFunction
+        self.rewardFunction=rewardFunction
+        self.gamma=gamma
 
-        for action in self.transitionTable[state].keys():
-            for sPrime in self.rewardTable[state][action].keys():
-                prob = self.transitionTable[state][action][sPrime]
-                reward = self.rewardTable[state][action][sPrime]
-                futureReward = self.gamma * self.V[sPrime]
+    def __call__(self, s, V):
+        Qs={a: sum([self.transitionFunction(s, a, sPrime)*(self.rewardFunction(s, a, sPrime)+self.gamma*V[sPrime]) for sPrime in self.stateSpace])\
+            for a in self.actionSpaceFunction(s)}
+        Vs=max(Qs.values())
+        return Vs
+    
 
-                expVals[action] += prob * (reward + futureReward)
+class ValueIteration(object):
+    
+    def __init__(self, stateSpace, actionSpaceFunction, theta, bellmanUpdate):
+        self.stateSpace=stateSpace
+        self.actionSpaceFunction = actionSpaceFunction
+        self.theta=theta
+        self.bellmanUpdate=bellmanUpdate
 
-        return expVals
-
-    def getMaxValue(self, dictionary):
-        keysList = list(dictionary.keys())
-        maxValue = keysList[np.argmax(list(dictionary.values()))]
-        return maxValue #returns location of the KEY with the max value
-
-    def getPolicy(self, state):
-        expectedValues = self.getExpectedValues(state)
-        bestAction = self.getMaxValue(expectedValues)
-        #return({bestAction: 1/len(expectedValues)})
-        return(bestAction) #no need to include probability in policy because this is deterministic
         
+    def __call__(self):
+        V={state:0 for state in self.stateSpace}
+        delta=np.inf
+        while (delta > self.theta):
+            delta=0
+            for s in self.stateSpace:
+                v=V[s]
+                V[s]=self.bellmanUpdate(s, V)
+                delta=max(delta, abs(v-V[s]))
+        return V
+    
+    
+class GetPolicy(object):
+    
+    def __init__(self, stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, gamma, V, roundingTolerance):
+        self.stateSpace=stateSpace
+        self.actionSpaceFunction = actionSpaceFunction
+        self.transitionFunction=transitionFunction
+        self.rewardFunction=rewardFunction
+        self.gamma=gamma
+        self.V=V
+        self.roundingTolerance=roundingTolerance
+        
+    def __call__(self, s):
+        Qs={a: sum([self.transitionFunction(s, a, sPrime)*(self.rewardFunction(s, a, sPrime)+self.gamma*self.V[sPrime]) for sPrime in self.stateSpace])\
+            for a in self.actionSpaceFunction(s)}
+        optimalActionList=[a for a in self.actionSpaceFunction(s) if abs(Qs[a]-max(Qs.values())) < self.roundingTolerance]
+        policy={a: 1/(len(optimalActionList)) for a in optimalActionList}
+        return policy
