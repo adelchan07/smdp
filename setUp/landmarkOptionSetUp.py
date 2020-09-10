@@ -55,7 +55,7 @@ class GetLandmarkPolicy(object):
 		return {s: policySetUp(s) for state in stateSpace}
 		
 #main landmark option set up class
-class SetUpLandmarkOptions(object): 
+class SetUpLandmark(object): 
 	def __init__(self, landmarkLocation, landmarkStateSet, actionSet, getTransitionTable, getRewardTable, getLandmarkPolicy, merge):
 		self.landmarkLocation = landmarkLocation
 		self.landmarkStateSet = landmarkStateSet
