@@ -50,12 +50,12 @@ class TestValueIteration(unittest.TestCase):
     		self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
     		for key in calculatedDictionary.keys():
         		self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
-	
+	"""
 	@data(((0,0), {'h1': 1.0})) #only move cost
 	@unpack
 	def test_AtGoal(self, state, expectedResult):
 		self.assertNumericDictAlmostEqual(self.policy[state], expectedResult)
-	
+	"""
 	@data(((1,0), {'left': 0.5, 'h1': 0.5}), ((0,1), {'down': 0.5, 'h1': 0.5})) #both options = -4 cost
 	@unpack
 	def test_TwoOptions(self, state, expectedResult):
