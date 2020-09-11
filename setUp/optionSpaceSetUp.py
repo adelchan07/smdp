@@ -15,10 +15,10 @@ landmarkPolicies = {landmark: (policy)}
 import numpy as np 
 
 class OptionSpaceSetUp(object):
-	def __init__(self, stateSet, landmarkPolicies, primitiveOptions):
+	def __init__(self, stateSet, landmarkStateSet, primitive):
 		self.stateSet = stateSet
-		self.primitiveOptions = primitiveOptions
-		self.landmarkPolicies = landmarkPolicies
+		self.landmarks = landmarkStateSet
+		self.primitive = primitive
 
 	def __call__(self):
 
@@ -26,16 +26,12 @@ class OptionSpaceSetUp(object):
 		return available
 
 	def getAvailableOptions(self, state):
-
-		validOptions = self.primitiveOptions
-
-		for option in self.landmarkPolicies.keys():
-
-			relevantStates = list(self.landmarkPolicies[option].keys()) 
-
-			if state in relevantStates:
+		validOptions = []
+		for option in self.landmarks.keys():
+            
+			if state in self.landmarks[option]:
 				validOptions.append(option)
-				
-		validOptions = list(dict.fromkeys(validOptions)) #remove duplicates
+                
+		validOptions = list(dict.fromkeys(validOptions))
 
-		return validOptions
+		return self.primitive + validOptions
