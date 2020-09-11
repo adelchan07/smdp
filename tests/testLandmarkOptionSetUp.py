@@ -88,15 +88,15 @@ class TestSetUpLandmark(unittest.TestCase):
 		for key in calculatedDictionary.keys():
 		    self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
 	
-	@data(((0, 0), {(0, -1): 0.5, (-1, 0): 0.5}))
+	@data(('h1', (0, 0), {(0, -1): 0.5, (-1, 0): 0.5}))
 	@unpack
-	def test_AtLandmark(self, state, expectedResult):
-		self.assertNumericDictAlmostEqual(self.policies[state], expectedResult)
+	def test_AtLandmark(self, policy, state, expectedResult):
+		self.assertNumericDictAlmostEqual(self.result[policy][state], expectedResult)
 		
-	@data(((0, 1), {(0, -1): 1.0}),((1, 1), {(0, -1): 0.5, (-1, 0): 0.5}))
+	@data(('h1', (0, 1), {(0, -1): 1.0}),('h1', (1, 1), {(0, -1): 0.5, (-1, 0): 0.5}))
 	@unpack
-	def test_NotAtLandmark(self, state, expectedResult):
-		self.assertNumericDictAlmostEqual(self.policies[state], expectedResult)
+	def test_NotAtLandmark(self, policy, state, expectedResult):
+		self.assertNumericDictAlmostEqual(self.result[policy][state], expectedResult)
 	
 	def tearDown(self):
 		pass
