@@ -62,7 +62,7 @@ class GetLandmarkOptionReward(object):
 		while currentState != sPrime:
 			stepsTaken += 1
 			availableActions = list(optionPolicy[currentState].keys())
-			action = availableActions[0] 
+			action = availableActions[0] #doesn't matter which one picked so pick first in list
 			nextState = self.getNextState(currentState, action, stateSet)
 			currentState = nextState
 
