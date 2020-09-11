@@ -20,6 +20,7 @@ class TestValueIteration(unittest.TestCase):
 		actionCost = -1
 		moveCost = -3
 		goalStates = [(0,0)]
+		goalReward = 10
 		primitiveReward = targetCode.rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
 		
 		landmarkPolicies = {'h1': {(0, 0): {(0, -1): 0.5, (-1, 0): 0.5}, (0, 1): {(0, -1): 1.0}, (1, 0): {(-1, 0): 1.0}, (1, 1): {(0, -1): 0.5, (-1, 0): 0.5}}}
