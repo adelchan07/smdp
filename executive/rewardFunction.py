@@ -44,12 +44,15 @@ class GetLandmarkOptionReward(object):
 	def __call__(self, state, option, sPrime):
 		#the restricted initiation set of an option is reflected in the stateSet represented in the optionPolicy
 		
+		if self.getLandmarkSPrime(state, option, sPrime) == 0:
+			return 0
+		
 		reward = self.moveCost + self.getCumulativeCost(state, option, sPrime)
 		
 		if sPrime in self.goalStates:
 			reward += self.goalReward
 
-		return reward*self.getLandmarkSPrime(state, option, sPrime)
+		return reward
 
 	def getCumulativeCost(self, state, option, sPrime):
 
