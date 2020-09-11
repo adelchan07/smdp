@@ -49,7 +49,7 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 	@data(((0, 0), {(0, -1): 0.5, (-1, 0): 0.5}))
 	@unpack
 	def test_AtGoal(self, state, expectedResult):
-		self.assertNumericDictAlmostEqual(self.policy[state], expectedResult}
+		self.assertNumericDictAlmostEqual(self.policy[state], expectedResult)
 	
 	@data(((0, 1), {(0, -1): 1.0}),((1, 1), {(0, -1): 0.5, (-1, 0): 0.5}))
 	@unpack
