@@ -79,7 +79,7 @@ class TestSetUpLandmark(unittest.TestCase):
 		getLandmarkPolicy = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance)
 		merge = targetCode.merge
 
-		setup = SetUpLandmark(landmarkLocation, landmarkStateSet, actionSet, getTransitionTable, getRewardTable, getLandmarkPolicy, merge)
+		setup = targetCode.SetUpLandmark(landmarkLocation, landmarkStateSet, actionSet, getTransitionTable, getRewardTable, getLandmarkPolicy, merge)
 		existingOptions = {}
 		self.result = setup(existingOptions)			  
 						  
