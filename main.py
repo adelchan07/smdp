@@ -5,6 +5,7 @@ Created on Thu Sep 10 19:03:38 2020
 main.py
 
 code to run value iteration on Figure 5 in the publication
+goalState = G2 (9,3)
 """
 import numpy as np 
 import valueIteration as targetCode 
@@ -30,7 +31,7 @@ landmarkSPrime = targetCode.tf.GetLandmarkSPrime(optionTerminations)
 
 actionCost = -1
 moveCost = -3
-goalStates = [(0,0)]
+goalStates = [(9,3)]
 goalReward = 10
 primitiveReward = targetCode.rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
 
