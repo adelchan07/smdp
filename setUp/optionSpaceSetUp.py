@@ -29,11 +29,13 @@ class OptionSpaceSetUp(object):
 
 		validOptions = self.primitiveOptions
 
-		for option in self.optionsDictionary.keys():
+		for option in self.landmarkPolicies.keys():
 
 			relevantStates = list(self.landmarkPolicies[option].keys()) 
 
 			if state in relevantStates:
 				validOptions.append(option)
+				
+		validOptions = list(dict.fromkeys(validOptions)) #remove duplicates
 
 		return validOptions
