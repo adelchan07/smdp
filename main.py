@@ -55,5 +55,5 @@ V = valueItSetUp()
 policySetUp = targetCode.GetPolicy(stateSet, optionSpaceFunction, transitionFunction, rewardFunction, gamma, V, convergenceTolerance)
 policy = {s:policySetUp(s) for s in stateSet}
 
-#able to extract V and policy to be used in visualization code
-
+print(V)
+print(policy)
