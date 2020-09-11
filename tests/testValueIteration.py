@@ -28,8 +28,8 @@ class TestValueIteration(unittest.TestCase):
 		optionSPrime = {'up': primitiveSPrime, 'down':primitiveSPrime, 'left': primitiveSPrime, 'right': primitiveSPrime,'h1': landmarkSPrime} 
 		transitionFunction = targetCode.tf.TransitionFunction(optionSPrime)
 		
-		optionReward = {'up': primitiveReward, 'down': primitiveReward, 'left': primitiveReward, 'right': primitiveReward, 'h1':landmarkReward} 
-    		rewardFunction = targetCode.rf.RewardFunction(optionReward)
+		optionReward = {'up': primitiveReward, 'down': primitiveReward, 'left': primitiveReward, 'right': primitiveReward, 'h1':landmarkReward}
+		rewardFunction = targetCode.rf.RewardFunction(optionReward)
 		
 		universal = ['up','down','left','right','h1']
 		optionSpace = {state: universal for state in stateSet}
