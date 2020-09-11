@@ -54,7 +54,7 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 	@data(((0, 1), {(0, -1): 1.0}),((1, 1), {(0, -1): 0.5, (-1, 0): 0.5}))
 	@unpack
 	def test_NotAtGoal(self, state, expectedResult):
-		self.assertNumericDictAlmostEqual(self.policy[state], expectedResult}
+		self.assertNumericDictAlmostEqual(self.policy[state], expectedResult)
 	
 	def tearDown(self):
 		pass
