@@ -69,7 +69,7 @@ class SetUpLandmark(object):
 		stateSet = self.landmarkStateSet[option]
 		transitionTable = self.getTransitionTable(stateSet)
 		
-		goalStates = list(self.landmarkLocation[option])
-		rewardTable = self.getRewardTable(transitionTable, goalStates)
+		goalState = self.landmarkLocation[option]
+		rewardTable = self.getRewardTable(transitionTable, [goalState])
 		
 		return self.getLandmarkPolicy(transitionTable, rewardTable)
