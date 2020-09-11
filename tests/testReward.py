@@ -74,7 +74,7 @@ class TestLandmarkReward(unittest.TestCase):
 	def test_WrongSPrime(self, state, option, sPrime):
 		self.assertAlmostEqual(self.getReward(state, option, sPrime), 0)
 	
-	@def tearDown(self):
+	def tearDown(self):
 		pass
 		
 		
