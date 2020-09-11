@@ -57,7 +57,7 @@ class TestLandmarkReward(unittest.TestCase):
 		optionTerminations = {"h1": (0,0)}
 		landmarkSPrime = targetCode.tf.GetLandmarkSPrime(optionTerminations)
 		
-		self.getReward = targetCode.GetLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, getLandmarkSPrime, getNextState)
+		self.getReward = targetCode.GetLandmarkOptionReward(actionCost, moveCost, goalStates, goalReward, landmarkPolicies, landmarkSPrime, getNextState)
 		
 	@data(((0,0), 'h1', (0,0)))
 	@unpack
