@@ -69,7 +69,7 @@ class TestLandmarkReward(unittest.TestCase):
 	def test_ValidStates(self, state, option, sPrime, expectedReward):
 		self.assertAlmostEqual(self.getReward(state, option, sPrime), expectedReward)
 	
-	@data(((1,1), 'h1', (1,0)),((1,0), 'h1', (1,1)))
+	@data(((1,1), 'h1', (1,0)))
 	@unpack
 	def test_WrongSPrime(self, state, option, sPrime):
 		self.assertAlmostEqual(self.getReward(state, option, sPrime), 0)
@@ -115,7 +115,7 @@ class TestRewardFunction(unittest.TestCase):
 	def test_Landmark(self, state, option, sPrime, expectedReward):
 		self.assertAlmostEqual(self.rewardFunction(state, option, sPrime), expectedReward)
 	
-	@data(((1,1), 'h1', (1,0)), ((1,0), 'h1', (1,0)))
+	@data(((1,1), 'h1', (1,0)))
 	@unpack
 	def test_WrongSPrime(self, state, option, sPrime):
 	      self.assertEqual(self.rewardFunction(state, option, sPrime), 0)
