@@ -56,3 +56,4 @@ def drawFinalMap(V, width, height, goalState, policy):
         ax.axvline(x, lw=0.3, color='k', zorder=5) 
     
     drawHeatMap(width, height, V, goalState, policy)
+    plt.savefig(f'semi-mdpHeatMap:goal(goalState).jpg')
