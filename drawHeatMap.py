@@ -51,7 +51,7 @@ def drawHeatMap(width, height, V, goalState, policy, fig, ax, primitive, landmar
 def drawFinalMap(V, width, height, goalState, policy, primitivePolicies, landmarkPolicies):
     
     fig, ax=plt.subplots(figsize=(12,7))
-    title=f"semi MDP"
+    title=f"semi MDP: goalState {goalState}"
     plt.title(title, fontsize=18)
     ttl=ax.title
     ttl.set_position([0.5, 1.05])
