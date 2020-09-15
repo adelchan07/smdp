@@ -28,7 +28,19 @@ def drawHeatMap(width, height, V, goalState):
 	for state in V.keys():
 		data[state] = V[state]
 
-	return sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
+	heatMap = sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
+	
+	#draw arrows
+    	primitive = {'up':(0,1), 'down':(0,-1), 'left':(-1,0), 'right':(1,0)}
+   	for state in V.keys():
+        	options = policy[state].keys()
+        	x,y = state
+        	for option in options:
+            	if option in primitive.keys():
+                	action = primitive[option]
+                	plt.arrow(y+.5, x+.5, action[1]/7, action[0]/7, fc="k", ec="k", head_width=0.1, head_length=0.1)       
+	
+	return heatMap
 
 
 def drawFinalMap(V, width, height, goalState):
