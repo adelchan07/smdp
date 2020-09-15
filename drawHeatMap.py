@@ -37,7 +37,7 @@ def drawHeatMap(width, height, V, goalState, policy, fig, ax, primitive, landmar
         for option in options:
             if option in primitive.keys():
                 action = primitive[option]
-                plt.arrow(y+.5, x+.5, action[1]/7, action[0]/7, fc="k", ec="k", head_width=0.1, head_length=0.1)       
+                plt.arrow(y+.7, x+.5, action[1]/7, action[0]/7, fc="k", ec="k", head_width=0.1, head_length=0.1)       
             
             if option in landmark.keys():
                 textstr = landmark[option]
