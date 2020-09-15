@@ -6,7 +6,6 @@ drawHeatMap.py
 
 visualization of smdp implementation
 """
-
 import numpy as np
 import seaborn as sb 
 import matplotlib.pyplot as plt
@@ -21,20 +20,10 @@ def drawHeatMap(width, height, V, goalState):
 	V.pop(goalState)
 	data = np.ones((width, height)) * np.nan
 
-	# fill in some fake data
 	for state in V.keys():
 		data[state] = V[state]
 
-	# make a figure + axes
-	#fig, ax = plt.subplots(1, 1, tight_layout=True)
-	# make color map
-	my_cmap = sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
-	"""
-    for x in range(width + 1):
-		ax.axhline(x, lw=0.3, color='k', zorder=5)
-		ax.axvline(x, lw=0.3, color='k', zorder=5) 
-	"""    
-	return my_cmap
+	return sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
 
 
 def drawFinalMap(V, width, height, goalState):
@@ -50,7 +39,6 @@ def drawFinalMap(V, width, height, goalState):
         ax.axvline(x, lw=0.3, color='k', zorder=5) 
     
     drawHeatMap(width, height, V, goalState)
-    
 
 def drawArrows(V, mainPolicy, optionPolicies):
 	"""
