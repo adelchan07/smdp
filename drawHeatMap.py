@@ -14,22 +14,24 @@ import matplotlib.animation as animation
 from matplotlib import colors
 import matplotlib
 
-def drawHeatMap(width, height, V, vmin, vmax, goalState):
+def drawHeatMap(width, height, V, goalState):
+	vmin = min(list(V.values()))
+	vmax = max(list(V.values()))
+
+	V.pop(goalState)
 	data = np.ones((width, height)) * np.nan
 
 	# fill in some fake data
 	for state in V.keys():
-	data[state] = V[state]
-	
-	V.remove(goalState)
+		data[state] = V[state]
 
 	# make a figure + axes
 	fig, ax = plt.subplots(1, 1, tight_layout=True)
 	# make color map
 	my_cmap = sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
-	for x in range(N + 1):
-	ax.axhline(x, lw=0.3, color='k', zorder=5)
-	ax.axvline(x, lw=0.3, color='k', zorder=5) 
+	for x in range(width + 1):
+		ax.axhline(x, lw=0.3, color='k', zorder=5)
+		ax.axvline(x, lw=0.3, color='k', zorder=5) 
 
 def drawArrows(V, mainPolicy, optionPolicies):
 	"""
