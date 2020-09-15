@@ -26,12 +26,31 @@ def drawHeatMap(width, height, V, goalState):
 		data[state] = V[state]
 
 	# make a figure + axes
-	fig, ax = plt.subplots(1, 1, tight_layout=True)
+	#fig, ax = plt.subplots(1, 1, tight_layout=True)
 	# make color map
 	my_cmap = sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
-	for x in range(width + 1):
+	"""
+    for x in range(width + 1):
 		ax.axhline(x, lw=0.3, color='k', zorder=5)
 		ax.axvline(x, lw=0.3, color='k', zorder=5) 
+	"""    
+	return my_cmap
+
+
+def drawFinalMap(V, width, height, goalState):
+    
+    fig, ax=plt.subplots(figsize=(12,7))
+    title=f"semi MDP"
+    plt.title(title, fontsize=18)
+    ttl=ax.title
+    ttl.set_position([0.5, 1.05])
+    
+    for x in range(width + 1):
+        ax.axhline(x, lw=0.3, color='k', zorder=5)
+        ax.axvline(x, lw=0.3, color='k', zorder=5) 
+    
+    drawHeatMap(width, height, V, goalState)
+    
 
 def drawArrows(V, mainPolicy, optionPolicies):
 	"""
@@ -46,16 +65,3 @@ def drawArrows(V, mainPolicy, optionPolicies):
 
 	"""
 
-"""
-def drawFinalMap(V, policy, width, height):
-	vmin = min(list(V.values()))
-    vmax = max(list(V.values()))
-
-    fig, ax = plt.subplots(figsize=(12,7))
-    title = "semi-MDP Heat Map"
-    plt.title(title, fontsize = 15)
-    ttl = ac.title
-  	ttl.set_position([0.5, 1.05])
-  	drawHeatMap(width, height, V, vmin, vmax)
-  	plt.savefig(f'semi-mdpHeatMap.jpg')
-"""
