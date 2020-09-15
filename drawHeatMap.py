@@ -18,7 +18,7 @@ import matplotlib.animation as animation
 from matplotlib import colors
 import matplotlib
 
-def drawHeatMap(width, height, V, goalState, policy, fig, ax):
+def drawHeatMap(width, height, V, goalState, policy, fig, ax, primitive, landmark):
     vmin = min(list(V.values()))
     vmax = max(list(V.values()))
 
@@ -31,9 +31,6 @@ def drawHeatMap(width, height, V, goalState, policy, fig, ax):
     heatMap = sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
     
     #draw arrows
-    primitive = {'up':(0,1), 'down':(0,-1), 'left':(-1,0), 'right':(1,0)}
-    landmark = {"h1":'1', "h2" :'2', 'h3':'3', "h4":'4'}
-    
     for state in V.keys():
         options = policy[state].keys()
         x,y = state
@@ -51,7 +48,7 @@ def drawHeatMap(width, height, V, goalState, policy, fig, ax):
 
 
  
-def drawFinalMap(V, width, height, goalState, policy):
+def drawFinalMap(V, width, height, goalState, policy, primitivePolicies, landmarkPolicies):
     
     fig, ax=plt.subplots(figsize=(12,7))
     title=f"semi MDP"
@@ -63,4 +60,5 @@ def drawFinalMap(V, width, height, goalState, policy):
         ax.axhline(x, lw=0.3, color='k', zorder=5)
         ax.axvline(x, lw=0.3, color='k', zorder=5) 
     
-    drawHeatMap(width, height, V, goalState, policy, fig, ax)
+    drawHeatMap(width, height, V, goalState, policy, fig, ax, primitivePolicies, landmarkPolicies)
+    
