@@ -22,7 +22,7 @@ import matplotlib.animation as animation
 from matplotlib import colors
 import matplotlib
 
-def drawHeatMap(width, height, V, goalState, policy, fig, ax, primitive, landmark):
+def drawHeatMap(width, height, V, goalState, policy, fig, ax, primitiveText, landmarkText, landmarkLocation):
     vmin = min(list(V.values()))
     vmax = max(list(V.values()))
 
@@ -39,20 +39,24 @@ def drawHeatMap(width, height, V, goalState, policy, fig, ax, primitive, landmar
         options = policy[state].keys()
         x,y = state
         for option in options:
-            if option in primitive.keys():
-                action = primitive[option]
+            if option in primitiveText.keys():
+                action = primitiveText[option]
                 plt.arrow(y+.7, x+.5, action[1]/7, action[0]/7, fc="k", ec="k", head_width=0.1, head_length=0.1)       
             
-            if option in landmark.keys():
-                textstr = landmark[option]
+            if option in landmarkText.keys():
+                textstr = landmarkText[option]
                 ax.text(y+.5, x+.5, textstr, fontsize = 8)
-    
+                
+    #draw landmark location
+    for landmark,state in landmarkLocation.items():
+        x,y = state
+        ax.text(y+.3, x+.5, landmark, color = 'b', fontsize = 8)
     
     return heatMap
 
 
  
-def drawFinalMap(V, width, height, goalState, policy, primitivePolicies, landmarkPolicies):
+def drawFinalMap(V, width, height, goalState, policy, primitiveText, landmarkText, landmarkLocation):
     
     fig, ax=plt.subplots(figsize=(12,7))
     title=f"semi MDP: goalState {goalState}"
@@ -64,6 +68,7 @@ def drawFinalMap(V, width, height, goalState, policy, primitivePolicies, landmar
         ax.axhline(x, lw=0.3, color='k', zorder=5)
         ax.axvline(x, lw=0.3, color='k', zorder=5) 
     
-    drawHeatMap(width, height, V, goalState, policy, fig, ax, primitivePolicies, landmarkPolicies)
-    plt.savefig(f'semi-mdpHeatMap={goalState}.jpg')
+    drawHeatMap(width, height, V, goalState, policy, fig, ax, primitiveText, landmarkText, landmarkLocation)
+    plt.savefig(f'semi-MDP_Heat_Map:{goalState}.jpg')
 
+    
