@@ -18,32 +18,32 @@ import matplotlib.animation as animation
 from matplotlib import colors
 import matplotlib
 
-def drawHeatMap(width, height, V, goalState):
-	vmin = min(list(V.values()))
-	vmax = max(list(V.values()))
+def drawHeatMap(width, height, V, goalState, policy):
+    vmin = min(list(V.values()))
+    vmax = max(list(V.values()))
 
-	V.pop(goalState)
-	data = np.ones((width, height)) * np.nan
+    V.pop(goalState)
+    data = np.ones((width, height)) * np.nan
 
-	for state in V.keys():
-		data[state] = V[state]
+    for state in V.keys():
+        data[state] = V[state]
 
-	heatMap = sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
-	
-	#draw arrows
-    	primitive = {'up':(0,1), 'down':(0,-1), 'left':(-1,0), 'right':(1,0)}
-   	for state in V.keys():
-        	options = policy[state].keys()
-        	x,y = state
-        	for option in options:
-            	if option in primitive.keys():
-                	action = primitive[option]
-                	plt.arrow(y+.5, x+.5, action[1]/7, action[0]/7, fc="k", ec="k", head_width=0.1, head_length=0.1)       
-	
-	return heatMap
+    heatMap = sb.heatmap(data, cmap='RdYlGn', linewidths=0.1, vmin=vmin, vmax=vmax)
+
+    #draw primitive arrows
+    primitive = {'up':(0,1), 'down':(0,-1), 'left':(-1,0), 'right':(1,0)}
+    for state in V.keys():
+        options = policy[state].keys()
+        x,y = state
+        for option in options:
+            if option in primitive.keys():
+                action = primitive[option]
+                plt.arrow(y+.5, x+.5, action[1]/7, action[0]/7, fc="k", ec="k", head_width=0.1, head_length=0.1)       
+    return heatMap
 
 
-def drawFinalMap(V, width, height, goalState):
+ 
+def drawFinalMap(V, width, height, goalState, policy):
     
     fig, ax=plt.subplots(figsize=(12,7))
     title=f"semi MDP"
@@ -55,18 +55,4 @@ def drawFinalMap(V, width, height, goalState):
         ax.axhline(x, lw=0.3, color='k', zorder=5)
         ax.axvline(x, lw=0.3, color='k', zorder=5) 
     
-    drawHeatMap(width, height, V, goalState)
-
-def drawArrows(V, mainPolicy, optionPolicies):
-	"""
-		a. primitive option: plt arrow with the single action
-		b. landmark option: follow landmark policy and plot all arrows until landmark is reached
-			--> give each landmark a distinct color and plot arrow with that color
-
-		**need additional function brnaching between drawing a single arrow and drawing landmark arrows (which builds off drawing the single arrow)
-	
-	optionPolicies = {"up": (0,1)... "h1": {policy}}
-	optionColors = {"all primitive options": 'k','h1': 'r', 'h2': 'g'...}
-
-	"""
-
+    drawHeatMap(width, height, V, goalState, policy)
