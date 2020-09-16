@@ -5,7 +5,7 @@ Created on Thu Sep 10 19:03:38 2020
 main.py
 
 code to run value iteration on Figure 5 in the publication
-goalState = G2 (9,3)
+goalState = G2 (9,9)
 """
 import numpy as np 
 import valueIteration as vi 
