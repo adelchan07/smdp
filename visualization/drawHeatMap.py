@@ -47,7 +47,7 @@ def drawHeatMap(width, height, V, goalState, policy, fig, ax, primitiveText, lan
                 
                 actions = landmarkPolicies[option][state]
                 for action in actions:
-                    plt.arrow(y+.3, x+.6, action[1]/7, action[0]/7, fc="b", ec="b", head_width=.06, head_length=0.06)       
+                    plt.arrow(y+.3, x+.6, action[1]/7, action[0]/7, fc="b", ec="b", head_width=.08, head_length=0.08)       
 
                 
     #draw landmark location
