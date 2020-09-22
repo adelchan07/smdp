@@ -1,5 +1,5 @@
 # smdp
-implementation of smdp with options with a restricted initiation set
+implementation of semi-Markov Decision Process with options(primitive actions and temporally extended actions towards a designated landmark) with a restricted initiation set
 
 repository contents:
   1. valueIteration file = generic solver 
