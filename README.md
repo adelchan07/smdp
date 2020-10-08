@@ -7,8 +7,9 @@ repository contents:
     basics in setUp = used for landmarkOptionSetUp.py
   3. executive = transition, reward, and option space functions used in option value iteration
   4. tests = test files for option set up, value iteration, and value iteration functions (transition, reward, optionSpace)
-  5. main = generate policy for the enviornment described in figure 2 in "Between MDPs and semi-MDPs: A framework for temporal abstraction in reinforcement learning"
-  6. visualization = drawHeatMap.py code and screenshot of the resulting heat map used to model figure 2 in "Between MDPs and semi-MDPs: A framework for temporal abstraction in reinforcement learning"
+  5. valueLearning = generate policy for the enviornment described in figure 2 in "Between MDPs and semi-MDPs: A framework for temporal abstraction in reinforcement learning"
+  6. main = file to generate improved policies (termination improvement for policy generated in valueLearning)
+  7. visualization = drawHeatMap.py code and screenshot of the resulting heat map used to model figure 2 in "Between MDPs and semi-MDPs: A framework for temporal abstraction in reinforcement learning"
   
     numbers = landmark number relating to the option
     black arrow = primitive option
