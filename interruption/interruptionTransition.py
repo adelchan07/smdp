@@ -13,6 +13,31 @@ import numpy as np
 from interruptedOptions import checkCondition
 from interruptedOptions import compareOptions
 
+class interruptedLandmarkPolicy(object):
+	
+	def __init__(self, optionPolicies, optionSpace, optionStateSet, checkCondition, compareOptions):
+		self.policies = optionPolicies
+		self.optionSpace = optionSpace
+		self.optionStateSet = optionStateSet
+		
+		self.checkCondition = checkCondition
+		self.compareOptions = compareOptions
+		
+	def __call__(self, state, option, sPrime):
+		self.option = option
+		self.sPrime = sPrime
+		
+		policy = {state: self.earlyTermination(state, self.option, self.sPrime) for state in optionStateSet[state])
+		return policy
+			  
+	def earlyTermination(self, state, option, sPrime):
+			  
+		if self.checkCondition(state, sPrime):
+			  result = compareOptions(state, option)
+			  
+		else:
+			return option
+
 def getNextState(state, action, stateSet):
 
 	xCoord = state[0] + action[0]
