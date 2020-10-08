@@ -2,7 +2,7 @@
 Created on Thu Sep 10 19:03:38 2020
 @author: adelphachan
 
-main.py
+valueLearning.py
 
 code to run value iteration on Figure 5 in the publication
 goalState = G2 (9,9)
