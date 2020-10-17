@@ -129,7 +129,7 @@ class interruptedPath(object):
 			sPrime = self.primitiveStep(currentState, action)
 
 			if self.checkCondition(currentState, sPrime):
-				currentOption = self.compareOptions(currentState, currentOption)
+				currentOption = self.compareOptions(sPrime, currentOption)
 
 			currentState = sPrime
 
