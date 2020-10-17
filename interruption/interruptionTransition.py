@@ -69,13 +69,28 @@ class getStatePath(object):
 
 		return path
 
+class getOption(object):
+	def __init___(self, policy, optionType):
+		self.policy = policy
+		self.optionType = optionType
+
+	def __call__(self, state):
+		possibleOptions = self.policy[state]
+
+		for option in possibleOptions:
+			if self.optionType[state] = 'landmark': return option 
+
+		return possibleOptions[0]
+
+
 class normalPath(object):
-	def __init__(self, policy, optionType, goalState, getStatePath, getNextState):
+	def __init__(self, policy, optionType, goalState, getStatePath, getNextState, getOption:
 		self.policy = policy
 		self.optionType = optionType
 		self.goalState = goalState
 		self.getStatePath = getStatePath
 		self.getNextState = getNextState
+		self.getOption = getOption
 
 	def __call__(self, state):
 		path = {}
@@ -89,22 +104,37 @@ class normalPath(object):
 
 		return path
 
-	def getOption(self, state):
-		possilbeOptions = policy[state]
-
-		#return only LANDMARK options
-		for option in possilbeOptions:
-			if optionType[option] = 'landmark': return option
-
-		return possilbeOptions[0]
-
-"""
 class interruptedPath(object):
-	def __init__(self, policy, optionSpace, checkCondition, compareOptions):
+	def __init__(self, policy, primitiveStep, optionPolicies, checkCondition, compareOptions, goalState):
 		self.policy = policy
-		self.optionSpace = optionSpace
+		self.primitiveStep = primitiveStep
+		self.optionPolicies = optionPolicies
+		self.getOption = getOption
 		self.checkCondition = checkCondition
 		self.compareOptions = compareOptions
+		self.goalState = goalState
 
 	def __call__(self, state):
-"""
+		path = {}
+		optionRecord = {}
+
+		currentState = stateSet
+		currentOption = self.getOption(state)
+
+		while currentOption != self.goalState:
+			action = self.optionPolicies[currentOption][currentState][0]
+			path[currentState] = action
+			optionRecord[currentState] = currentOption
+
+			sPrime = self.primitiveStep(currentState, action)
+
+			if self.checkCondition(currentState, sPrime):
+				currentOption = self.compareOptions(currentState, currentOption)
+
+			currentState = sPrime
+
+		return path, currentOption
+
+
+
+
