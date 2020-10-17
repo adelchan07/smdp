@@ -1,89 +1,110 @@
 """
-Created on Mon Oct 5 10:23:50 2020
+Created on Sun Oct 11 13:03:57 2020
 @author: adelphachan
+interruptedTransition.py
 
-interruptionTransition.py
-
-alter transition function to explore new options whenever new options are available
-pulling from the two functions found in interruptedOptions.py
-
-primitive options and single step getNextState remain the same --> only change is in if landmark options go to completion
+given a state, return the new "policy" including changes caused by interruption
 """
 import numpy as np
 from interruptedOptions import checkCondition
 from interruptedOptions import compareOptions
 
-class interruptedLandmarkPolicy(object):
+#function for single step
+class primitiveStep(object):
+	def __init__(self, stateSet):
+		self.stateSet = stateSet
+
+	def __call__(self, state, action):
+		x, y = state[0], state[1]
+		xChange, yChange = action[0], action[1]
+
+		newLocation = (x + xChange, y + yChange)
+		if newLocation in self.stateSet:
+			return newLocation
+		else:
+			return state
+
+class getNextState(object):
+	def __init__(self, landmarkTerminations, primitivePolicies, stateSet):
+		self.landmarkTerminations = landmarkTerminations
+		self.primitivePolicies = primitivePolicies
+		self.stateSet = stateSet
+
+	def __call__(self, state, option):
+
+		if option in self.landmarkTerminations.keys():
+			return self.landmarkTerminations[option]
+
+		else:
+			action = self.primitivePolicies[option]
+			newState = (state[0] + action[0], state[1] + action[1])
+
+			if newState in stateSet:
+				return newState
+			else:
+				return state
+
+
+#adds appropriate steps given a state and option (works for primitive and landmark options)
+class getStatePath(object):
+	def __init__(self, landmarkPolicies, primitiveOptions, landmarkTerminations, primitiveStep):
+		self.landmarkPolicies = landmarkPolicies
+		self.primitiveOptions = primitiveOptions
+		self.landmarkTerminations = landmarkTerminations
+		self.primitiveStep = primitiveStep
 	
-	def __init__(self, optionPolicies, optionSpace, optionStateSet, checkCondition, compareOptions):
-		self.policies = optionPolicies
-		self.optionSpace = optionSpace
-		self.optionStateSet = optionStateSet
+	def __call__(self, state, option, path):
+		currentState = state
 		
+		if option in self.landmarkPolices.keys():
+			terminationCondition = self.landmarkTerminations[option]
+
+			while currentState != terminationCondition:
+				action = self.landmarkPolicies[currentState][0]
+				path[state] = action
+				currentState = self.primitiveStep(state, action)
+		else:
+			action = primitiveOptions[currentState]
+			path[state] = action
+
+		return path
+
+class normalPath(object):
+	def __init__(self, policy, optionType, goalState, getStatePath, getNextState):
+		self.policy = policy
+		self.optionType = optionType
+		self.goalState = goalState
+		self.getStatePath = getStatePath
+		self.getNextState = getNextState
+
+	def __call__(self, state):
+		path = {}
+		currentState = state
+
+		while currentState != self.goalState:
+			currentOption = self.getOption(currentState)
+			path = self.getStatePath(state, currentOption, path)
+
+			currentState = self.getNextState(state, option)
+
+		return path
+
+	def getOption(self, state):
+		possilbeOptions = policy[state]
+
+		#return only LANDMARK options
+		for option in possilbeOptions:
+			if optionType[option] = 'landmark': return option
+
+		return possilbeOptions[0]
+
+"""
+class interruptedPath(object):
+	def __init__(self, policy, optionSpace, checkCondition, compareOptions):
+		self.policy = policy
+		self.optionSpace = optionSpace
 		self.checkCondition = checkCondition
 		self.compareOptions = compareOptions
-		
-	def __call__(self, state, option, sPrime):
-		self.option = option
-		self.sPrime = sPrime
-		
-		policy = {state: self.earlyTermination(state, self.option, self.sPrime) for state in optionStateSet[state])
-		return policy
-			  
-	def earlyTermination(self, state, option, sPrime):
-			  
-		if self.checkCondition(state, sPrime):
-			  result = compareOptions(state, option)
-			  
-		else:
-			return option
 
-def getNextState(state, action, stateSet):
-
-	xCoord = state[0] + action[0]
-	yCoord = state[1] + action[1]
-
-	result = (xCoord, yCoord)
-
-	if result in stateSet:
-		return result
-	else:
-		return state
-
-class GetPrimitiveSPrime(object):
-	def __init__(self, primitiveOptions, stateSet, getNextState):
-		self.primitiveOptions = primitiveOptions
-		self.stateSet = stateSet
-		self.getNextState = getNextState
-	
-	def __call__(self, state, option, sPrime):
-		
-		action = self.primitiveOptions[option]
-		actual = self.getNextState(state, action, self.stateSet)
-		
-		if actual != sPrime:
-			return 0
-		return 1
-		
-
-class GetLandmarkSPrime(object):
-	def __init__(self, optionTerminations):
-		self.optionTerminations = optionTerminations
-	
-	def __call__(self, state, option, sPrime): 
-		actual = self.optionTerminations[option]
-		
-		if actual != sPrime:
-			return 0
-		return 1
-
-class TransitionFunction(object):
-	def __init__(self, optionSPrime):
-		self.optionSPrime = optionSPrime
-	
-	def __call__(self, state, option, sPrime):
-		
-		function = self.optionSPrime[option]
-		return function(state, option, sPrime)
-		
-		
+	def __call__(self, state):
+"""
