@@ -35,7 +35,7 @@ class compareOptions(object):
 
 		else:
 			for option in options:
-				if option in landmarkOptions:
+				if option in self.landmarkOptions:
 					return option
 
 			
