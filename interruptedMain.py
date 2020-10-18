@@ -11,6 +11,11 @@ only using landmark options to better illustrate interruption
 """
 import numpy as np
 import valueIteration as vi 
+
+import sys
+import os
+dirName = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirName, 'interruption', ""))
 import interruptionTransition as it
 
 stateSet = [(i,j) for i in range(5) for j in range(10)]
