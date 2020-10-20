@@ -30,10 +30,10 @@ class compareOptions(object):
 	def __call__(self, state, currentOption):
 		options = list(self.policy[state].keys())
 
+		if currentOption in options:
+			return currentOption
 		for option in options:
-			if option != currentOption:
-				return option
-		return currentOption
+			if option in self.landmarkOptions.keys(): return option
 			
 
 
