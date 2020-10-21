@@ -4,36 +4,55 @@ Created on Fri Oct 2 12:04:49 2020
 
 interruptedOptions.py
 
-early termination of options + choosing which option to pick up
-**addition of a landmark option that takes you directly to the ultimate goal state
+1. CheckCondition: return True if new options available, return False if not
+2. CompareOptions: return new option choice 
 
-two functions used to initiate the need for options to be interrupted
-
-purpose of funcitions:
-1. checkCondition: 
-	a. True = needs to check for a possible new option
-	b. False = no need to check, can stay with the current option you are following
+optionSpaceFunction and getValidOption functions return landmark options relevant at that specific state (only returning landmark options because those are the only ones relevant in interruption)
 """
 
-class checkCondition(object):
-	def __init__(self, optionSpace):
+class optionSpaceFuction(object):
+	def__init__(self, optionSpace, optionType):
 		self.optionSpace = optionSpace
+		self.optionType = optionType
+
+	def __call__(self, state):
+		choices = self.optionSpace[state]
+		availableLandmarks = []
+
+		for choice in choices:
+			if optionType[choice] == 'landmark': availableLandmarks.append(choice)
+
+		return availableLandmarks
+
+
+class CheckCondition(object):
+	def __init__(self, optionSpaceFunction):
+		self.optionSpaceFunction = optionSpaceFunction
 
 	def __call__(self, state, sPrime):
-		return !(self.optionSpace[state] == self.optionSpace[sPrime]) 
+		return self.optionSpaceFunction(state) != self.optionSpaceFunction(sPrime)
 
-class compareOptions(object):
-	def __init__(self, policy, landmarkOptions):
-		self.policy = policy
-		self.landmarkOptions = landmarkOptions
+class getValidOptions(object):
+	def __init__(self, optionSpace, optionType):
+		self.optionSpace = optionSpace
+		self.optionType = optionType
+
+	def __call__(self, state):
+		choices = self.optionSpace[state]
+		validOptions = []
+
+		for choice in choices:
+			if self.optionType[choice] == 'landmark': validOptions.append(choice)
+
+		return validOptions
+
+class CompareOptions(object):
+	def __init__(self, getValidOptions):
+		self.getValidOptions = getValidOptions
 
 	def __call__(self, state, currentOption):
-		options = list(self.policy[state].keys())
+		available = self.getValidOptions(state)
 
-		if currentOption in options:
-			return currentOption
-		for option in options:
-			if option in self.landmarkOptions.keys(): return option
-			
+		if currentOption in available: return currentOption #favor current option
 
-
+		return available[0] #else case
