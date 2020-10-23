@@ -31,6 +31,9 @@ def drawPaths(fig, ax, width, height, agentLocation, normalPath, interruptedPath
     goalX, goalY = goalState[0], goalState[1]
     ax.text(y+.5,x + .5, "R", color = 'k', fontsize = 17 )
     
+    x,y = agentLocation[0], agentLocation[1]
+    ax.text(y+.4,x + .5, "Agent", color = 'k', fontsize = 17 )
+    
     return baseGrid
 
 def drawFinalMap(width, height, state, normalPath, interruptedPath, goalState, goalStateDomain):
