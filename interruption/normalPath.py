@@ -3,7 +3,7 @@ Created on Sun Oct 11 13:03:57 2020
 @author: adelphachan
 normalPath.py
 
-given a state, return the new "policy" including changes caused by interruption
+given a state, return the "policy" (path) resulting from sMDP value iteration WITHOUT interruptions
 """
 import numpy as np 
 
