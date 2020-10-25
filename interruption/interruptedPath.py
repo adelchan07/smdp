@@ -18,8 +18,7 @@ class getOption(object):
 		options = self.policy[state]
 
 		for option in options:
-			if self.optionType[option] == 'landmark':
-				return option
+			if self.optionType[option] == 'landmark': return option
 
 class singleStep(object):
 	def __init__(self, optionPolicies, getNextState, stateSet):
