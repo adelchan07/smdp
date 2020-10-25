@@ -27,7 +27,7 @@ class landmarkPolicyPath(object):
 		policy = self.landmarkPolicies[option]
 
 		while currentState != endGoal:
-			action = policy[state][0] #all optimal --> just pick first one
+			action = list(policy[state].keys())[0] #all optimal --> just pick first one
 			path[state] = action
 
 			currentState = (currentState[0] + action[0], currentState[1] + action[1])
@@ -97,7 +97,7 @@ class GetNormalPath(object):
 		currentState = state
 
 		while currentState != self.goalState:
-			option = self.policy[state][0] #since all are "optimal", pick randomly
+			option = list(self.policy[state].keys())[0] #since all are "optimal", pick randomly
 			path = self.policyToPath[option](state, option, path)
 			currentState = self.getSPrime(state, option)
 
