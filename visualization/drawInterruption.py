@@ -23,16 +23,20 @@ def drawPaths(fig, ax, width, height, agentLocation, normalPath, interruptedPath
     for state in normalPath.keys():
         x,y = state
         action = normalPath[state]
-        plt.arrow(y+.4, x+.2, action[1]/7, action[0]/7, fc="b", ec="b", head_width=0.1, head_length=0.1) 
+        plt.arrow(y+.3, x+.5, action[1]/7, action[0]/7, fc="b", ec="b", head_width=0.1, head_length=0.1) 
     
-        action = normalPath[state]
+        
+    for state in interruptedPath.keys():
+        x,y = state
+        action = interruptedPath[state]
+        print(state, action)
         plt.arrow(y+.4, x+.7, action[1]/7, action[0]/7, fc="m", ec="m", head_width=0.1, head_length=0.1) 
     
     goalX, goalY = goalState[0], goalState[1]
-    ax.text(y+.5,x + .5, "R", color = 'k', fontsize = 17 )
+    ax.text(goalY+.4,goalX+.6, "R", color = 'k', fontsize = 17 )
     
     x,y = agentLocation[0], agentLocation[1]
-    ax.text(y+.4,x + .5, "Agent", color = 'k', fontsize = 17 )
+    ax.text(y+.4,x+.9, "Agent", color = 'k', fontsize = 10 )
     
     return baseGrid
 
@@ -47,6 +51,9 @@ def drawFinalMap(width, height, state, normalPath, interruptedPath, goalState, g
     for x in range(width + 1):
         ax.axhline(x, lw=0.3, color='k', zorder=5)
         ax.axvline(x, lw=0.3, color='k', zorder=5) 
+    for y in range(height + 1):
+        ax.axhline(y, lw=0.3, color='k', zorder=5)
+        ax.axvline(y, lw=0.3, color='k', zorder=5) 
     
     normal = mpatches.Patch(color = 'b', label = 'Normal Path')
     interrupt = mpatches.Patch(color = 'm', label = 'Interrupted Path')
