@@ -21,7 +21,7 @@ landmarkSPrime = vi.tf.GetLandmarkSPrime(optionTerminations)
 
 actionCost = -1
 moveCost = -3
-goalStates = [(9,9)]
+goalStates = [(0,9)]
 goalReward = 10
 primitiveReward = vi.rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
 
