@@ -23,7 +23,7 @@ class getOption(object):
 class singleStep(object):
 	def __init__(self, optionPolicies, getNextState, stateSet):
 		self.optionPolicies = optionPolicies
-		self.getNextState #getNextState from regular transition function
+		self.getNextState = getNextState #getNextState from executive --> transition.py
 		self.stateSet = stateSet
 
 	def __call__(self, state, option):
@@ -49,7 +49,7 @@ class GetInterruptedPath(object):
 		currentOption = self.getOption(state)
 
 		while currentState != self.goalState:
-			specificStep = list(self.optionPolicies[currentOption][state].keys())[0]
+			specificStep = list(self.optionPolicies[currentOption][currentState].keys())[0]
 			path[currentState] = specificStep
 
 			sPrime = self.singleStep(currentState, currentOption)
