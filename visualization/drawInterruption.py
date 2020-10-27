@@ -60,3 +60,4 @@ def drawFinalMap(width, height, state, normalPath, interruptedPath, goalState, g
     plt.legend(handles = [normal, interrupt], bbox_to_anchor=(1.2, 1), loc = 'upper right')
         
     drawPaths(fig, ax, width, height, state, normalPath, interruptedPath, goalState, goalStateDomain)
+    plt.savefig(f'interruptedPath:{state}.jpg')
