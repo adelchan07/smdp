@@ -8,8 +8,8 @@ interruptOption.py
 optionSpaceFunction and getValidOption functions return landmark options relevant at that specific state (only returning landmark options because those are the only ones relevant in interruption)
 """
 
-class optionSpaceFuction(object):
-	def__init__(self, optionSpace, optionType):
+class optionSpaceFunction(object):
+	def __init__(self, optionSpace, optionType):
 		self.optionSpace = optionSpace
 		self.optionType = optionType
 
@@ -18,7 +18,7 @@ class optionSpaceFuction(object):
 		availableLandmarks = []
 
 		for choice in choices:
-			if optionType[choice] == 'landmark': availableLandmarks.append(choice)
+			if self.optionType[choice] == 'landmark': availableLandmarks.append(choice)
 
 		return availableLandmarks
 
@@ -50,7 +50,5 @@ class CompareOptions(object):
 
 	def __call__(self, state, currentOption):
 		available = self.getValidOptions(state)
-
-		if currentOption in available: return currentOption #favor current option
-
-		return available[0] #else case
+		for option in available:
+			if option != currentOption: return option
