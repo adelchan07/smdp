@@ -5,7 +5,6 @@ normalPath.py
 
 given a state, return the "policy" (path) resulting from sMDP value iteration WITHOUT interruptions
 """
-
 class primitivePolicyPath(object):
 	def __init__(self, primitiveOptions):
 		self.primitiveOptions = primitiveOptions
