@@ -29,7 +29,6 @@ def drawPaths(fig, ax, width, height, agentLocation, normalPath, interruptedPath
     for state in interruptedPath.keys():
         x,y = state
         action = interruptedPath[state]
-        print(state, action)
         plt.arrow(y+.4, x+.7, action[1]/7, action[0]/7, fc="m", ec="m", head_width=0.1, head_length=0.1) 
     
     goalX, goalY = goalState[0], goalState[1]
