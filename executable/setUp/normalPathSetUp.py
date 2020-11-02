@@ -72,6 +72,7 @@ class getSPrime(object):
 		if self.optionType[option] == 'landmark':
 			return self.landmarkSPrime
 		return self.primitiveSPrime
+	
 	def __call__(self, state, option):
 		function = self.optionFunction[option]
 		return function(state, option)
