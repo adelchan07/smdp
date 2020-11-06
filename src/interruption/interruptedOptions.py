@@ -14,10 +14,7 @@ class CompareOptions(object):
     def __init__(self, optionSpaceFunction):
         self.optionSpaceFunction = optionSpaceFunction
 
-    def __call__(self, state, currentOption):
+    def __call__(self, state):
         availableOptions = self.optionSpace[state]
 
-        for option in availableOptions:
-            if option != currentOption: return option #favor change
-
-        return currentOption #keep current option if no other ones available
+        return availableOptions[0] #since they are all optimal, can choose any
