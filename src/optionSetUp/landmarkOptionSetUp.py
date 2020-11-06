@@ -13,15 +13,7 @@ constants for all dictionaries:
 - getLandmarkPolicy callable
 landmarks = {"name": location}
 """
-import sys
-import os
-dirName = os.path.dirname(__file__)
-sys.path.append(os.path.join(dirName, 'basics', ""))
-
 import numpy as np
-import transitionTable as tt
-import rewardTable as rt
-import valueIteration as vi
 
 #general helper functions 
 def merge(dictionary1, dictionary2):
@@ -35,11 +27,7 @@ class GetLandmarkPolicy(object):
 		self.gamma = gamma
 		self.convergenceTolerance = convergenceTolerance
 	
-	def __call__(self, transitionTable, rewardTable):
-		transitionFunction = tt.TransitionFunction(transitionTable)
-		rewardFunction = rt.RewardFunction(rewardTable)
-		stateSpace = list(transitionTable.keys())
-		actionSpaceFunction = lambda s: list(transitionTable.get(s).keys())
+	def __call__(self, transitionFunction, rewardFunction, stateSpace, actionSpaceFunction):
 		
 		bellmanUpdate = vi.BellmanUpdate(stateSpace, actionSpaceFunction, transitionFunction, rewardFunction, self.gamma)
 		valueItSetUp = vi.ValueIteration(stateSpace, actionSpaceFunction, self.convergenceTolerance, bellmanUpdate)
@@ -50,15 +38,17 @@ class GetLandmarkPolicy(object):
 		
 #main landmark option set up class
 class SetUpLandmark(object): 
-	def __init__(self, landmarkLocation, landmarkStateSet, actionSet, getTransitionTable, getRewardTable, getLandmarkPolicy, merge):
+	def __init__(self, landmarkLocation, landmarkStateSet, actionSet, transitionFunction, rewardFunction, getLandmarkPolicy, getTransitionTable, merge):
 		self.landmarkLocation = landmarkLocation
 		self.landmarkStateSet = landmarkStateSet
 		
 		self.actionSet = actionSet
 		
-		self.getTransitionTable = getTransitionTable
-		self.getRewardTable = getRewardTable
+		self.transitionFunction = transitionFunction
+		self.rewardFunction = rewardFunction
 		self.getLandmarkPolicy = getLandmarkPolicy
+		
+		self.getTransitionTable = getTransitionTable
 		self.merge = merge
 	def __call__(self, existingOptions):
 		landmark = {option: self.getOptionPolicy(option) for option in self.landmarkLocation.keys()}
@@ -66,10 +56,9 @@ class SetUpLandmark(object):
 		return self.merge(landmark, existingOptions)
 	
 	def getOptionPolicy(self, option):
-		stateSet = self.landmarkStateSet[option]
-		transitionTable = self.getTransitionTable(stateSet)
+		stateSpace = self.landmarkStateSet[option]
 		
-		goalState = self.landmarkLocation[option]
-		rewardTable = self.getRewardTable(transitionTable, [goalState])
+		transitionTable = self.getTransitionTable(stateSpace)
+		actionSpaceFunction = lambda s: list(transitionTable.get(s).keys())
 		
-		return self.getLandmarkPolicy(transitionTable, rewardTable)
+		return self.getLandmarkPolicy(self.transitionFunction, self.rewardFunction, stateSpace, actionSpaceFunction)
