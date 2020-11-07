@@ -31,10 +31,10 @@ def drawPaths(fig, ax, width, height, agentLocation, normalPath, interruptedPath
         action = interruptedPath[state]
         plt.arrow(y+.4, x+.7, action[1]/7, action[0]/7, fc="m", ec="m", head_width=0.1, head_length=0.1) 
     
-    goalX, goalY = goalState[0], goalState[1]
-    ax.text(goalY+.4,goalX+.6, "R", color = 'k', fontsize = 17 )
+    x,y = goalState
+    ax.text(y+.4,x+.6, "R", color = 'k', fontsize = 17 )
     
-    x,y = agentLocation[0], agentLocation[1]
+    x,y = agentLocation
     ax.text(y+.4,x+.9, "Agent", color = 'k', fontsize = 10 )
     
     return baseGrid
