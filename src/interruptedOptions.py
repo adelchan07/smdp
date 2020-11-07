@@ -8,7 +8,7 @@ class CheckCondition(object):
         current = self.optionSpaceFunction(state)
         next = self.optionSpaceFunction(sPrime)
 
-        return !(current == next) #if same, return False
+        return (current != next) #return True --> prompt next step if the options available at both states are different
 
 class CompareOptions(object):
     def __init__(self, optionSpaceFunction):
