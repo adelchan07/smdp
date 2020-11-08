@@ -32,14 +32,21 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		goalReward = 10
 		goalStates = [(0,0)]
 		
+		"""
 		setUp = targetCode.tt.CreateTransitionTable(actionSet)
 		transitionTable = setUp(stateSet)
 		
 		setUp = targetCode.rt.CreateRewardTable(actionSet, actionCost, goalReward)
-		rewardTable = setUp(transitionTable, goalStates)
+		rewardTable = setUp(transitionTable, goalStates) #code until here NOT ok
+		"""
 		
-		setUp = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance)
-		self.policy = setUp(transitionTable, rewardTable)
+		#NEED TO FILL IN
+		transitionFunction = 
+		rewardFunction = 
+		actionSpaceFunction = 
+		
+		setUp = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance) 
+		self.policy = setUp(transitionFunction, rewardFunction, stateSet, actionSpaceFunction)
 	
 	def assertNumericDictAlmostEqual(self, calculatedDictionary, expectedDictionary, places=7):
     		self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
@@ -69,17 +76,22 @@ class TestSetUpLandmark(unittest.TestCase):
 		landmarkLocation = {"h1": (0,0)}
 		landmarkStateSet = {"h1": stateSet}
 		actionSet = [(0,1), (0,-1), (1,0), (-1,0)]
-
+		"""
 		getTransitionTable = targetCode.tt.CreateTransitionTable(actionSet)
 
 		actionCost = -1
 		goalReward = 10
 		getRewardTable = targetCode.rt.CreateRewardTable(actionSet, actionCost, goalReward)
-
+		"""
+		
+		#NEED TO FILL IN
+		transitionFunction = 
+		rewardFunction = 
 		getLandmarkPolicy = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance)
+		getTransitionTable = 
 		merge = targetCode.merge
 
-		setup = targetCode.SetUpLandmark(landmarkLocation, landmarkStateSet, actionSet, getTransitionTable, getRewardTable, getLandmarkPolicy, merge)
+		setup = targetCode.SetUpLandmark(landmarkLocation, landmarkStateSet, actionSet, transitionFunction, rewardFunction, getLandmarkPolicy, getTransitionTable, merge)
 		existingOptions = {}
 		self.result = setup(existingOptions)			  
 						  
