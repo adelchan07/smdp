@@ -1,19 +1,4 @@
 """
-Created on Thu Sep 10 19:03:38 2020
-@author: adelphachan
-main.py
-code to run interrupted options(termination improvement) on Figure 5 in the publication
-goalState = G2 (9,9)
-"""
-import numpy as np
-import transitionFunction as tf
-import rewardFunction as rf 
-
-import sys
-sys.append('.../src/')
-import valueIteration as vi
-
-"""
 Created on Sun Oct 11 13:03:57 2020
 @author: adelphachan
 interruptedMain.py
