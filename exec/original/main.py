@@ -10,10 +10,7 @@ import transitionFunction as tf
 import rewardFunction as rf 
 
 import sys
-import os
-dirName = os.path.dirname(__file__)
-sys.path.append(os.path.join(dirName, '..'))
-sys.path.append('../src/')  
+sys.append('.../src/')
 import valueIteration as vi
 
 
@@ -29,7 +26,7 @@ for state in hallways:
 
 stateSet = fullGrid
 
-getNextState = vi.tf.getNextState
+getNextState = tf.getNextState
 primitivePolicies = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
 primitiveSPrime = tf.GetPrimitiveSPrime(primitivePolicies, stateSet, getNextState)
 		
