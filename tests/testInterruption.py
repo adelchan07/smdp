@@ -9,18 +9,21 @@ import interruptedOptions as targetCode
 @ddt
 class testCheckCondition(unittest.TestCase):
     def setUp(self):
-
-        class optionSpaceFuction(object):
-            def__init__(self, optionSpace):
-                self.optionSpace = optionSpace #no optionType bc only landmark options relevant/ exist in optionSpace
-
-            def __call__(self, state):
-                optionSet = self.optionSpace[state]
-                return optionSet
-        
-        optionSpace = {"A": [(i,j) for i in range(3) for j in range(3)], "B": [(i,j) for i in range(1) for j in range(3)]}
-        
-        optionSpaceFunction = optionSpaceFunction(optionSpace, optionType)
+	
+	def getOptionSpace(stateSet, optionStateSet):
+		result = {}
+		for state in stateSet:
+			options = []
+			for option in optionStateSet:
+				if state in optionStateSet[option]: options.append(option)
+			result[state] = options
+		return result
+		
+        stateSet = [(i,j) for i in range(3) for j in range(3)]
+	optionStateSet = {"A": [(i,j) for i in range(3) for j in range(3)], "B": [(i,j) for i in range(1) for j in range(3)]}
+	optionSpace = getOptionSpace(stateSet, optionStateSet)
+	
+	optionSpaceFunction = lambda x: optionSpace[x]
         self.CheckCondition = targetCode.CheckCondition(optionSpaceFuction)
 
     @data(((2,0), (2,1)), ((0,0), (0,1)))
