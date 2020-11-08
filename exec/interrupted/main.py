@@ -8,6 +8,10 @@ only using landmark options to better illustrate interruption
 *note: goal state IS R so there is a way for a single landmark option to be interrupted to go to the goal in one "shot"
 """
 import numpy as np
+
+from normalPath import GetNormalPath
+from interruptedPath import GetInterruptedPath
+
 import sys
 sys.append('../original/')
 import transitionFunction as tf
@@ -15,6 +19,7 @@ import rewardFunction as rf
 
 sys.append('.../src/')
 import valueIteration as vi
+import interruptedOptions as io
 
 stateSet = [(i,j) for i in range(5) for j in range(10)]
 
@@ -51,5 +56,16 @@ valueItSetUp = vi.ValueIteration(stateSet, optionSpaceFunction, convergenceToler
 V = valueItSetUp()
 
 policySetUp = vi.GetPolicy(stateSet, optionSpaceFunction, transitionFunction, rewardFunction, gamma, V, convergenceTolerance)
-policy = {s:policySetUp(s) for s in stateSet}
+policy = {s:policySetUp(s) for s in stateSet} #interruption = policy ONLY with landmark options 
 
+normalPathSetUp = GetNormalPath(landmarkPolicies, policy, optionTerminations, getNextState, goalState, stateSet)
+
+checkCondition = io.CheckCondition(optionSpaceFunction)
+interruptedPathSetUp = GetInterruptedPath(checkCondition, landmarkPolicies, policy, optionTerminations, getNextState, goalState, stateSet)
+
+agentLocation = (4,0)
+normalPath = normalPathSetUp(agentLocation)
+interruptedPath = interruptedPathSetUp(agentLocation)
+
+print("Original Path: ", normalPath)
+print ("Interrupted Path: ", interruptedPath)
