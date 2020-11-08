@@ -6,7 +6,7 @@ Created on Wed Sep 3 12:03:38 2020
 testReward.py
 """
 import sys
-sys.path.append('../executive/')
+sys.path.append('../exec/original/')
 
 import numpy as np
 import unittest
