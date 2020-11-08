@@ -9,10 +9,7 @@ testing merge function and setUpPrimitive class
 """
 
 import sys
-import os
-dirName = os.path.dirname(__file__)
-sys.path.append(os.path.join(dirName, '..'))
-sys.path.append('../setUp/')  
+sys.append('../src/optonSetUp')
 
 import numpy as np
 import unittest
