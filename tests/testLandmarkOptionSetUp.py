@@ -13,7 +13,7 @@ merge function tested in testPrimitiveOptions.py
 """
 
 import sys
-sys.path.append('../setUp/')
+sys.path.append('../src/optionSetUp/')
 
 import numpy as np
 import unittest
