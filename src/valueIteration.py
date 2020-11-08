@@ -5,7 +5,7 @@ just changed name from action --> option for sMDP environment
 """
 
 import sys
-sys.append('../exec/original/')
+sys.path.append('../exec/original/')
 
 import numpy as np
 import transitionFunction as tf
