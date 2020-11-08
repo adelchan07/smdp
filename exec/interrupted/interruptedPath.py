@@ -1,56 +1,58 @@
 class GetInterruptedPath(object):
-	def __init__(self, optionPolicies, goalState, getOption, singleStep, CheckCondition, CompareOptions):
-		
-		self.optionPolicies = optionPolicies
+	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalState, stateSet):
+		self.checkCondition = checkCondition
+		self.landmarkPolicies = landmarkPolicies
+		self.interruptedPolicy = interruptedPolicy
+		self.optionTerminations = optionTerminations
+		self.getNextState = getNextState
 		self.goalState = goalState
-
-		self.getOption = getOption
-		self.singleStep = singleStep
-
-		self.checkCondition = CheckCondition
-		self.compareOptions = CompareOptions
+		self.stateSet = stateSet
 
 	def __call__(self, state):
-		path = {}
 		currentState = state
-		currentOption = self.getOption(state)
+		path = {}
 
 		while currentState != self.goalState:
-			specificStep = list(self.optionPolicies[currentOption][currentState].keys())[0]
-			path[currentState] = specificStep
+			currentOption = list(self.interruptedPolicy[state].keys())[0]
+			termination = self.optionTerminations[currentOption]
 
-			sPrime = self.singleStep(currentState, currentOption)
+			changeOption = False
+			while changeOption == False and currentState != termination:
+				action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+				path[currentState] = action
+				newState = self.getNextState(currentState, action, self.stateSet)
 
-			if self.checkCondition(currentState, sPrime):
-				currentOption = self.compareOptions(sPrime, currentOption)
-			currentState = sPrime
+				changeOption = self.checkCondition(currentState, newState)
+				currentState = newState
 
 		return path
 
 class GetOptionHistory(object):
-	def __init__(self, optionPolicies, goalState, getOption, singleStep, CheckCondition, CompareOptions):
-		
-		self.optionPolicies = optionPolicies
+	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalState, stateSet):
+		self.checkCondition = checkCondition
+		self.landmarkPolicies = landmarkPolicies
+		self.interruptedPolicy = interruptedPolicy
+		self.optionTerminations = optionTerminations
+		self.getNextState = getNextState
 		self.goalState = goalState
-
-		self.getOption = getOption
-		self.singleStep = singleStep
-
-		self.checkCondition = CheckCondition
-		self.compareOptions = CompareOptions
+		self.stateSet = stateSet
 
 	def __call__(self, state):
-		optionHistory = {}
 		currentState = state
-		currentOption = self.getOption(state)
+		record = {}
 
 		while currentState != self.goalState:
-			path[currentOption] = currentOption
+			currentOption = list(self.interruptedPolicy[state].keys())[0]
+			termination = self.optionTerminations[currentOption]
 
-			sPrime = self.singleStep(currentState, currentOption)
+			changeOption = False
+			while changeOption == False and currentState != termination:
+				record[currentState] = currentOption
 
-			if self.checkCondition(currentState, sPrime):
-				currentOption = self.compareOptions(sPrime, currentOption)
-			currentState = sPrime
+				action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+				newState = self.getNextState(currentState, action, self.stateSet)
 
-		return optionHistory
+				changeOption = self.checkCondition(currentState, newState)
+				currentState = newState
+
+		return record
