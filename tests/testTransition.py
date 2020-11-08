@@ -9,7 +9,7 @@ testing for a deterministic transition table
 """
 
 import sys
-sys.path.append('../executive/')
+sys.path.append('../exec/original/')
 
 import numpy as np
 import unittest
