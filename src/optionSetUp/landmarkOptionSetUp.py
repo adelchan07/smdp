@@ -17,6 +17,7 @@ import numpy as np
 import sys
 sys.path.append('.../exec/original/')
 import transitionFunction as tf
+import rewardFunction as rf
 
 #general helper functions 
 def merge(dictionary1, dictionary2):
