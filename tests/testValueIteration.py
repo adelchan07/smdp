@@ -34,7 +34,7 @@ class TestValueIteration(unittest.TestCase):
 		
 		universal = ['up','down','left','right','h1']
 		optionSpace = {state: universal for state in stateSet}
-		optionSpaceFunction = targetCode.osf.OptionSpaceFunction(optionSpace)
+		optionSpaceFunction = lambda x: optionSpace[x]
 		
 		gamma = 0.9
 		convergenceTolerance = 0.00001
