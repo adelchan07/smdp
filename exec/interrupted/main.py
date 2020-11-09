@@ -13,7 +13,7 @@ from normalPath import GetNormalPath
 from interruptedPath import GetInterruptedPath
 
 import sys
-sys.append('../original/')
+sys.path.append('../original/')
 import transitionFunction as tf
 import rewardFunction as rf
 
