@@ -15,7 +15,7 @@ class testCheckCondition(unittest.TestCase):
         optionSpace = {(0, 0): ['A', 'B'], (0, 1): ['A', 'B'], (0, 2): ['A', 'B'], (1, 0): ['A'], (1, 1): ['A'], (1, 2): ['A'], (2, 0): ['A'], (2, 1): ['A'], (2, 2): ['A']}
 
         optionSpaceFunction = lambda x: optionSpace[x]
-        self.CheckCondition = targetCode.CheckCondition(optionSpaceFuction)
+        self.CheckCondition = targetCode.CheckCondition(optionSpaceFunction)
 
     @data(((2,0), (2,1)), ((0,0), (0,1)))
     @unpack
