@@ -41,7 +41,13 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		"""
 		
 		#NEED TO FILL IN
-		transitionFunction = 
+		getNextState = targetCode.tf.getNextState
+		primitiveOptions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right":(1,0)}
+		primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
+		optionSPrime = {option: primitiveSPrime for option in primitiveOptions.keys()}
+		
+		transitionFunction = targetCode.tf.TransitionFunction(optionSPrime)
+		
 		rewardFunction = 
 		actionSpaceFunction = 
 		
@@ -85,7 +91,13 @@ class TestSetUpLandmark(unittest.TestCase):
 		"""
 		
 		#NEED TO FILL IN
-		transitionFunction = 
+		getNextState = targetCode.tf.getNextState
+		primitiveOptions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right":(1,0)}
+		primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
+		optionSPrime = {option: primitiveSPrime for option in primitiveOptions.keys()}
+		
+		transitionFunction = targetCode.tf.TransitionFunction(optionSPrime)
+		
 		rewardFunction = 
 		getLandmarkPolicy = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance)
 		getTransitionTable = 
