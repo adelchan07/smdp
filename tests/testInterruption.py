@@ -11,10 +11,10 @@ class testCheckCondition(unittest.TestCase):
     def setUp(self):
 		
         stateSet = [(i,j) for i in range(3) for j in range(3)]
-	optionStateSet = {"A": [(i,j) for i in range(3) for j in range(3)], "B": [(i,j) for i in range(1) for j in range(3)]}
-	optionSpace = {(0, 0): ['A', 'B'], (0, 1): ['A', 'B'], (0, 2): ['A', 'B'], (1, 0): ['A'], (1, 1): ['A'], (1, 2): ['A'], (2, 0): ['A'], (2, 1): ['A'], (2, 2): ['A']}
-	
-	optionSpaceFunction = lambda x: optionSpace[x]
+        optionStateSet = {"A": [(i,j) for i in range(3) for j in range(3)], "B": [(i,j) for i in range(1) for j in range(3)]}
+        optionSpace = {(0, 0): ['A', 'B'], (0, 1): ['A', 'B'], (0, 2): ['A', 'B'], (1, 0): ['A'], (1, 1): ['A'], (1, 2): ['A'], (2, 0): ['A'], (2, 1): ['A'], (2, 2): ['A']}
+
+        optionSpaceFunction = lambda x: optionSpace[x]
         self.CheckCondition = targetCode.CheckCondition(optionSpaceFuction)
 
     @data(((2,0), (2,1)), ((0,0), (0,1)))
