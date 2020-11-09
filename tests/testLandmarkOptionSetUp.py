@@ -29,18 +29,10 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		stateSet = [(i,j) for i in range(2) for j in range(2)]
 		actionSet = [(0,1), (0,-1), (1,0), (-1,0)]
 		actionCost = -1
+		moveCost = -3
 		goalReward = 10
 		goalStates = [(0,0)]
 		
-		"""
-		setUp = targetCode.tt.CreateTransitionTable(actionSet)
-		transitionTable = setUp(stateSet)
-		
-		setUp = targetCode.rt.CreateRewardTable(actionSet, actionCost, goalReward)
-		rewardTable = setUp(transitionTable, goalStates) #code until here NOT ok
-		"""
-		
-		#NEED TO FILL IN
 		getNextState = targetCode.tf.getNextState
 		primitiveOptions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right":(1,0)}
 		primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
@@ -48,8 +40,13 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		
 		transitionFunction = targetCode.tf.TransitionFunction(optionSPrime)
 		
-		rewardFunction = 
-		actionSpaceFunction = 
+		primitiveReward = targetCode.rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
+		optionReward = {option: primitiveReward for option in primitiveOptions.keys()}
+		rewardFunction = targetCode.rf.RewardFunction(optionReward)
+		
+		actions = list(primitiveOptions.keys())
+		actionSpace = {state: actions for state in stateSet}
+		actionSpaceFunction = lambda x: actionSpace[x]
 		
 		setUp = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance) 
 		self.policy = setUp(transitionFunction, rewardFunction, stateSet, actionSpaceFunction)
