@@ -27,7 +27,6 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		convergenceTolerance = 0.001
 		
 		stateSet = [(i,j) for i in range(2) for j in range(2)]
-		actionSet = [(0,1), (0,-1), (1,0), (-1,0)]
 		actionCost = -1
 		moveCost = -3
 		goalReward = 10
@@ -78,16 +77,7 @@ class TestSetUpLandmark(unittest.TestCase):
 		stateSet = [(i,j) for i in range(2) for j in range(2)]
 		landmarkLocation = {"h1": (0,0)}
 		landmarkStateSet = {"h1": stateSet}
-		actionSet = [(0,1), (0,-1), (1,0), (-1,0)]
-		"""
-		getTransitionTable = targetCode.tt.CreateTransitionTable(actionSet)
-
-		actionCost = -1
-		goalReward = 10
-		getRewardTable = targetCode.rt.CreateRewardTable(actionSet, actionCost, goalReward)
-		"""
 		
-		#NEED TO FILL IN
 		getNextState = targetCode.tf.getNextState
 		primitiveOptions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right":(1,0)}
 		primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
@@ -95,14 +85,21 @@ class TestSetUpLandmark(unittest.TestCase):
 		
 		transitionFunction = targetCode.tf.TransitionFunction(optionSPrime)
 		
-		rewardFunction = 
-		getLandmarkPolicy = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance)
-		getTransitionTable = 
+		actionCost = -1
+		moveCost = -3
+		goalStates = [(0,0)]
+		goalReward = 10
+		
+		primitiveReward = targetCode.rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
+		optionReward = {option: primitiveReward for option in primitiveOptions.keys()}
+		rewardFunction = targetCode.rf.RewardFunction(optionReward)
+		
+		getLandmarkPolicy = targetCode.GetLandmarkPolicy(gamma, convergenceTolerance) 		
 		merge = targetCode.merge
 
-		setup = targetCode.SetUpLandmark(landmarkLocation, landmarkStateSet, actionSet, transitionFunction, rewardFunction, getLandmarkPolicy, getTransitionTable, merge)
+		landmarkSetUp = targetCode.SetUpLandmark(landmarkLocation, landmarkStateSet, primitiveOptions, transitionFunction, rewardFunction, getLandmarkPolicy, merge)
 		existingOptions = {}
-		self.result = setup(existingOptions)			  
+		self.result = landmarkSetUp(existingOptions)			  
 						  
 	def assertNumericDictAlmostEqual(self, calculatedDictionary, expectedDictionary, places=7):
 		self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
