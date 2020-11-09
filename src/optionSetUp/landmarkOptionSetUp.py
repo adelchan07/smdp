@@ -42,17 +42,16 @@ class GetLandmarkPolicy(object):
 		
 #main landmark option set up class
 class SetUpLandmark(object): 
-	def __init__(self, landmarkLocation, landmarkStateSet, actionSet, transitionFunction, rewardFunction, getLandmarkPolicy, getTransitionTable, merge):
+	def __init__(self, landmarkLocation, landmarkStateSet, primitiveOptions, transitionFunction, rewardFunction, getLandmarkPolicy, merge):
 		self.landmarkLocation = landmarkLocation
 		self.landmarkStateSet = landmarkStateSet
 		
-		self.actionSet = actionSet
+		self.options = primitiveOptions
 		
 		self.transitionFunction = transitionFunction
 		self.rewardFunction = rewardFunction
 		self.getLandmarkPolicy = getLandmarkPolicy
 		
-		self.getTransitionTable = getTransitionTable
 		self.merge = merge
 	def __call__(self, existingOptions):
 		landmark = {option: self.getOptionPolicy(option) for option in self.landmarkLocation.keys()}
@@ -61,8 +60,8 @@ class SetUpLandmark(object):
 	
 	def getOptionPolicy(self, option):
 		stateSpace = self.landmarkStateSet[option]
-		
-		transitionTable = self.getTransitionTable(stateSpace)
-		actionSpaceFunction = lambda s: list(transitionTable.get(s).keys())
+		actionSet = list(self.options.keys())
+		actionSpace = {state: actionSet for state in stateSpace}
+		actionSpaceFunction = lambda s: actionSpace[s]
 		
 		return self.getLandmarkPolicy(self.transitionFunction, self.rewardFunction, stateSpace, actionSpaceFunction)
