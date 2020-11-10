@@ -17,7 +17,7 @@ sys.path.append('../original/')
 import transitionFunction as tf
 import rewardFunction as rf
 
-sys.path.append('..../src/')
+sys.path.append('../../src/')
 import valueIteration as vi
 import interruptedOptions as io
 
