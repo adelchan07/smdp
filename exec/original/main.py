@@ -10,7 +10,7 @@ import transitionFunction as tf
 import rewardFunction as rf 
 
 import sys
-sys.path.append('.../src/')
+sys.path.append('../../src/')
 import valueIteration as vi
 
 
