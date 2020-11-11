@@ -58,10 +58,10 @@ V = valueItSetUp()
 policySetUp = vi.GetPolicy(stateSet, optionSpaceFunction, transitionFunction, rewardFunction, gamma, V, convergenceTolerance)
 policy = {s:policySetUp(s) for s in stateSet} #interruption = policy ONLY with landmark options 
 
-normalPathSetUp = GetNormalPath(landmarkPolicies, policy, optionTerminations, getNextState, goalState, stateSet)
+normalPathSetUp = GetNormalPath(landmarkPolicies, policy, optionTerminations, getNextState, goalStates, stateSet)
 
 checkCondition = io.CheckCondition(optionSpaceFunction)
-interruptedPathSetUp = GetInterruptedPath(checkCondition, landmarkPolicies, policy, optionTerminations, getNextState, goalState, stateSet)
+interruptedPathSetUp = GetInterruptedPath(checkCondition, landmarkPolicies, policy, optionTerminations, getNextState, goalStates, stateSet)
 
 agentLocation = (4,0)
 normalPath = normalPathSetUp(agentLocation)
