@@ -1,18 +1,18 @@
 class GetInterruptedPath(object):
-	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalState, stateSet):
+	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalStates, stateSet):
 		self.checkCondition = checkCondition
 		self.landmarkPolicies = landmarkPolicies
 		self.interruptedPolicy = interruptedPolicy
 		self.optionTerminations = optionTerminations
 		self.getNextState = getNextState
-		self.goalState = goalState
+		self.goalStates = goalStates
 		self.stateSet = stateSet
 
 	def __call__(self, state):
 		currentState = state
 		path = {}
 
-		while currentState != self.goalState:
+		while currentState not in self.goalStates:
 			currentOption = list(self.interruptedPolicy[state].keys())[0]
 			termination = self.optionTerminations[currentOption]
 
@@ -28,20 +28,20 @@ class GetInterruptedPath(object):
 		return path
 
 class GetOptionHistory(object):
-	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalState, stateSet):
+	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalStates, stateSet):
 		self.checkCondition = checkCondition
 		self.landmarkPolicies = landmarkPolicies
 		self.interruptedPolicy = interruptedPolicy
 		self.optionTerminations = optionTerminations
 		self.getNextState = getNextState
-		self.goalState = goalState
+		self.goalStates = goalStates
 		self.stateSet = stateSet
 
 	def __call__(self, state):
 		currentState = state
 		record = {}
 
-		while currentState != self.goalState:
+		while currentState not in self.goalStates:
 			currentOption = list(self.interruptedPolicy[state].keys())[0]
 			termination = self.optionTerminations[currentOption]
 
