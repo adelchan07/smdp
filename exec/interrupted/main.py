@@ -18,8 +18,8 @@ import transitionFunction as tf
 import rewardFunction as rf
 
 sys.path.append('../../src/')
-import valueIteration as vi
 import interruptedOptions as io
+import semiMDP as smdp
 
 stateSet = [(i,j) for i in range(5) for j in range(10)]
 
@@ -51,12 +51,8 @@ optionSpaceFunction = lambda x: optionSpace[x]
 gamma = 0.9
 convergenceTolerance = 0.00001
 
-bellmanUpdate = vi.BellmanUpdate(stateSet, optionSpaceFunction, transitionFunction, rewardFunction, gamma)
-valueItSetUp = vi.ValueIteration(stateSet, optionSpaceFunction, convergenceTolerance, bellmanUpdate)
-V = valueItSetUp()
-
-policySetUp = vi.GetPolicy(stateSet, optionSpaceFunction, transitionFunction, rewardFunction, gamma, V, convergenceTolerance)
-policy = {s:policySetUp(s) for s in stateSet} #interruption = policy ONLY with landmark options 
+smdpSetUp = smdp.SemiMDP(gamma, convergenceTolerance)
+V, policy = smdpSetUp(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
 
 normalPathSetUp = GetNormalPath(landmarkPolicies, policy, optionTerminations, getNextState, goalStates, stateSet)
 
