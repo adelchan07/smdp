@@ -11,7 +11,7 @@ import rewardFunction as rf
 
 import sys
 sys.path.append('../../src/')
-import valueIteration as vi
+import semiMDP as smdp
 
 
 fullGrid = [(i,j) for i in range(13) for j in range(13)]
@@ -54,12 +54,8 @@ optionSpaceFunction = lambda x: optionSpace[x]
 gamma = 0.9
 convergenceTolerance = 0.00001
 
-bellmanUpdate = vi.BellmanUpdate(stateSet, optionSpaceFunction, transitionFunction, rewardFunction, gamma)
-valueItSetUp = vi.ValueIteration(stateSet, optionSpaceFunction, convergenceTolerance, bellmanUpdate)
-V = valueItSetUp()
-
-policySetUp = vi.GetPolicy(stateSet, optionSpaceFunction, transitionFunction, rewardFunction, gamma, V, convergenceTolerance)
-policy = {s:policySetUp(s) for s in stateSet}
+smdpSetUp = smdp.SemiMDP(gamma, convergenceTolerance)
+V, policy = smdpSetUp(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
 
 print(V)
 print(policy)
