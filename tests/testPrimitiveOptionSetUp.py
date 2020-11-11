@@ -9,7 +9,7 @@ testing merge function and setUpPrimitive class
 """
 
 import sys
-sys.path.append('../src/optionSetUp')
+sys.path.append('../exec/original/optionSetUp')
 
 import numpy as np
 import unittest
