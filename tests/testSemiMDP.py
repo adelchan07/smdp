@@ -3,7 +3,7 @@ import unittest
 from ddt import ddt, data, unpack
 
 import sys
-sys.path.append('../original/')
+sys.path.append('../exec/original/')
 import transitionFunction as tf
 import rewardFunction as rf
 
