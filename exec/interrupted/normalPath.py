@@ -15,10 +15,15 @@ class GetNormalPath(object):
 
 			currentOption = list(self.interruptionPolicy[state].keys())[0]
 			termination = self.optionTerminations[currentOption]
-
-			while currentState != termination: #loop within each option ensures option -> completion
-				action = list(self.landmarkPolicies[currentOption][state].keys())[0]
-				path[currentState] = action
-				currentState = self.getNextState(currentState, action, self.stateSet)
-
+			path = self.getPath(currentState, currentOption, termination, path)	
 		return path
+	
+	def getPath(self, state, currentOption, termination, path):
+		currentState = state
+		
+		while currentState != termination:
+			action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+			path[currentState] = action
+			currentState = self.getNextState(currentState, action, self.stateSet)
+		return path
+
