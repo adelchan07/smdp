@@ -15,17 +15,23 @@ class GetInterruptedPath(object):
 		while currentState not in self.goalStates:
 			currentOption = list(self.interruptedPolicy[state].keys())[0]
 			termination = self.optionTerminations[currentOption]
-
-			changeOption = False
-			while changeOption == False and currentState != termination:
-				action = list(self.landmarkPolicies[currentOption][state].keys())[0]
-				path[currentState] = action
-				newState = self.getNextState(currentState, action, self.stateSet)
-
-				changeOption = self.checkCondition(currentState, newState)
-				currentState = newState
-
+			currentState, path = self.getPath(currentState, currentOption, termination, path)
+		
 		return path
+
+	
+	def getPath(self, state, option, termination, path):
+		currentState = state
+		changeOption = False
+		
+		while changeOption == False and currentState != termination:
+			action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+			path[currentState] = action
+			newState = self.getNextState(currentState, action, self.stateSet)
+
+			changeOption = self.checkCondition(currentState, newState)
+			currentState = newState
+		return (currentState, path)
 
 class GetOptionHistory(object):
 	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalStates, stateSet):
@@ -44,8 +50,14 @@ class GetOptionHistory(object):
 		while currentState not in self.goalStates:
 			currentOption = list(self.interruptedPolicy[state].keys())[0]
 			termination = self.optionTerminations[currentOption]
+			currentState, record = self.getRecord(currentState, currentOption, termination, record)
 
+		return record
+	
+		getRecord(self, state, option, termination, record):
+			currentState = state
 			changeOption = False
+			
 			while changeOption == False and currentState != termination:
 				record[currentState] = currentOption
 
@@ -54,5 +66,4 @@ class GetOptionHistory(object):
 
 				changeOption = self.checkCondition(currentState, newState)
 				currentState = newState
-
-		return record
+			return (currentState, record)
