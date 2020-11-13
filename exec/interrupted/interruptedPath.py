@@ -54,16 +54,16 @@ class GetOptionHistory(object):
 
 		return record
 	
-		getRecord(self, state, option, termination, record):
-			currentState = state
-			changeOption = False
-			
-			while changeOption == False and currentState != termination:
-				record[currentState] = currentOption
+	def getRecord(self, state, option, termination, record):
+		currentState = state
+		changeOption = False
 
-				action = list(self.landmarkPolicies[currentOption][state].keys())[0]
-				newState = self.getNextState(currentState, action, self.stateSet)
+		while changeOption == False and currentState != termination:
+			record[currentState] = currentOption
 
-				changeOption = self.checkCondition(currentState, newState)
-				currentState = newState
-			return (currentState, record)
+			action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+			newState = self.getNextState(currentState, action, self.stateSet)
+
+			changeOption = self.checkCondition(currentState, newState)
+			currentState = newState
+		return (currentState, record)
