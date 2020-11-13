@@ -12,7 +12,7 @@ class SemiMDP(object):
 	def __call__(self, stateSet, PLtransition, PLreward, optionSpaceFuncion):
 
 		bellmanUpdate = vi.BellmanUpdate(stateSet, optionSpaceFuncion, PLtransition, PLreward, self.gamma)
-		valueItSetUp = vi.ValueIteration(stateSet, optionSpaceFuncion, self.convergenceTolerance. bellmanUpdate)
+		valueItSetUp = vi.ValueIteration(stateSet, optionSpaceFuncion, self.convergenceTolerance, bellmanUpdate)
 		V = valueItSetUp()
 
 		policySetUp = vi.GetPolicy(stateSet, optionSpaceFuncion, PLtransition, PLreward, self.gamma, V, self.convergenceTolerance)
