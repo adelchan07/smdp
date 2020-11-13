@@ -9,7 +9,7 @@ class SemiMDP(object):
 		self.gamma = gamma
 		self.convergenceTolerance = convergenceTolerance
 
-	def __init__(self, stateSet, PLtransition, PLreward, optionSpaceFuncion):
+	def __call__(self, stateSet, PLtransition, PLreward, optionSpaceFuncion):
 
 		bellmanUpdate = vi.BellmanUpdate(stateSet, optionSpaceFuncion, PLtransition, PLreward, self.gamma)
 		valueItSetUp = vi.ValueIteration(stateSet, optionSpaceFuncion, self.convergenceTolerance. bellmanUpdate)
