@@ -14,8 +14,9 @@ constants for all dictionaries:
 landmarks = {"name": location}
 """
 import numpy as np
+
 import sys
-sys.path.append('..')
+sys.path.append('..') 
 import transitionFunction as tf
 import rewardFunction as rf
 
