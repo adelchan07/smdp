@@ -54,8 +54,8 @@ optionSpaceFunction = lambda x: optionSpace[x]
 gamma = 0.9
 convergenceTolerance = 0.00001
 
-smdpSetUp = smdp.SemiMDP(gamma, convergenceTolerance)
-V, policy = smdpSetUp(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
+smdp = smdp.SemiMDP(gamma, convergenceTolerance)
+V, policy = smdp(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
 
 print(V)
 print(policy)
