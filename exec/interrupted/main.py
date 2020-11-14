@@ -54,10 +54,6 @@ convergenceTolerance = 0.00001
 smdpSetUp = smdp.SemiMDP(gamma, convergenceTolerance)
 V, policy = smdpSetUp(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
 
-print(V)
-print(policy)
-
-"""
 normalPathSetUp = GetNormalPath(landmarkPolicies, policy, optionTerminations, getNextState, goalStates, stateSet)
 
 checkCondition = io.CheckCondition(optionSpaceFunction)
@@ -69,4 +65,3 @@ interruptedPath = interruptedPathSetUp(agentLocation)
 
 print("Original Path: ", normalPath)
 print ("Interrupted Path: ", interruptedPath)
-"""
