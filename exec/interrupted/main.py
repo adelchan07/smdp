@@ -59,9 +59,9 @@ normalPathSetUp = GetNormalPath(landmarkPolicies, policy, optionTerminations, ge
 checkCondition = io.CheckCondition(optionSpaceFunction)
 interruptedPathSetUp = GetInterruptedPath(checkCondition, landmarkPolicies, policy, optionTerminations, getNextState, goalStates, stateSet)
 
-agentLocation = (4,0)
-normalPath = normalPathSetUp(agentLocation)
-interruptedPath = interruptedPathSetUp(agentLocation)
+agentStartingLocation = (4,0)
+normalPath = normalPathSetUp(agentStartingLocation)
+interruptedPath = interruptedPathSetUp(agentStartingLocation)
 
 print("Original Path: ", normalPath)
 print ("Interrupted Path: ", interruptedPath)
