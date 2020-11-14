@@ -16,7 +16,7 @@ landmarks = {"name": location}
 import numpy as np
 
 import sys
-sys.path.append('..') 
+sys.path.append('../../original/') 
 import transitionFunction as tf   
 import rewardFunction as rf
 
