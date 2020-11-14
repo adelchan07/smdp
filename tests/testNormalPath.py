@@ -10,7 +10,7 @@ import normalPath as targetCode
 class TestNormalPath(unittest.TestCase):
 
 	def setUp(self):
-	    landmarkPolicies = {(0,0): (1,0), (1,0): (0,1), (0,1): (1,0), (1,1): (0,1)}
+	    landmarkPolicies = {'l':{(0,0): (1,0), (1,0): (0,1), (0,1): (1,0), (1,1): (0,1)}}
 	    interruptionPolicy = {(0,0): 'l', (1,0): 'l', (0,1): 'l', (1,1): 'l'}
 	    optionTerminations = {'l': (1,1)}
 	    getNextState = targetCode.tf.getNextState
