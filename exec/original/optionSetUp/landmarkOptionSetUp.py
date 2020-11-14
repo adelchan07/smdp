@@ -17,7 +17,7 @@ import numpy as np
 
 import sys
 sys.path.append('..') 
-import transitionFunction as tf
+import transitionFunction as tf   
 import rewardFunction as rf
 
 #general helper functions 
