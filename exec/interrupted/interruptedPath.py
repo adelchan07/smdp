@@ -1,3 +1,7 @@
+import sys
+sys.path.append('../../src')
+import interruptedOptions as io
+
 class GetInterruptedPath(object):
 	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalStates, stateSet):
 		self.checkCondition = checkCondition
