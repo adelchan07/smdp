@@ -11,7 +11,7 @@ class TestInterruptedPath(unittest.TestCase):
 
 	def setUp(self):
 	    
-		checkCondition = targetCode.checkCondition
+	    checkCondition = targetCode.io.checkCondition
 	    landmarkPolicies = {'l': {(0,0): (1,0), (1,0): (0,1), (0,1): (1,0), (1,1): (0,1)}, 'b': {(0,0): (1,0), (1,0): (1,0), (0,1): (1,0), (1,1): (-1,0)}}
 	    interruptionPolicy = {(0,0): 'b', (1,0): 'b', (0,1): 'l', (1,1): 'l'}
 	    optionTerminations = {'l': (1,1)}
