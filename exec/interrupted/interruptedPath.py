@@ -17,7 +17,7 @@ class GetInterruptedPath(object):
 		path = {}
 
 		while currentState not in self.goalStates:
-			currentOption = list(self.interruptedPolicy[state].keys())[0]
+			currentOption = list(self.interruptedPolicy[currentState].keys())[0]
 			termination = self.optionTerminations[currentOption]
 			currentState, path = self.getPath(currentState, currentOption, termination, path)
 		
@@ -29,7 +29,7 @@ class GetInterruptedPath(object):
 		changeOption = False
 		
 		while changeOption == False and currentState != termination:
-			action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+			action = list(self.landmarkPolicies[currentOption][currentState].keys())[0]
 			path[currentState] = action
 			newState = self.getNextState(currentState, action, self.stateSet)
 
@@ -52,7 +52,7 @@ class GetOptionHistory(object):
 		record = {}
 
 		while currentState not in self.goalStates:
-			currentOption = list(self.interruptedPolicy[state].keys())[0]
+			currentOption = list(self.interruptedPolicy[currentState].keys())[0]
 			termination = self.optionTerminations[currentOption]
 			currentState, record = self.getRecord(currentState, currentOption, termination, record)
 
@@ -65,7 +65,7 @@ class GetOptionHistory(object):
 		while changeOption == False and currentState != termination:
 			record[currentState] = currentOption
 
-			action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+			action = list(self.landmarkPolicies[currentOption][currentState].keys())[0]
 			newState = self.getNextState(currentState, action, self.stateSet)
 
 			changeOption = self.checkCondition(currentState, newState)
