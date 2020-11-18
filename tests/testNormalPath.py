@@ -11,7 +11,7 @@ class TestNormalPath(unittest.TestCase):
 
 	def setUp(self):
 	    landmarkPolicies = {'l':{(0,0): {(1,0):1.0}, (1,0): {(0,1):1.0}, (0,1): {(1,0):1.0}, (1,1): {(0,1):1.0}}}
-	    interruptionPolicy = {(0,0): {'l':0}, (1,0): {'l':1.0}, (0,1): {'l':1.0}, (1,1): {'l':1.0}}
+	    interruptionPolicy = {(0,0): {'l':1.0}, (1,0): {'l':1.0}, (0,1): {'l':1.0}, (1,1): {'l':1.0}}
 	    optionTerminations = {'l': (1,1)}
 	    getNextState = targetCode.tf.getNextState
 	    goalStates = [(1,1)]
