@@ -11,11 +11,11 @@ class TestInterruptedPath(unittest.TestCase):
 
 	def setUp(self):
 
-		optionSpace = {(0,0): ['b'], (1,0): ["b"], (0,1):['l'], (1,1): ['l']}
+		optionSpace = {(0,0): ['b'], (1,0): ['b', 'l'], (0,1):['l'], (1,1): ['l']}
 		optionSpaceFunction = lambda x: optionSpace[x]
 		checkCondition = targetCode.io.CheckCondition(optionSpaceFunction)
 		landmarkPolicies = {'l':{(0,0): {(1,0):1.0}, (1,0): {(0,1):1.0}, (0,1): {(1,0):1.0}, (1,1): {(0,1):1.0}}, 'b': {(0,0): {(1,0):1.0}, (1,0): {(1,0):1.0}, (0,1): {(1,0):1.0}, (1,1): {(-1,0):1.0}}}
-		interruptionPolicy = {(0,0): {'b':1.0}, (1,0): {'b':1.0}, (0,1): {'l':1.0}, (1,1): {'l':1.0}}
+		interruptionPolicy = {(0,0): {'b':1.0}, (1,0): {'l':1.0}, (0,1): {'l':1.0}, (1,1): {'l':1.0}}
 		optionTerminations = {'l': (1,1), 'b': (1,0)}
 		getNextState = targetCode.tf.getNextState
 		goalStates = [(1,1)]
