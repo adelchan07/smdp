@@ -17,7 +17,7 @@ class GetNormalPath(object):
 
 		while currentState not in self.goalStates:
 
-			currentOption = list(self.interruptionPolicy[state].keys())[0]
+			currentOption = list(self.interruptionPolicy[currentState].keys())[0]
 			termination = self.optionTerminations[currentOption]
 			currentState, path = self.getPath(currentState, currentOption, termination, path)	
 		return path
@@ -26,7 +26,7 @@ class GetNormalPath(object):
 		currentState = state
 		
 		while currentState != termination:
-			action = list(self.landmarkPolicies[currentOption][state].keys())[0]
+			action = list(self.landmarkPolicies[currentOption][currentState].keys())[0]
 			path[currentState] = action
 			currentState = self.getNextState(currentState, action, self.stateSet)
 		return (currentState, path)
