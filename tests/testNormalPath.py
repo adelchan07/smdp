@@ -24,9 +24,9 @@ class TestNormalPath(unittest.TestCase):
     		for key in calculatedDictionary.keys():
        	 		self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
 	
-	@data(((1,1), 'l', (1,1), {}), ((0,0), {(0,0): (1,0), (1,0): (0,1)}))
+	@data(((1,1), 'l', (1,1), {}), ((0,0), 'l', (1,1), {(0,0): (1,0), (1,0): (0,1)}))
 	@unpack
-	def test_GetPath00(self, state, currentOption, termination, expectedPath):
+	def test_GetPath(self, state, currentOption, termination, expectedPath):
    		currentState, path = self.setUp.getPath(state, currentOption, termination, {})
    		self.assertNumericDictAlmostEqual(path, expectedPath)
 
