@@ -20,6 +20,10 @@ import unittest
 from ddt import ddt, data, unpack
 import landmarkOptionSetUp as targetCode 
 
+sys.path.append('../exec/original/')
+import transitionFunction as tf
+import rewardFunction as rf
+
 @ddt
 class TestGetLandmarkPolicy(unittest.TestCase):
 	def setUp(self):
@@ -32,16 +36,16 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		goalReward = 10
 		goalStates = [(0,0)]
 		
-		getNextState = targetCode.tf.getNextState
+		getNextState = tf.getNextState
 		primitiveOptions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right":(1,0)}
-		primitiveSPrime = targetCode.tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
+		primitiveSPrime = tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
 		optionSPrime = {option: primitiveSPrime for option in primitiveOptions.keys()}
 		
-		transitionFunction = targetCode.tf.TransitionFunction(optionSPrime)
+		transitionFunction = tf.TransitionFunction(optionSPrime)
 		
-		primitiveReward = targetCode.rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
+		primitiveReward = rf.GetPrimitiveOptionReward(actionCost, moveCost, goalStates, goalReward, primitiveSPrime)
 		optionReward = {option: primitiveReward for option in primitiveOptions.keys()}
-		rewardFunction = targetCode.rf.RewardFunction(optionReward)
+		rewardFunction = rf.RewardFunction(optionReward)
 		
 		actions = list(primitiveOptions.keys())
 		actionSpace = {state: actions for state in stateSet}
