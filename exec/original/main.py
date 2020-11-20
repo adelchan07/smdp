@@ -54,8 +54,8 @@ def main():
 	gamma = 0.9
 	convergenceTolerance = 0.00001
 
-	smdp = smdp.SemiMDP(gamma, convergenceTolerance)
-	V, policy = smdp(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
+	smdpResult = smdp.SemiMDP(gamma, convergenceTolerance)
+	V, policy = smdpResult(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
 
 	print(V)
 	print(policy)
