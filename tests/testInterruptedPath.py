@@ -39,9 +39,9 @@ class TestInterruptedPath(unittest.TestCase):
 	def test_InterruptedPathFunction(self, state, expectedPath):
 		path = self.setUp(state)
 		self.assertNumericDictAlmostEqual(path, expectedPath)
-
-   	def tearDown(self):
-   		pass
+	
+	def tearDown(self):
+		pass
 
 if __name__ == '__main__':
 	unittest.main(verbosity=2)
