@@ -29,9 +29,9 @@ class TestNormalPath(unittest.TestCase):
 	def test_GetPath(self, state, currentOption, termination, expectedPath):
    		currentState, path = self.setUp.getPath(state, currentOption, termination, {})
    		self.assertNumericDictAlmostEqual(path, expectedPath)
-
-   	def tearDown(self):
-   		pass
-
+		
+	def tearDown(self):
+		pass
+	
 if __name__ == '__main__':
 	unittest.main(verbosity=2)
