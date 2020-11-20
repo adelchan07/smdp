@@ -52,8 +52,8 @@ def main():
 	gamma = 0.9
 	convergenceTolerance = 0.00001
 
-	smdpSetUp = smdp.SemiMDP(gamma, convergenceTolerance)
-	V, policy = smdpSetUp(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
+	smdpResult = smdp.SemiMDP(gamma, convergenceTolerance)
+	V, policy = smdpResult(stateSet, transitionFunction, rewardFunction, optionSpaceFunction)
 
 	normalPathSetUp = GetNormalPath(landmarkPolicies, policy, optionTerminations, getNextState, goalStates, stateSet)
 
