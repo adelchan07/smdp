@@ -20,12 +20,13 @@ class QLearning(object):
 
 		for i in range(self.numEpisodes):
 			state = np.random.choice(self.stateSet) #randomly pick starting point
+			reward = 0 #keeping track of cumulative reward of the episode
 
 			while state not in self.goalStates:
 				option = self.getOption(state)
 
 				sPrime = sum([self.transitionFunction(state, option, possibleSPrime) for possibleSPrime in self.stateSet]) #not sure if this is the best way but this is what is done in the valueIteration code
-				reward = self.rewardFunction(state, option, sPrime) #check if these inputs are correct
+				reward += self.rewardFunction(state, option, sPrime) #check if these inputs are correct
 
 				newQValue = self.getQValue(state, option, sPrime, reward)
 				self.QTable[state][option] = newQValue
