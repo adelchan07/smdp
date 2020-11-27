@@ -4,7 +4,7 @@ note: "PL" means primitive-landmark to symbolize the smdp option setUP
 import numpy as np 
 import qLearning as ql
 
-class SemiMDP(object):
+class QLearningSMDP(object):
 	def __init__(self, episodes, alpha, gamma, epsilon, convergenceTolerance):
 		self.episodes = episodes
     self.alpha = alpha
