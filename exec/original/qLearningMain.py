@@ -5,7 +5,7 @@ import rewardFunction as rf
 
 import sys
 sys.path.append('../../src/')
-import qLearning as ql
+import qLearningSMDP as qlsmdp
 
 def main(): 
 	fullGrid = [(i,j) for i in range(13) for j in range(13)]
@@ -50,16 +50,15 @@ def main():
 	alpha = 0.5
 	gamma = 0.9
 	epsilon = 0.9
+	convergenceTolerance = 0.000001
   
-	qLearning = ql.QLearning(transitionFunction, rewardFunction, optionSpaceFunction, episodes, alpha, gamma, epsilon, goalStates)
-	QTable = qLearning(stateSet, availableOptions)
-  
-	convergenceTolerance = 0.00001
-	getPolicy = ql.GetPolicy(convergenceTolerance, optionSpaceFunction) 
-	policy = getPolicy(QTable)
-
-	print(QTable)
-	print(policy)
-
+	qLearning = qlsmdp.QLearningSMDP(episodes, alpha, gamma, epsilon, convergenceTolerance)
+	result = qLearning(stateSet, transitionFunction, rewardFunction, optionSpaceFunction, goalStates, availableOptions)
+	
+	print("QTable: ")
+	print(result[0])
+	print("policy: ")
+	print(result[1])
+	
 if __name__ == "__main__":
     main()
