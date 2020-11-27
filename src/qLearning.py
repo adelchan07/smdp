@@ -67,7 +67,7 @@ class QLearning(object):
 
 	def getQValueSPrime(self, sPrime):
 		availableOptions = self.QTable[sPrime]
-		return max(availableOptions.keys(), key = lambda x: availableOptions[x]) #return option with greatest reward
+		return max(availableOptions.values()) #return maximum Q value coming from sPrime
 
 
 class GetPolicy(object):
