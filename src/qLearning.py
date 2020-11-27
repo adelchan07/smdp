@@ -79,7 +79,7 @@ class GetPolicy(object):
 	def __call__(self, qTable): #can either plug in qTable OR plug in each individual state into the q table
 		self.QTable = qTable
 
-		policy = {state: self.getOptimalOptions(state) for state in qTable.keys()}
+		policy = {state: self.getOptimalOptions(state) for state in self.QTable.keys()}
 		return policy
 
 	def getOptimalOptions(self, state):
