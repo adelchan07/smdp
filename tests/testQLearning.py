@@ -41,16 +41,16 @@ class TestValueIteration(unittest.TestCase):
 		optionSpaceFunction = lambda x: optionSpace[x]
 		
 		episodes = 500
-    alpha = 0.5
-    gamma = 0.9
-    epsilon = 0.9
+		alpha = 0.5
+		gamma = 0.9
+		epsilon = 0.9
 		convergenceTolerance = 0.00001
-		
-    qLearning = targetCode.QLearning(transitionFunction, rewardFunction, optionSpaceFunction, episodes, alpha, gamma, epsilon, goalStates)
-    QTable = qLearning(stateSet, universal)
 
-    getPolicy = targetCode.GetPolicy(convergenceTolerance, optionSpaceFunction) 
-    self.policy = getPolicy(QTable)
+		qLearning = targetCode.QLearning(transitionFunction, rewardFunction, optionSpaceFunction, episodes, alpha, gamma, epsilon, goalStates)
+		QTable = qLearning(stateSet, universal)
+
+		getPolicy = targetCode.GetPolicy(convergenceTolerance, optionSpaceFunction) 
+		self.policy = getPolicy(QTable)
 
 	def assertNumericDictAlmostEqual(self, calculatedDictionary, expectedDictionary, places=7):
     		self.assertEqual(calculatedDictionary.keys(), expectedDictionary.keys())
