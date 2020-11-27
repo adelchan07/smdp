@@ -29,7 +29,7 @@ def main():
 
 	optionSPrime = {'up': primitiveSPrime, 'down':primitiveSPrime, 'left': primitiveSPrime, 'right': primitiveSPrime,'h1': landmarkSPrime, 'h2': landmarkSPrime, 'h3': landmarkSPrime, 'h4': landmarkSPrime} 
 	transitionFunction = tf.TransitionFunction(optionSPrime)
-  availableOptions = list(optionSPrime.keys())
+  	availableOptions = list(optionSPrime.keys())
 
 	actionCost = -1
 	moveCost = -3
@@ -46,19 +46,19 @@ def main():
 	optionSpace = {(1, 1): ['up', 'down', 'left', 'right', 'h1', 'h3'], (1, 2): ['up', 'down', 'left', 'right', 'h1', 'h3'], (1, 3): ['up', 'down', 'left', 'right', 'h1', 'h3'], (1, 4): ['up', 'down', 'left', 'right', 'h1', 'h3'], (1, 5): ['up', 'down', 'left', 'right', 'h1', 'h3'], (1, 7): ['up', 'down', 'left', 'right', 'h3', 'h4'], (1, 8): ['up', 'down', 'left', 'right', 'h3', 'h4'], (1, 9): ['up', 'down', 'left', 'right', 'h3', 'h4'], (1, 10): ['up', 'down', 'left', 'right', 'h3', 'h4'], (1, 11): ['up', 'down', 'left', 'right', 'h3', 'h4'], (2, 1): ['up', 'down', 'left', 'right', 'h1', 'h3'], (2, 2): ['up', 'down', 'left', 'right', 'h1', 'h3'], (2, 3): ['up', 'down', 'left', 'right', 'h1', 'h3'], (2, 4): ['up', 'down', 'left', 'right', 'h1', 'h3'], (2, 5): ['up', 'down', 'left', 'right', 'h1', 'h3'], (2, 7): ['up', 'down', 'left', 'right', 'h3', 'h4'], (2, 8): ['up', 'down', 'left', 'right', 'h3', 'h4'], (2, 9): ['up', 'down', 'left', 'right', 'h3', 'h4'], (2, 10): ['up', 'down', 'left', 'right', 'h3', 'h4'], (2, 11): ['up', 'down', 'left', 'right', 'h3', 'h4'], (3, 1): ['up', 'down', 'left', 'right', 'h1', 'h3'], (3, 2): ['up', 'down', 'left', 'right', 'h1', 'h3'], (3, 3): ['up', 'down', 'left', 'right', 'h1', 'h3'], (3, 4): ['up', 'down', 'left', 'right', 'h1', 'h3'], (3, 5): ['up', 'down', 'left', 'right', 'h1', 'h3'], (3, 6): ['up', 'down', 'left', 'right', 'h3'], (3, 7): ['up', 'down', 'left', 'right', 'h3', 'h4'], (3, 8): ['up', 'down', 'left', 'right', 'h3', 'h4'], (3, 9): ['up', 'down', 'left', 'right', 'h3', 'h4'], (3, 10): ['up', 'down', 'left', 'right', 'h3', 'h4'], (3, 11): ['up', 'down', 'left', 'right', 'h3', 'h4'], (4, 1): ['up', 'down', 'left', 'right', 'h1', 'h3'], (4, 2): ['up', 'down', 'left', 'right', 'h1', 'h3'], (4, 3): ['up', 'down', 'left', 'right', 'h1', 'h3'], (4, 4): ['up', 'down', 'left', 'right', 'h1', 'h3'], (4, 5): ['up', 'down', 'left', 'right', 'h1', 'h3'], (4, 7): ['up', 'down', 'left', 'right', 'h3', 'h4'], (4, 8): ['up', 'down', 'left', 'right', 'h3', 'h4'], (4, 9): ['up', 'down', 'left', 'right', 'h3', 'h4'], (4, 10): ['up', 'down', 'left', 'right', 'h3', 'h4'], (4, 11): ['up', 'down', 'left', 'right', 'h3', 'h4'], (5, 1): ['up', 'down', 'left', 'right', 'h1', 'h3'], (5, 2): ['up', 'down', 'left', 'right', 'h1', 'h3'], (5, 3): ['up', 'down', 'left', 'right', 'h1', 'h3'], (5, 4): ['up', 'down', 'left', 'right', 'h1', 'h3'], (5, 5): ['up', 'down', 'left', 'right', 'h1', 'h3'], (5, 7): ['up', 'down', 'left', 'right', 'h3', 'h4'], (5, 8): ['up', 'down', 'left', 'right', 'h3', 'h4'], (5, 9): ['up', 'down', 'left', 'right', 'h3', 'h4'], (5, 10): ['up', 'down', 'left', 'right', 'h3', 'h4'], (5, 11): ['up', 'down', 'left', 'right', 'h3', 'h4'], (6, 2): ['up', 'down', 'left', 'right', 'h1'], (6, 7): ['up', 'down', 'left', 'right', 'h3', 'h4'], (6, 8): ['up', 'down', 'left', 'right', 'h3', 'h4'], (6, 9): ['up', 'down', 'left', 'right', 'h3', 'h4'], (6, 10): ['up', 'down', 'left', 'right', 'h3', 'h4'], (6, 11): ['up', 'down', 'left', 'right', 'h3', 'h4'], (7, 1): ['up', 'down', 'left', 'right', 'h1', 'h2'], (7, 2): ['up', 'down', 'left', 'right', 'h1', 'h2'], (7, 3): ['up', 'down', 'left', 'right', 'h1', 'h2'], (7, 4): ['up', 'down', 'left', 'right', 'h1', 'h2'], (7, 5): ['up', 'down', 'left', 'right', 'h1', 'h2'], (7, 9): ['up', 'down', 'left', 'right', 'h4'], (8, 1): ['up', 'down', 'left', 'right', 'h1', 'h2'], (8, 2): ['up', 'down', 'left', 'right', 'h1', 'h2'], (8, 3): ['up', 'down', 'left', 'right', 'h1', 'h2'], (8, 4): ['up', 'down', 'left', 'right', 'h1', 'h2'], (8, 5): ['up', 'down', 'left', 'right', 'h1', 'h2'], (8, 7): ['up', 'down', 'left', 'right', 'h2', 'h4'], (8, 8): ['up', 'down', 'left', 'right', 'h2', 'h4'], (8, 9): ['up', 'down', 'left', 'right', 'h2', 'h4'], (8, 10): ['up', 'down', 'left', 'right', 'h2', 'h4'], (8, 11): ['up', 'down', 'left', 'right', 'h2', 'h4'], (9, 1): ['up', 'down', 'left', 'right', 'h1', 'h2'], (9, 2): ['up', 'down', 'left', 'right', 'h1', 'h2'], (9, 3): ['up', 'down', 'left', 'right', 'h1', 'h2'], (9, 4): ['up', 'down', 'left', 'right', 'h1', 'h2'], (9, 5): ['up', 'down', 'left', 'right', 'h1', 'h2'], (9, 7): ['up', 'down', 'left', 'right', 'h2', 'h4'], (9, 8): ['up', 'down', 'left', 'right', 'h2', 'h4'], (9, 9): ['up', 'down', 'left', 'right', 'h2', 'h4'], (9, 10): ['up', 'down', 'left', 'right', 'h2', 'h4'], (9, 11): ['up', 'down', 'left', 'right', 'h2', 'h4'], (10, 1): ['up', 'down', 'left', 'right', 'h1', 'h2'], (10, 2): ['up', 'down', 'left', 'right', 'h1', 'h2'], (10, 3): ['up', 'down', 'left', 'right', 'h1', 'h2'], (10, 4): ['up', 'down', 'left', 'right', 'h1', 'h2'], (10, 5): ['up', 'down', 'left', 'right', 'h1', 'h2'], (10, 6): ['up', 'down', 'left', 'right', 'h2'], (10, 7): ['up', 'down', 'left', 'right', 'h2', 'h4'], (10, 8): ['up', 'down', 'left', 'right', 'h2', 'h4'], (10, 9): ['up', 'down', 'left', 'right', 'h2', 'h4'], (10, 10): ['up', 'down', 'left', 'right', 'h2', 'h4'], (10, 11): ['up', 'down', 'left', 'right', 'h2', 'h4'], (11, 1): ['up', 'down', 'left', 'right', 'h1', 'h2'], (11, 2): ['up', 'down', 'left', 'right', 'h1', 'h2'], (11, 3): ['up', 'down', 'left', 'right', 'h1', 'h2'], (11, 4): ['up', 'down', 'left', 'right', 'h1', 'h2'], (11, 5): ['up', 'down', 'left', 'right', 'h1', 'h2'], (11, 7): ['up', 'down', 'left', 'right', 'h2', 'h4'], (11, 8): ['up', 'down', 'left', 'right', 'h2', 'h4'], (11, 9): ['up', 'down', 'left', 'right', 'h2', 'h4'], (11, 10): ['up', 'down', 'left', 'right', 'h2', 'h4'], (11, 11): ['up', 'down', 'left', 'right', 'h2', 'h4']}
 	optionSpaceFunction = lambda x: optionSpace[x]
   
-  episodes = 500
-  alpha = 0.5
-  gamma = 0.9
-  epsilon = 0.9
+	episodes = 500
+	alpha = 0.5
+	gamma = 0.9
+	epsilon = 0.9
   
-  qLearning = ql.QLearning(transitionFunction, rewardFunction, optionSpaceFunction, episodes, alpha, gamma, epsilon, goalStates)
+	qLearning = ql.QLearning(transitionFunction, rewardFunction, optionSpaceFunction, episodes, alpha, gamma, epsilon, goalStates)
 	QTable = qLearning(stateSet, availableOptions)
   
-  convergenceTolerance = 0.00001
-  getPolicy = ql.GetPolicy(convergenceTolerance, optionSpaceFunction) 
-  policy = getPolicy(QTable)
-  
-  print(QTable)
+	convergenceTolerance = 0.00001
+	getPolicy = ql.GetPolicy(convergenceTolerance, optionSpaceFunction) 
+	policy = getPolicy(QTable)
+
+	print(QTable)
 	print(policy)
 
 if __name__ == "__main__":
