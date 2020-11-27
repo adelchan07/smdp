@@ -53,12 +53,12 @@ def main():
 	convergenceTolerance = 0.000001
   
 	qLearning = qlsmdp.QLearningSMDP(episodes, alpha, gamma, epsilon, convergenceTolerance)
-	result = qLearning(stateSet, transitionFunction, rewardFunction, optionSpaceFunction, goalStates, availableOptions)
+	QTable, policy = qLearning(stateSet, transitionFunction, rewardFunction, optionSpaceFunction, goalStates, availableOptions)
 	
 	print("QTable: ")
-	print(result[0])
+	print(QTable)
 	print("policy: ")
-	print(result[1])
+	print(policy)
 	
 if __name__ == "__main__":
     main()
