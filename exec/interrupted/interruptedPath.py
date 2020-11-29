@@ -1,10 +1,3 @@
-import sys
-sys.path.append('../../src')
-import interruptedOptions as io
-
-sys.path.append('../original/')
-import transitionFunction as tf
-
 class GetInterruptedPath(object):
 	def __init__(self, checkCondition, landmarkPolicies, interruptedPolicy, optionTerminations, getNextState, goalStates, stateSet):
 		self.checkCondition = checkCondition
