@@ -15,11 +15,6 @@ landmarks = {"name": location}
 """
 import numpy as np
 
-import sys
-sys.path.append('..') 
-import transitionFunction as tf   
-import rewardFunction as rf
-
 #general helper functions 
 def merge(dictionary1, dictionary2):
 	
