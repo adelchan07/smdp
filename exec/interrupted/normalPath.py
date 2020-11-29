@@ -1,7 +1,3 @@
-import sys
-sys.path.append('../original/')
-import transitionFunction as tf
-
 class GetNormalPath(object):
 	def __init__(self, landmarkPolicies, interruptionPolicy, optionTerminations, getNextState, goalStates, stateSet):
 		self.landmarkPolicies = landmarkPolicies
