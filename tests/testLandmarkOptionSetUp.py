@@ -37,7 +37,7 @@ class TestGetLandmarkPolicy(unittest.TestCase):
 		goalReward = 10
 		goalStates = [(0,0)]
 		
-		getNextState = targetCode.tf.getNextState
+		getNextState = tf.getNextState
 		primitiveOptions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right":(1,0)}
 		primitiveSPrime = tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
 		optionSPrime = {option: primitiveSPrime for option in primitiveOptions.keys()}
@@ -83,7 +83,7 @@ class TestSetUpLandmark(unittest.TestCase):
 		landmarkLocation = {"h1": (0,0)}
 		landmarkStateSet = {"h1": stateSet}
 		
-		getNextState = targetCode.tf.getNextState
+		getNextState = tf.getNextState
 		primitiveOptions = {"up": (0,1), "down": (0,-1), "left": (-1,0), "right":(1,0)}
 		primitiveSPrime = tf.GetPrimitiveSPrime(primitiveOptions, stateSet, getNextState)
 		optionSPrime = {option: primitiveSPrime for option in primitiveOptions.keys()}
