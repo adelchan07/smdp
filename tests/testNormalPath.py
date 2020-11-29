@@ -1,4 +1,8 @@
 import sys
+
+sys.path.append('../exec/original/')
+import transitionFunction as tf
+
 sys.path.append('../exec/interrupted/')
 
 import numpy as np
@@ -13,7 +17,7 @@ class TestNormalPath(unittest.TestCase):
 	    landmarkPolicies = {'l':{(0,0): {(1,0):1.0}, (1,0): {(0,1):1.0}, (0,1): {(1,0):1.0}, (1,1): {(0,1):1.0}}}
 	    interruptionPolicy = {(0,0): {'l':1.0}, (1,0): {'l':1.0}, (0,1): {'l':1.0}, (1,1): {'l':1.0}}
 	    optionTerminations = {'l': (1,1)}
-	    getNextState = targetCode.tf.getNextState
+	    getNextState = tf.getNextState
 	    goalStates = [(1,1)]
 	    stateSet = [(i,j) for i in range(2) for j in range(2)]
 
