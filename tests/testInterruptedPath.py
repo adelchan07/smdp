@@ -1,4 +1,11 @@
 import sys
+
+sys.path.append('../src/')
+import interruptedOptions as io
+
+sys.path.append('../exec/original/')
+import transitionFunction as tf
+
 sys.path.append('../exec/interrupted/')
 
 import numpy as np
@@ -13,11 +20,11 @@ class TestInterruptedPath(unittest.TestCase):
 
 		optionSpace = {(0,0): ['b'], (1,0): ['b', 'l'], (0,1):['l'], (1,1): ['l']}
 		optionSpaceFunction = lambda x: optionSpace[x]
-		checkCondition = targetCode.io.CheckCondition(optionSpaceFunction)
+		checkCondition = io.CheckCondition(optionSpaceFunction)
 		landmarkPolicies = {'l':{(0,0): {(1,0):1.0}, (1,0): {(0,1):1.0}, (0,1): {(1,0):1.0}, (1,1): {(0,1):1.0}}, 'b': {(0,0): {(1,0):1.0}, (1,0): {(1,0):1.0}, (0,1): {(1,0):1.0}, (1,1): {(-1,0):1.0}}}
 		interruptionPolicy = {(0,0): {'b':1.0}, (1,0): {'l':1.0}, (0,1): {'l':1.0}, (1,1): {'l':1.0}}
 		optionTerminations = {'l': (1,1), 'b': (1,0)}
-		getNextState = targetCode.tf.getNextState
+		getNextState = tf.getNextState
 		goalStates = [(1,1)]
 		stateSet = [(i,j) for i in range(2) for j in range(2)]
 
