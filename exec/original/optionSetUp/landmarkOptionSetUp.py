@@ -14,6 +14,9 @@ constants for all dictionaries:
 landmarks = {"name": location}
 """
 import numpy as np
+import sys
+sys.path.append('../../../src/')
+import valueIteration as vi
 
 #general helper functions 
 def merge(dictionary1, dictionary2):
