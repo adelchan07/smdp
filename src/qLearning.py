@@ -3,7 +3,7 @@ import random as rd
 
 class QLearning(object):
 
- 	def __init__(self, transitionFunction, rewardFunction, optionSpaceFunction, episodes, alpha, gamma, epsilon, goalStates):
+	def __init__(self, transitionFunction, rewardFunction, optionSpaceFunction, episodes, alpha, gamma, epsilon, goalStates):
 		self.transitionFunction = transitionFunction
 		self.rewardFunction = rewardFunction
 		self.optionSpaceFunction = optionSpaceFunction
