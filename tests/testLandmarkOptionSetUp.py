@@ -60,12 +60,12 @@ class TestGetLandmarkPolicy(unittest.TestCase):
     		for key in calculatedDictionary.keys():
        	 		self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
 	
-	@data(((0, 0), {(0, -1): 0.5, (-1, 0): 0.5}))
+	@data(((0, 0), {'down': 0.5, 'left': 0.5}))
 	@unpack
 	def test_AtGoal(self, state, expectedResult):
 		self.assertNumericDictAlmostEqual(self.policy[state], expectedResult)
 	
-	@data(((0, 1), {(0, -1): 1.0}),((1, 1), {(0, -1): 0.5, (-1, 0): 0.5}))
+	@data(((0, 1), {'down': 1.0}),((1, 1), {'down': 0.5, 'left': 0.5}))
 	@unpack
 	def test_NotAtGoal(self, state, expectedResult):
 		self.assertNumericDictAlmostEqual(self.policy[state], expectedResult)
@@ -111,12 +111,12 @@ class TestSetUpLandmark(unittest.TestCase):
 		for key in calculatedDictionary.keys():
 		    self.assertAlmostEqual(calculatedDictionary[key], expectedDictionary[key], places=places)
 	
-	@data(('h1', (0, 0), {(0, -1): 0.5, (-1, 0): 0.5}))
+	@data(('h1', (0, 0), {'down': 0.5, 'left': 0.5}))
 	@unpack
 	def test_AtLandmark(self, policy, state, expectedResult):
 		self.assertNumericDictAlmostEqual(self.result[policy][state], expectedResult)
 		
-	@data(('h1', (0, 1), {(0, -1): 1.0}),('h1', (1, 1), {(0, -1): 0.5, (-1, 0): 0.5}))
+	@data(('h1', (0, 1), {'down': 1.0}),('h1', (1, 1), {'down': 0.5, 'left': 0.5}))
 	@unpack
 	def test_NotAtLandmark(self, policy, state, expectedResult):
 		self.assertNumericDictAlmostEqual(self.result[policy][state], expectedResult)
