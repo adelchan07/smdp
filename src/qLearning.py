@@ -19,7 +19,7 @@ class QLearning(object):
 		self.QTable = self.createQTable(stateSpace, availableOptions)
 
 		for i in range(self.numEpisodes):
-			state = np.random.choice(stateSpace) #randomly pick starting point
+			state = np.random.choice(np.array(stateSpace)) #randomly pick starting point
 			reward = 0 #keeping track of cumulative reward of the episode
 
 			while state not in self.goalStates:
