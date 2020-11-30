@@ -29,7 +29,7 @@ def main():
 
 	optionSPrime = {'up': primitiveSPrime, 'down':primitiveSPrime, 'left': primitiveSPrime, 'right': primitiveSPrime,'h1': landmarkSPrime, 'h2': landmarkSPrime, 'h3': landmarkSPrime, 'h4': landmarkSPrime} 
 	transitionFunction = tf.TransitionFunction(optionSPrime)
-  	availableOptions = list(optionSPrime.keys())
+	availableOptions = list(optionSPrime.keys())
 
 	actionCost = -1
 	moveCost = -3
