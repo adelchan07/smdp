@@ -15,7 +15,7 @@ landmarks = {"name": location}
 """
 import numpy as np
 import sys
-sys.path.append('../../../src/')
+sys.path.append('../src/') #path appended according to testLandmarkOptionSetUp.py file
 import valueIteration as vi
 
 #general helper functions 
