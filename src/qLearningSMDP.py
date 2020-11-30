@@ -12,7 +12,7 @@ class QLearningSMDP(object):
 		self.epsilon = epsilon
 		self.convergenceTolerance = convergenceTolerance
     
-	def __call__(self, stateSet, PLtransition, PLreward, optionSpaceFuncion, goalStates, availableOptions):
+	def __call__(self, stateSet, PLtransition, PLreward, optionSpaceFunction, goalStates, availableOptions):
 
 		qLearning = ql.QLearning(PLtransition, PLreward, optionSpaceFunction, self.episodes, self.alpha, self.gamma, self.epsilon, goalStates)
 		QTable = qLearning(stateSet, availableOptions)
