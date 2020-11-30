@@ -11,10 +11,11 @@ sys.path.append('../exec/interrupted/')
 import numpy as np
 import unittest
 from ddt import ddt, data, unpack
-import normalPath as targetCode 
+import interruptedPath as targetCode 
 
 @ddt
 class TestInterruptedPath(unittest.TestCase):
+	
 	def setUp(self):
 
 		optionSpace = {(0,0): ['b'], (1,0): ['b', 'l'], (0,1):['l'], (1,1): ['l']}
