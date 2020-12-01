@@ -41,7 +41,7 @@ class TestInterruptedPath(unittest.TestCase):
    		currentState, path = self.setUp.getPath(state, currentOption, termination, {})
    		self.assertNumericDictAlmostEqual(path, expectedPath)
 		
-	@data((0,0), {(0, 0): (1, 0), (1, 0): (0, 1)})
+	@data(((0,0), {(0, 0): (1, 0), (1, 0): (0, 1)}))
 	@unpack
 	def test_InterruptedPathFunction(self, state, expectedPath):
 		path = self.setUp(state)
