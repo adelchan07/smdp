@@ -10,7 +10,7 @@ class GetSPrime(object):
         self.transitionFunction = transitionFunction
         self.stateSpace = stateSpace
     
-    def __call__(state, option):
+    def __call__(self, state, option):
         for possibleSPrime in self.stateSpace:
             if self.transitionFunction(state, option, possibleSPrime) == 1:
                 return possibleSPrime
@@ -20,7 +20,7 @@ class GetOption(object):
         self.epsilon = epsilon
         self.optionSpaceFunction = optionSpaceFunction
     
-    def __call__(state, QTable):
+    def __call__(self, state, QTable):
         e = rd.uniform(0,1)
 
         if e > self.epsilon:
@@ -65,11 +65,11 @@ class QLearning(object):
             reward = 0
 
             while state not in self.goalStates:
-                option = self.getOption(state, QTable)
+                option = self.getOption(state, self.QTable)
 
                 sPrime = self.getSPrime(state, option)
                 reward += self.rewardFunction(state, option, sPrime)
-                newQValue = self.getQValue(state, option, sPrime, reward, QTable)
+                newQValue = self.getQValue(state, option, sPrime, reward, self.QTable)
                 
                 self.QTable[state][option] = newQValue
                 

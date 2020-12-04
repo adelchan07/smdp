@@ -34,8 +34,8 @@ class TestCreateQTable(unittest.TestCase):
 
 @ddt
 class TestGetSPrime(unittest.TestCase):
-    def __init__(self):
-        stateSpace = [(i,j) for i in range(2) for j in range(2)]
+    def setUp(self):
+        stateSet = [(i,j) for i in range(2) for j in range(2)]
         
         getNextState = tf.getNextState
         primitivePolicies = {'up': (0,1), 'down': (0,-1), 'right': (1,0), 'left': (-1,0)}
@@ -47,9 +47,9 @@ class TestGetSPrime(unittest.TestCase):
         optionSPrime = {'up': primitiveSPrime, 'down':primitiveSPrime, 'left': primitiveSPrime, 'right': primitiveSPrime,'h1': landmarkSPrime}
         transitionFunction = tf.TransitionFunction(optionSPrime)
         
-        self.getSPrime = targetCode.GetSPrime(transitionFunction, stateSpace)
+        self.getSPrime = targetCode.GetSPrime(transitionFunction, stateSet)
     
-    @data(((0,0), 'up', (0,1)), ((1,1), 'down', (0,1)), ((0,0), 'right', (0,1)))
+    @data(((0,0), 'up', (0,1)), ((1,1), 'down', (1,0)), ((0,0), 'right', (1,0)))
     @unpack
     def test_Primitive(self, state, option, expectedSPrime):
         self.assertEqual(self.getSPrime(state, option), expectedSPrime)
@@ -71,17 +71,10 @@ class TestGetOption(unittest.TestCase):
         optionSpace = {state: universal for state in stateSet}
         optionSpaceFunction = lambda x: optionSpace[x]
         
-        self.always_random = targetCode.GetOption(0, optionSpaceFunction)
         self.never_random = targetCode.GetOption(1, optionSpaceFunction)
         
         self.QTable = {(0, 0): {'up': 3, 'down': 0, 'left': 0, 'right': 0, 'h1': 0}, (0, 1): {'up': 0, 'down': 0, 'left': 0, 'right': 0, 'h1': 0}, (1, 0): {'up': 0, 'down': 0, 'left': 0, 'right': 3, 'h1': 0}, (1, 1): {'up': 0, 'down': 0, 'left': 3, 'right': 0, 'h1': 0}}
         self.universal = universal
-    
-    @data((0,0), (1,1))
-    @unpack
-    def test_AlwaysRandom(self, state):
-        option = self.always_random(state, self.QTable)
-        self.assertEqual(option in self.universal, True)
         
     @data(((0,0), "up"), ((1,0), "right"), ((1,1), "left"))
     @unpack
@@ -114,7 +107,7 @@ class TestGetQValue(unittest.TestCase):
 
 @ddt
 class TestGetPolicy(unittest.TestCase):
-    def.setUp(self):
+    def setUp(self):
         QTable ={(0, 0): {'up': 3, 'down': 0, 'left': 0, 'right': 0, 'h1': 0}, (0, 1): {'up': 0, 'down': 3, 'left': 0, 'right': 0, 'h1': 0}, (1, 0): {'up': 0, 'down': 0, 'left': 3, 'right': 0, 'h1': 0}, (1, 1): {'up': 0, 'down': 0, 'left': 0, 'right': 3, 'h1': 0}}
         
         roundingTolerance = 0.0001
@@ -141,3 +134,5 @@ class TestGetPolicy(unittest.TestCase):
     def tearDown(self):
         pass
  
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
