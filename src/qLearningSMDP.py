@@ -5,17 +5,14 @@ import numpy as np
 import qLearning as ql
 
 class QLearningSMDP(object):
-	def __init__(self, episodes, alpha, gamma, epsilon, convergenceTolerance):
+	def __init__(self, episodes, convergenceTolerance):
 		self.episodes = episodes
-		self.alpha = alpha
-		self.gamma = gamma
-		self.epsilon = epsilon
 		self.convergenceTolerance = convergenceTolerance
     
-	def __call__(self, stateSet, PLtransition, PLreward, optionSpaceFunction, goalStates, availableOptions):
+	def __call__(self, stateSet, PLtransition, PLreward, optionSpaceFunction, getSPrime, getOption, getQValue, QTable, goalStates):
 
-		qLearning = ql.QLearning(PLtransition, PLreward, optionSpaceFunction, self.episodes, self.alpha, self.gamma, self.epsilon, goalStates)
-		QTable = qLearning(stateSet, availableOptions)
+		qLearning = ql.QLearning(PLtransition, PLreward, optionSpaceFunction, getSPrime, getOption, getQValue, QTable, self.episodes, goalStates)
+		QTable = qLearning(stateSet)
 
 		getPolicy = ql.GetPolicy(self.convergenceTolerance, optionSpaceFunction) 
 		policy = getPolicy(QTable)

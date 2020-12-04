@@ -51,9 +51,17 @@ def main():
 	gamma = 0.9
 	epsilon = 0.9
 	convergenceTolerance = 0.000001
-  
-	qLearning = qlsmdp.QLearningSMDP(episodes, alpha, gamma, epsilon, convergenceTolerance)
-	QTable, policy = qLearning(stateSet, transitionFunction, rewardFunction, optionSpaceFunction, goalStates, availableOptions)
+ 
+    availableOptions = ['up', 'down', 'left', 'right', 'h1', 'h2', 'h3', 'h4']
+    QTable = qlsmdp.ql.createQTable(stateSet,availableOptions)
+    
+    getSPrime = qlsmdp.ql.GetSPrime(transitionFunction, stateSet)
+    getOption = qlsmdp.ql(epsilon, optionSpaceFunction)
+    getQValue = qlsmdp.ql.GetQValue(alpha, gamma)
+    
+    qLearning = qlsmdp.QLearningSMDP(episodes, convergenceTolerance)
+    QTable, policy = qLearning(stateSet, transitionFunction, rewardFunction, optionSpaceFunction, getSPrime, getOption, getQValue, QTable, goalStates)
+    
 	
 	print("QTable: ")
 	print(QTable)
