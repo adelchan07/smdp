@@ -40,7 +40,7 @@ class GetQValue(object):
         qSPrime = max(QTable[sPrime].values())
         currentVal = QTable[state][option]
         
-        qValue = ((1-self.alpha) * currentVal) + (self.alpha * (reward + (self.gamma * qSPrime)))
+        qValue = currentVal + self.alpha * (reward + (self.gamma * qSPrime) - currentVal)
         return qValue
 
 class QLearning(object):
