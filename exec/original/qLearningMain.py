@@ -61,7 +61,7 @@ def main():
     getQValue = qlsmdp.ql.GetQValue(alpha, gamma)
 
     qLearning = qlsmdp.QLearningSMDP(episodes, convergenceTolerance)
-    QTable, policy = qLearning(stateSet, transitionFunction, rewardFunction, optionSpaceFunction, getSPrime, getOption, getQValue, QTable, goalStates)
+    QTable, policy = qLearning(stateSet, rewardFunction, getSPrime, getOption, getQValue, QTable, goalStates, optionSpaceFunction)
     
     getValues = qlsmdp.ql.GetV(convergenceTolerance, optionSpaceFunction)
     V = getValues(QTable)

@@ -45,37 +45,36 @@ class GetQValue(object):
 
 class QLearning(object):
 
-    def __init__(self, transitionFunction, rewardFunction, optionSpaceFunction, getSPrime, getOption, getQValue, QTable, episodes, goalStates):
-        self.transitionFunction = transitionFunction
+    def __init__(self, rewardFunction, getSPrime, getOption, getQValue, stateSpace, episodes, goalStates):
         self.rewardFunction = rewardFunction
-        self.optionSpaceFunction = optionSpaceFunction
         
         self.getSPrime = getSPrime
         self.getOption = getOption
         self.getQValue = getQValue
 
-        self.QTable = QTable
+        self.stateSpace = stateSpace
+        
         self.numEpisodes = episodes
         self.goalStates = goalStates
 
-    def __call__(self, stateSpace):
+    def __call__(self, QTable):
 
         for i in range(self.numEpisodes):
-            state = rd.choice(stateSpace)
+            state = rd.choice(self.stateSpace)
             reward = 0
 
             while state not in self.goalStates:
-                option = self.getOption(state, self.QTable)
+                option = self.getOption(state, QTable)
 
                 sPrime = self.getSPrime(state, option)
                 reward += self.rewardFunction(state, option, sPrime)
-                newQValue = self.getQValue(state, option, sPrime, reward, self.QTable)
+                newQValue = self.getQValue(state, option, sPrime, reward, QTable)
                 
-                self.QTable[state][option] = newQValue
+                QTable[state][option] = newQValue
                 
                 state = sPrime
                 
-        return self.QTable
+        return QTable
 
 class GetPolicy(object):
 

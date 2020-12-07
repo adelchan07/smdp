@@ -9,10 +9,10 @@ class QLearningSMDP(object):
 		self.episodes = episodes
 		self.convergenceTolerance = convergenceTolerance
     
-	def __call__(self, stateSet, PLtransition, PLreward, optionSpaceFunction, getSPrime, getOption, getQValue, QTable, goalStates):
+	def __call__(self, stateSpace, PLreward, getSPrime, getOption, getQValue, QTable, goalStates, optionSpaceFunction):
 
-		qLearning = ql.QLearning(PLtransition, PLreward, optionSpaceFunction, getSPrime, getOption, getQValue, QTable, self.episodes, goalStates)
-		QTable = qLearning(stateSet)
+		qLearning = ql.QLearning(PLreward, getSPrime, getOption, getQValue, stateSpace, self.episodes, goalStates)
+		QTable = qLearning(QTable)
 
 		getPolicy = ql.GetPolicy(self.convergenceTolerance, optionSpaceFunction) 
 		policy = getPolicy(QTable)
