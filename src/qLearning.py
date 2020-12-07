@@ -95,4 +95,17 @@ class GetPolicy(object):
         optionPolicy = {o: 1/(len(optimalOptionsList)) for o in optimalOptionsList}
         return optionPolicy
 
+class GetV(object):
+    def __init__(self, roundingTolerance, optionSpaceFunction):
+        self.roundingTolerance = roundingTolerance
+        self.optionSpaceFunction = optionSpaceFunction
 
+    def __call__(self, QTable):
+        self.QTable = QTable
+
+        policy = {state: self.getValue(state) for state in self.QTable.keys()}
+        return policy
+    
+    def getValue(self, state):
+        value = max(self.QTable[state][option] for option in self.optionSpaceFunction(state))
+        return value
