@@ -102,8 +102,8 @@ class GetV(object):
     def __call__(self, QTable):
         self.QTable = QTable
 
-        policy = {state: self.getValue(state) for state in self.QTable.keys()}
-        return policy
+        V = {state: self.getValue(state) for state in self.QTable.keys()}
+        return V
     
     def getValue(self, state):
         value = max(self.QTable[state][option] for option in self.optionSpaceFunction(state))
